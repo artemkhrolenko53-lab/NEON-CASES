@@ -168,5 +168,84 @@ function donate(stars){document.querySelector('.modal').remove();if(window.Teleg
 function showConfirmModal(icon,text,priceText,callback){const modal=document.createElement('div');modal.className='modal';modal.innerHTML=`<div class="modal-overlay" onclick="this.parentElement.remove()"></div><div class="modal-content" style="text-align:center"><div style="font-size:60px;margin-bottom:16px">${icon}</div><p style="margin-bottom:8px">${text}</p><p style="color:#ffd700;font-size:20px;font-weight:700;margin-bottom:16px">${priceText}</p><button class="btn btn-primary" style="margin-bottom:8px" id="confirm-btn">Подтвердить</button><button class="btn btn-secondary" onclick="this.closest('.modal').remove()">Отмена</button></div>`;document.body.appendChild(modal);document.getElementById('confirm-btn').onclick=()=>{modal.remove();callback()}}
 load();updateBalance();if(!state.username){showRegistration()}else if(!state.currentServer){initServerSelection()}else{document.getElementById('server-name').textContent=state.currentServer.toUpperCase();renderCases()}
 </script>
+  <!-- Модальное окно входа админа -->
+<div id="admin-login-modal" class="modal hidden">
+    <div class="modal-overlay" onclick="closeAdminLogin()"></div>
+    <div class="modal-content" style="max-width:400px">
+        <h2 style="text-align:center;margin-bottom:16px">🔐 Вход для администратора</h2>
+        <input id="admin-password" type="password" class="form-input" placeholder="Пароль администратора">
+        <button class="btn btn-primary" onclick="adminLogin()">Войти</button>
+        <button class="btn btn-secondary" style="margin-top:8px" onclick="closeAdminLogin()">Отмена</button>
+    </div>
+</div>
+
+<!-- Главное окно админ-панели -->
+<div id="admin-panel" class="modal hidden">
+    <div class="modal-overlay" onclick="closeAdminPanel()"></div>
+    <div class="modal-content" style="max-width:95%; width:95%; max-height:90vh; overflow-y:auto">
+        <h2 style="text-align:center;margin-bottom:16px">🔧 Админ-панель</h2>
+        <!-- Вкладки -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="players">👥 Игроки</button>
+            <button class="admin-tab" data-tab="logs">📜 Логи</button>
+            <button class="admin-tab" data-tab="give">🎁 Выдать</button>
+            <button class="admin-tab" data-tab="tickets">📞 Поддержка</button>
+            <button class="admin-tab" data-tab="chat">💬 Чат</button>
+            <button class="admin-tab" data-tab="servers">🌍 Серверы</button>
+            <button class="admin-tab" data-tab="economy">💰 Экономика</button>
+        </div>
+        <div id="admin-content"></div>
+        <button class="btn btn-secondary" style="margin-top:16px" onclick="closeAdminPanel()">Закрыть</button>
+    </div>
+</div>
+
+<!-- Модальное окно для действий с игроком (мут/бан/предупреждение) -->
+<div id="player-action-modal" class="modal hidden">
+    <div class="modal-overlay" onclick="closePlayerAction()"></div>
+    <div class="modal-content" style="max-width:400px">
+        <h3 id="player-action-title" style="text-align:center;margin-bottom:16px">Действие с игроком</h3>
+        <div class="form-group">
+            <label class="form-label">Причина (обязательно)</label>
+            <input id="player-action-reason" class="form-input" placeholder="Причина">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Длительность (для мута/бана, в часах)</label>
+            <input id="player-action-duration" type="number" class="form-input" placeholder="Например, 24">
+        </div>
+        <button class="btn btn-danger" onclick="executePlayerAction()">Выполнить</button>
+        <button class="btn btn-secondary" style="margin-top:8px" onclick="closePlayerAction()">Отмена</button>
+    </div>
+</div>
+
+<!-- Модальное окно для выдачи предметов/денег -->
+<div id="give-modal" class="modal hidden">
+    <div class="modal-overlay" onclick="closeGiveModal()"></div>
+    <div class="modal-content" style="max-width:400px">
+        <h3 style="text-align:center;margin-bottom:16px">🎁 Выдать игроку</h3>
+        <div class="form-group">
+            <label class="form-label">Ник или ID игрока</label>
+            <input id="give-target" class="form-input" placeholder="Введите ник или ID">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Тип выдачи</label>
+            <select id="give-type" class="form-input" onchange="toggleGiveFields()">
+                <option value="coins">Монеты</option>
+                <option value="item">Предмет</option>
+            </select>
+        </div>
+        <div id="give-coins-field" class="form-group">
+            <label class="form-label">Количество монет</label>
+            <input id="give-coins" type="number" class="form-input" placeholder="Сумма">
+        </div>
+        <div id="give-item-field" class="form-group hidden">
+            <label class="form-label">Предмет</label>
+            <select id="give-item" class="form-input">
+                <!-- Заполняется из JS -->
+            </select>
+        </div>
+        <button class="btn btn-primary" onclick="executeGive()">Выдать</button>
+        <button class="btn btn-secondary" style="margin-top:8px" onclick="closeGiveModal()">Отмена</button>
+    </div>
+</div>
 </body>
 </html>
