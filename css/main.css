@@ -1,6 +1,5 @@
 /* ==================== STORM CASES - ОСНОВНЫЕ СТИЛИ ==================== */
 
-/* ===== СБРОС СТИЛЕЙ ===== */
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +7,6 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== ПЕРЕМЕННЫЕ ===== */
 :root {
     --bg-primary: #0a0a0f;
     --bg-secondary: #1a1a2e;
@@ -25,7 +23,6 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===== БАЗОВЫЕ СТИЛИ ===== */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: var(--bg-primary);
@@ -48,7 +45,7 @@ body {
     box-shadow: 0 0 60px rgba(0, 0, 0, 0.7);
 }
 
-/* ===== GLASSMORPHISM ===== */
+/* Glassmorphism */
 .glass {
     background: var(--bg-glass);
     backdrop-filter: blur(10px);
@@ -65,7 +62,7 @@ body {
     border-radius: 20px;
 }
 
-/* ===== ШАПКА ===== */
+/* Шапка */
 header {
     position: sticky;
     top: 0;
@@ -88,7 +85,7 @@ header {
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* ===== ВКЛАДКИ ===== */
+/* Вкладки */
 .tab-button {
     transition: var(--transition);
     background: none;
@@ -111,7 +108,7 @@ header {
     color: #ffffff;
 }
 
-/* ===== КАРТОЧКИ КЕЙСОВ ===== */
+/* Карточки кейсов */
 .case-card {
     transition: var(--transition);
     cursor: pointer;
@@ -131,32 +128,65 @@ header {
     box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
 }
 
-.case-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-}
-
-/* ===== РЕДКОСТИ ===== */
+/* Редкости */
 .rarity-common { color: var(--common); }
 .rarity-rare { color: var(--rare); }
 .rarity-epic { color: var(--epic); }
 .rarity-legendary { color: var(--legendary); }
 
-/* ===== СВЕЧЕНИЕ ===== */
+/* Свечение */
 .glow-common { box-shadow: 0 0 20px rgba(255,255,255,0.5); }
 .glow-rare { box-shadow: 0 0 30px rgba(74,158,255,0.7); }
 .glow-epic { box-shadow: 0 0 40px rgba(168,85,247,0.8); }
-.glow-legendary {
-    box-shadow: 0 0 50px rgba(255,215,0,0.9);
-    animation: legendaryPulse 1.5s infinite;
+.glow-legendary { 
+    box-shadow: 0 0 50px rgba(255,215,0,0.9); 
+    animation: legendaryPulse 1.5s infinite; 
 }
 
-/* ===== ПЕРЕКЛЮЧАТЕЛИ ===== */
+@keyframes legendaryPulse {
+    0%, 100% { box-shadow: 0 0 30px gold; }
+    50% { box-shadow: 0 0 70px gold; }
+}
+
+/* Анимации */
+.animate-shake { animation: shake 0.8s ease-in-out; }
+.animate-spin { animation: spin 0.6s ease-in-out forwards; }
+.animate-reveal { animation: reveal 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px) rotate(-5deg); }
+    40% { transform: translateX(10px) rotate(5deg); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(0); }
+}
+
+@keyframes reveal {
+    0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+    50% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* Частицы */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: particleFly 1s ease-out forwards;
+}
+
+@keyframes particleFly {
+    0% { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+/* Переключатели */
 .switch {
     width: 50px;
     height: 25px;
@@ -187,7 +217,7 @@ header {
     left: 27px;
 }
 
-/* ===== ПОЛЗУНКИ ===== */
+/* Ползунки */
 input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
@@ -206,51 +236,27 @@ input[type="range"]::-webkit-slider-thumb {
     cursor: pointer;
 }
 
-/* ===== СЕЛЕКТЫ ===== */
-select {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    padding: 8px;
-    color: white;
-    outline: none;
+/* Скрытие */
+.hidden {
+    display: none !important;
 }
 
-select option {
-    background: #1a1a2e;
+/* Тосты */
+.toast {
+    animation: slideInUp 0.4s ease-out, fadeOut 0.4s ease-in 2.5s;
 }
 
-/* ===== КНОПКИ ===== */
-.btn {
-    padding: 12px;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: var(--transition);
-    cursor: pointer;
-    border: none;
-    width: 100%;
+@keyframes slideInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-.btn-primary {
-    background: var(--accent);
-    color: white;
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
-.btn-primary:hover {
-    background: var(--accent-hover);
-}
-
-.btn-danger {
-    background: rgba(255, 0, 0, 0.2);
-    color: #ff4444;
-}
-
-.btn-danger:hover {
-    background: rgba(255, 0, 0, 0.3);
-}
-
-/* ===== КАЧЕСТВО ГРАФИКИ ===== */
+/* Качество графики */
 .graphics-low .glow-common,
 .graphics-low .glow-rare,
 .graphics-low .glow-epic,
@@ -267,22 +273,12 @@ select option {
 .graphics-high .glow-common { box-shadow: 0 0 35px rgba(255,255,255,0.9); }
 .graphics-high .glow-rare { box-shadow: 0 0 45px rgba(74,158,255,1); }
 .graphics-high .glow-epic { box-shadow: 0 0 55px rgba(168,85,247,1); }
-.graphics-high .glow-legendary {
-    box-shadow: 0 0 80px gold;
-    animation: legendaryPulse 1s infinite;
+.graphics-high .glow-legendary { 
+    box-shadow: 0 0 80px gold; 
+    animation: legendaryPulse 1s infinite; 
 }
 
-/* ===== ТОСТЫ ===== */
-.toast {
-    animation: slideInUp 0.4s ease-out, fadeOut 0.4s ease-in 2.5s;
-}
-
-/* ===== СКРЫТИЕ ===== */
-.hidden {
-    display: none !important;
-}
-
-/* ===== АДАПТИВНОСТЬ ===== */
+/* Адаптивность */
 @media (max-width: 420px) {
     #app {
         max-width: 100%;
