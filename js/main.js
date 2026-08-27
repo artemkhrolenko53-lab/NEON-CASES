@@ -86,16 +86,40 @@ function closeDonate() {
 // ===== ИНИЦИАЛИЗАЦИЯ =====
 function initApp() {
     console.log('🚀 Запуск STORM CASES...');
-
-    load();
-    initTelegram();
-    updateBalance();
-    updateSettingsUI();
-    switchTab('cases');
-
-    console.log('✅ STORM CASES запущен');
+    console.log('CONFIG:', CONFIG);
+    console.log('STORAGE_KEYS:', STORAGE_KEYS);
+    
+    // Проверяем, что все необходимые объекты существуют
+    if (typeof CONFIG === 'undefined') {
+        console.error('❌ CONFIG не определен');
+        return;
+    }
+    
+    if (typeof STORAGE_KEYS === 'undefined') {
+        console.error('❌ STORAGE_KEYS не определен');
+        return;
+    }
+    
+    try {
+        // Загружаем данные
+        load();
+        console.log('✅ Состояние после загрузки:', state);
+        
+        // Инициализируем Telegram
+        initTelegram();
+        
+        // Обновляем UI
+        updateBalance();
+        updateSettingsUI();
+        
+        // Переключаемся на вкладку кейсов
+        switchTab('cases');
+        
+        console.log('✅ STORM CASES запущен');
+    } catch (error) {
+        console.error('❌ Ошибка инициализации:', error);
+    }
 }
-
 // ===== ЗАПУСК =====
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
