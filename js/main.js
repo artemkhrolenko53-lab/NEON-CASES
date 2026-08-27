@@ -100,10 +100,9 @@ function syncWithBot() {
     
     // Отправляем текущее состояние боту
     sendDataToBot({
-        action: 'sync_state',
-        balance: state.balance,
-        inventory: state.inventory,
-    });
+    action: 'sync_balance',
+    balance: state.balance,
+});
     
     // Слушаем ответ от бота
     tg.onEvent('message', (data) => {
