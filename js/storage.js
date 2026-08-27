@@ -9,14 +9,22 @@ const STORAGE_KEYS = {
 // ===== СОХРАНЕНИЕ =====
 function save() {
     try {
-        localStorage.setItem(STORAGE_KEYS.state, JSON.stringify(state));
+        // Проверяем, что state существует и корректен
+        if (!state || typeof state !== 'object') {
+            console.error('❌ Некорректное состояние');
+            return;
+        }
+
+        // Создаем копию для сохранения
+        const dataToSave = JSON.parse(JSON.stringify(state));
+
+        localStorage.setItem(STORAGE_KEYS.state, JSON.stringify(dataToSave));
         console.log('✅ Данные сохранены');
     } catch (error) {
         console.error('❌ Ошибка сохранения:', error);
         showToast('Ошибка сохранения данных', 'error');
     }
 }
-
 // ===== ЗАГРУЗКА =====
 function load() {
     try {
@@ -24,13 +32,51 @@ function load() {
         if (savedData) {
             const parsed = JSON.parse(savedData);
 
-            // Объединяем с текущим состоянием
-            state = { ...state, ...parsed };
+            // Создаем новое состояние с значениями по умолчанию
+            const defaultState = {
+                balance: CONFIG.startBalance,
+                inventory: [],
+                sound: true,
+                notifications: true,
+                soundVolume: 100,
+                market: [],
+                userName: 'Гость',
+                userId: 'guest',
+                stats: {
+                    casesOpened: 0,
+                    itemsReceived: 0,
+                    totalSpent: 0,
+                    totalEarned: 0,
+                    bestDrop: null,
+                },
+            };
 
-            // Проверка и восстановление полей
-            if (!Array.isArray(state.inventory)) state.inventory = [];
-            if (!Array.isArray(state.market)) state.market = [];
-            if (!state.stats) {
+            // Объединяем с сохраненными данными, но проверяем каждый элемент
+            state = {
+                ...defaultState,
+                ...parsed,
+            };
+
+            // Явно проверяем и исправляем каждое поле
+            if (!Array.isArray(state.inventory)) {
+                state.inventory = [];
+            } else {
+                // Проверяем каждый предмет в инвентаре
+                state.inventory = state.inventory.filter(item =>
+                    item && typeof item === 'object' && item.name
+                );
+            }
+
+            if (!Array.isArray(state.market)) {
+                state.market = [];
+            } else {
+                // Проверяем каждое предложение на рынке
+                state.market = state.market.filter(listing =>
+                    listing && typeof listing === 'object' && listing.item
+                );
+            }
+
+            if (!state.stats || typeof state.stats !== 'object') {
                 state.stats = {
                     casesOpened: 0,
                     itemsReceived: 0,
@@ -38,28 +84,78 @@ function load() {
                     totalEarned: 0,
                     bestDrop: null,
                 };
+            } else {
+                // Проверяем поля stats
+                state.stats.casesOpened = state.stats.casesOpened || 0;
+                state.stats.itemsReceived = state.stats.itemsReceived || 0;
+                state.stats.totalSpent = state.stats.totalSpent || 0;
+                state.stats.totalEarned = state.stats.totalEarned || 0;
+                state.stats.bestDrop = state.stats.bestDrop || null;
             }
+
             if (typeof state.sound !== 'boolean') state.sound = true;
             if (typeof state.notifications !== 'boolean') state.notifications = true;
             if (typeof state.soundVolume !== 'number') state.soundVolume = 100;
-            if (typeof state.balance !== 'number') state.balance = CONFIG.startBalance;
-            if (!state.userName) state.userName = 'Гость';
+            if (typeof state.balance !== 'number' || isNaN(state.balance)) state.balance = CONFIG.startBalance;
+            if (!state.userName || typeof state.userName !== 'string') state.userName = 'Гость';
             if (!state.userId) state.userId = 'guest';
 
-            console.log('✅ Данные загружены');
+            console.log('✅ Данные загружены:', state);
             return true;
         } else {
             console.log('📝 Первый запуск, создаём сохранение');
+            // Инициализируем состояние с нуля
+            state = {
+                balance: CONFIG.startBalance,
+                inventory: [],
+                sound: true,
+                notifications: true,
+                soundVolume: 100,
+                market: [],
+                userName: 'Гость',
+                userId: 'guest',
+                stats: {
+                    casesOpened: 0,
+                    itemsReceived: 0,
+                    totalSpent: 0,
+                    totalEarned: 0,
+                    bestDrop: null,
+                },
+            };
             save();
             return false;
         }
     } catch (error) {
         console.error('❌ Ошибка загрузки:', error);
-        showToast('Ошибка загрузки данных', 'error');
+        console.log('🔄 Сброс данных из-за ошибки');
+
+        // Сбрасываем localStorage
+        localStorage.removeItem(STORAGE_KEYS.state);
+
+        // Инициализируем состояние с нуля
+        state = {
+            balance: CONFIG.startBalance,
+            inventory: [],
+            sound: true,
+            notifications: true,
+            soundVolume: 100,
+            market: [],
+            userName: 'Гость',
+            userId: 'guest',
+            stats: {
+                casesOpened: 0,
+                itemsReceived: 0,
+                totalSpent: 0,
+                totalEarned: 0,
+                bestDrop: null,
+            },
+        };
+
+        save();
+        showToast('Данные были сброшены', 'error');
         return false;
     }
 }
-
 // ===== ПОЛНАЯ ОЧИСТКА =====
 function clearAllData() {
     try {
@@ -146,3 +242,39 @@ function importData(jsonString) {
         return false;
     }
 }
+// Функция для полного сброса данных
+function resetAllData() {
+    try {
+        localStorage.removeItem(STORAGE_KEYS.state);
+        localStorage.removeItem(STORAGE_KEYS.dailyClaim);
+        localStorage.removeItem(STORAGE_KEYS.invites);
+
+        // Сбрасываем состояние
+        state = {
+            balance: CONFIG.startBalance,
+            inventory: [],
+            sound: true,
+            notifications: true,
+            soundVolume: 100,
+            market: [],
+            userName: 'Гость',
+            userId: 'guest',
+            stats: {
+                casesOpened: 0,
+                itemsReceived: 0,
+                totalSpent: 0,
+                totalEarned: 0,
+                bestDrop: null,
+            },
+        };
+
+        console.log('✅ Все данные сброшены');
+        return true;
+    } catch (error) {
+        console.error('❌ Ошибка сброса данных:', error);
+        return false;
+    }
+}
+
+// Экспортируем функцию
+window.resetAllData = resetAllData;
