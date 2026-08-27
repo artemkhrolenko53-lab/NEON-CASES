@@ -2,388 +2,251 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>STORM CASES</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>STORM CASES — Открывай кейсы и выигрывай!</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Telegram WebApp -->
+    
+    <!-- Telegram WebApp API -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        /* ============ БАЗОВЫЕ СТИЛИ ============ */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #1a1a2e;
-            --bg-glass: rgba(255, 255, 255, 0.05);
-            --border-glass: rgba(255, 255, 255, 0.12);
-            --accent: #6c5ce7;
-            --accent-hover: #5a4bd1;
-            --common: #ffffff;
-            --rare: #4a9eff;
-            --epic: #a855f7;
-            --legendary: #ffd700;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-primary);
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-            user-select: none;
-            -webkit-user-select: none;
-            display: flex;
-            justify-content: center;
-        }
-        #app {
-            width: 100%;
-            max-width: 430px;
-            position: relative;
-            min-height: 100vh;
-            padding-bottom: 80px;
-            background: var(--bg-primary);
-            box-shadow: 0 0 40px rgba(0,0,0,0.6);
-        }
-        /* Стеклянные элементы */
-        .glass {
-            background: var(--bg-glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid var(--border-glass);
-            border-radius: 16px;
-        }
-        .glass-strong {
-            background: rgba(26, 26, 46, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: 20px;
-        }
-        /* Кнопки вкладок */
-        .tab-button {
-            transition: all var(--transition);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #8b8b9e;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 10px;
-        }
-        .tab-button.active {
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-        /* Карточки кейсов */
-        .case-card {
-            transition: all var(--transition);
-            cursor: pointer;
-            background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px;
-            padding: 16px;
-            position: relative;
-            overflow: hidden;
-        }
-        .case-card:active { transform: scale(0.96); }
-        .case-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
-        }
-        /* Редкости */
-        .rarity-common { color: var(--common); }
-        .rarity-rare { color: var(--rare); }
-        .rarity-epic { color: var(--epic); }
-        .rarity-legendary { color: var(--legendary); }
-        .glow-common { box-shadow: 0 0 20px rgba(255,255,255,0.5); }
-        .glow-rare { box-shadow: 0 0 30px rgba(74,158,255,0.7); }
-        .glow-epic { box-shadow: 0 0 40px rgba(168,85,247,0.8); }
-        .glow-legendary { box-shadow: 0 0 50px rgba(255,215,0,0.9); animation: legendaryPulse 1.5s infinite; }
-        @keyframes legendaryPulse {
-            0%,100% { box-shadow: 0 0 30px gold; }
-            50% { box-shadow: 0 0 70px gold; }
-        }
-        /* Анимации */
-        @keyframes shake {
-            0%,100% { transform: translateX(0); }
-            20% { transform: translateX(-10px) rotate(-5deg); }
-            40% { transform: translateX(10px) rotate(5deg); }
-            60% { transform: translateX(-5px); }
-            80% { transform: translateX(5px); }
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(0); }
-        }
-        @keyframes reveal {
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; }
-            50% { transform: scale(1.3) rotate(10deg); }
-            100% { transform: scale(1) rotate(0); opacity: 1; }
-        }
-        .animate-shake { animation: shake 0.8s ease-in-out; }
-        .animate-spin { animation: spin 0.6s ease-in-out forwards; }
-        .animate-reveal { animation: reveal 0.8s ease; }
-        .particle {
-            position: absolute;
-            pointer-events: none;
-            border-radius: 50%;
-            animation: particleFly 1s ease-out forwards;
-        }
-        @keyframes particleFly {
-            0% { transform: translate(0,0) scale(1); opacity: 1; }
-            100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
-        }
-        .hidden { display: none !important; }
-        /* Переключатели */
-        .switch {
-            width: 50px;
-            height: 25px;
-            background: #333;
-            border-radius: 25px;
-            position: relative;
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        .switch.active { background: var(--accent); }
-        .switch::after {
-            content: '';
-            width: 21px;
-            height: 21px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: all var(--transition);
-        }
-        .switch.active::after { left: 27px; }
-        /* Качество графики */
-        .graphics-low .glow-common,
-        .graphics-low .glow-rare,
-        .graphics-low .glow-epic,
-        .graphics-low .glow-legendary {
-            animation: none !important;
-            box-shadow: none !important;
-        }
-        .graphics-low .case-card:hover {
-            box-shadow: none;
-            transform: none;
-        }
-        .graphics-high .glow-common { box-shadow: 0 0 35px rgba(255,255,255,0.9); }
-        .graphics-high .glow-rare { box-shadow: 0 0 45px rgba(74,158,255,1); }
-        .graphics-high .glow-epic { box-shadow: 0 0 55px rgba(168,85,247,1); }
-        .graphics-high .glow-legendary { box-shadow: 0 0 80px gold; animation: legendaryPulse 1s infinite; }
-        /* Тосты */
-        .toast {
-            animation: slideInUp 0.4s ease-out, fadeOut 0.4s ease-in 2.5s;
-        }
-        @keyframes slideInUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-        /* Скрытие скроллбара для эстетики */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-    </style>
+    
+    <!-- Основные стили -->
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-<div id="app">
-    <!-- ==================== ШАПКА ==================== -->
-    <header class="sticky top-0 z-40 glass-strong m-3 px-4 py-3 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-            <span class="text-xl">⚡</span>
-            <h1 class="text-lg font-bold tracking-wider">STORM CASES</h1>
-        </div>
-        <button onclick="showDonate()" class="glass px-4 py-2 rounded-full flex items-center gap-2 hover:bg-white/10 transition">
-            <span>💰</span>
-            <span id="balance" class="font-bold">500</span>
-        </button>
-    </header>
+    <div id="app">
+        <!-- ==================== ВЕРХНИЙ БАР ==================== -->
+        <header class="sticky top-0 z-40 glass-strong m-3 px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                    <span class="text-xl">⚡</span>
+                </div>
+                <h1 class="text-lg font-bold tracking-wider">STORM CASES</h1>
+            </div>
+            <button onclick="showDonate()" class="glass px-4 py-2 rounded-full flex items-center gap-2 hover:bg-white/10 transition">
+                <span>💰</span>
+                <span id="balance" class="font-bold">500</span>
+            </button>
+        </header>
 
-    <!-- ==================== КОНТЕНТ ==================== -->
-    <main class="px-3 pb-2">
-        <!-- Вкладка Кейсы -->
-        <section id="tab-cases" class="tab-content">
-            <h2 class="text-2xl font-bold mb-4" data-i18n="cases">📦 Кейсы</h2>
-            <div class="space-y-4">
+        <!-- ==================== ОСНОВНОЙ КОНТЕНТ ==================== -->
+        <main class="px-3 pb-2">
+            
+            <!-- ========== ВКЛАДКА "КЕЙСЫ" ========== -->
+            <section id="tab-cases" class="tab-content">
+                <h2 class="text-2xl font-bold mb-4">📦 Кейсы</h2>
+                
                 <!-- Обычный кейс -->
-                <div class="case-card" onclick="openCaseModal(0)">
+                <div class="case-card p-4 mb-4" onclick="openCaseModal(0)">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <span class="text-4xl">📦</span>
+                            <div class="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-800 rounded-xl flex items-center justify-center">
+                                <span class="text-4xl">📦</span>
+                            </div>
                             <div>
                                 <h3 class="font-bold text-lg">Обычный кейс</h3>
                                 <p class="text-sm text-gray-400">Common 85% • Rare 15%</p>
+                                <p class="text-xs text-gray-500 mt-1">Содержит 7 предметов</p>
                             </div>
                         </div>
-                        <p class="font-bold text-indigo-300">💰 80</p>
+                        <div class="text-right">
+                            <p class="font-bold text-indigo-300">💰 80</p>
+                            <p class="text-xs text-gray-500">Открыть</p>
+                        </div>
                     </div>
                 </div>
+                
                 <!-- Редкий кейс -->
-                <div class="case-card" onclick="openCaseModal(1)">
+                <div class="case-card p-4 mb-4" onclick="openCaseModal(1)">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <span class="text-4xl">🎁</span>
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-800 rounded-xl flex items-center justify-center">
+                                <span class="text-4xl">🎁</span>
+                            </div>
                             <div>
                                 <h3 class="font-bold text-lg">Редкий кейс</h3>
                                 <p class="text-sm text-gray-400">Rare 80% • Epic 20%</p>
+                                <p class="text-xs text-gray-500 mt-1">Содержит 8 предметов</p>
                             </div>
                         </div>
-                        <p class="font-bold text-indigo-300">💰 280</p>
+                        <div class="text-right">
+                            <p class="font-bold text-indigo-300">💰 280</p>
+                            <p class="text-xs text-gray-500">Открыть</p>
+                        </div>
                     </div>
                 </div>
+                
                 <!-- Легендарный кейс -->
-                <div class="case-card" onclick="openCaseModal(2)">
+                <div class="case-card p-4 mb-4" onclick="openCaseModal(2)">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <span class="text-4xl">💎</span>
+                            <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-700 rounded-xl flex items-center justify-center">
+                                <span class="text-4xl">💎</span>
+                            </div>
                             <div>
                                 <h3 class="font-bold text-lg">Легендарный кейс</h3>
                                 <p class="text-sm text-gray-400">Epic 85% • Legendary 15%</p>
+                                <p class="text-xs text-gray-500 mt-1">Содержит 7 предметов</p>
                             </div>
                         </div>
-                        <p class="font-bold text-indigo-300">💰 650</p>
+                        <div class="text-right">
+                            <p class="font-bold text-indigo-300">💰 650</p>
+                            <p class="text-xs text-gray-500">Открыть</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Ежедневная награда -->
-            <div class="mt-6">
-                <button onclick="claimDaily()" class="w-full glass p-3 font-semibold text-yellow-300 hover:bg-white/10 transition">
-                    🎁 <span data-i18n="dailyReward">Ежедневная награда</span>
+
+                <!-- Ежедневная награда -->
+                <div class="mt-6">
+                    <button onclick="claimDaily()" class="w-full glass p-4 font-semibold text-yellow-300 hover:bg-white/10 transition">
+                        🎁 Ежедневная награда
+                    </button>
+                </div>
+                
+                <!-- Пригласить друга -->
+                <div class="mt-3">
+                    <button onclick="inviteFriend()" class="w-full glass p-4 font-semibold text-blue-300 hover:bg-white/10 transition">
+                        👥 Пригласить друга (+100 💰)
+                    </button>
+                </div>
+            </section>
+
+            <!-- ========== ВКЛАДКА "РЫНОК" ========== -->
+            <section id="tab-market" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">📊 Рынок</h2>
+                <div id="market-list" class="space-y-2"></div>
+            </section>
+
+            <!-- ========== ВКЛАДКА "ИНВЕНТАРЬ" ========== -->
+            <section id="tab-inventory" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">🎒 Инвентарь</h2>
+                <div id="inventory-list" class="space-y-2"></div>
+            </section>
+
+            <!-- ========== ВКЛАДКА "НАСТРОЙКИ" ========== -->
+            <section id="tab-settings" class="tab-content hidden">
+                <h2 class="text-2xl font-bold mb-4">⚙️ Настройки</h2>
+                <div class="glass p-4 space-y-4">
+                    
+                    <!-- Профиль -->
+                    <div class="glass p-3">
+                        <h3 class="font-semibold mb-2">👤 Профиль</h3>
+                        <p class="text-sm text-gray-400">ID: <span id="user-id">Гость</span></p>
+                        <p class="text-sm text-gray-400">Имя: <input id="user-name-input" type="text" value="Гость" class="bg-transparent border-b border-white/20 focus:outline-none" onchange="updateUserName(this.value)"></p>
+                    </div>
+                    
+                    <!-- Звук -->
+                    <div class="flex items-center justify-between">
+                        <span>🔊 Звук</span>
+                        <div id="sound-toggle" class="switch active" onclick="toggleSound()"></div>
+                    </div>
+                    
+                    <!-- Музыка -->
+                    <div class="flex items-center justify-between">
+                        <span>🎵 Музыка</span>
+                        <div id="music-toggle" class="switch" onclick="toggleMusic()"></div>
+                    </div>
+                    
+                    <!-- Уведомления -->
+                    <div class="flex items-center justify-between">
+                        <span>🔔 Уведомления</span>
+                        <div id="notifications-toggle" class="switch active" onclick="toggleNotifications()"></div>
+                    </div>
+                    
+                    <!-- Язык -->
+                    <div>
+                        <label class="block mb-1 text-sm">🌍 Язык</label>
+                        <select id="language-select" class="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white" onchange="changeLanguage(this.value)">
+                            <option value="ru" class="bg-gray-800">Русский</option>
+                            <option value="en" class="bg-gray-800">English</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Качество графики -->
+                    <div>
+                        <label class="block mb-1 text-sm">🎨 Качество графики</label>
+                        <select id="graphics-quality" class="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white" onchange="changeGraphicsQuality(this.value)">
+                            <option value="low" class="bg-gray-800">Низкое</option>
+                            <option value="medium" class="bg-gray-800" selected>Среднее</option>
+                            <option value="high" class="bg-gray-800">Высокое</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Громкость звука -->
+                    <div>
+                        <label class="block mb-1 text-sm">🔊 Громкость звука: <span id="sound-volume-label">100%</span></label>
+                        <input type="range" min="0" max="100" value="100" class="w-full" oninput="changeSoundVolume(this.value)">
+                    </div>
+                    
+                    <!-- Громкость музыки -->
+                    <div>
+                        <label class="block mb-1 text-sm">🎵 Громкость музыки: <span id="music-volume-label">100%</span></label>
+                        <input type="range" min="0" max="100" value="100" class="w-full" oninput="changeMusicVolume(this.value)">
+                    </div>
+                    
+                    <!-- Дополнительно -->
+                    <div class="border-t border-white/10 pt-3 space-y-2">
+                        <button onclick="showFullStats()" class="w-full bg-white/10 text-white py-3 rounded-lg hover:bg-white/20 transition">
+                            📊 Показать статистику
+                        </button>
+                        
+                        <button onclick="showHelp()" class="w-full bg-white/10 text-white py-3 rounded-lg hover:bg-white/20 transition">
+                            ❓ Как играть?
+                        </button>
+                        
+                        <button onclick="showAbout()" class="w-full bg-white/10 text-white py-3 rounded-lg hover:bg-white/20 transition">
+                            ℹ️ О приложении
+                        </button>
+                    </div>
+                    
+                    <!-- Версия -->
+                    <div class="border-t border-white/10 pt-2 text-xs text-gray-500 text-center">
+                        Версия: 1.0.0 • © 2024 STORM CASES
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ==================== НИЖНЯЯ НАВИГАЦИЯ ==================== -->
+        <nav class="fixed bottom-0 left-0 right-0 z-40">
+            <div class="max-w-md mx-auto glass-strong px-4 py-2 flex justify-around items-center">
+                <button class="tab-button active flex flex-col items-center" data-tab="cases" onclick="switchTab('cases')">
+                    <span class="text-2xl">🎁</span>
+                    <span class="text-xs">Кейсы</span>
+                </button>
+                <button class="tab-button flex flex-col items-center" data-tab="market" onclick="switchTab('market')">
+                    <span class="text-2xl">📊</span>
+                    <span class="text-xs">Рынок</span>
+                </button>
+                <button class="tab-button flex flex-col items-center" data-tab="inventory" onclick="switchTab('inventory')">
+                    <span class="text-2xl">🎒</span>
+                    <span class="text-xs">Инвентарь</span>
+                </button>
+                <button class="tab-button flex flex-col items-center" data-tab="settings" onclick="switchTab('settings')">
+                    <span class="text-2xl">⚙️</span>
+                    <span class="text-xs">Настройки</span>
                 </button>
             </div>
-        </section>
-
-        <!-- Вкладка Рынок -->
-        <section id="tab-market" class="tab-content hidden">
-            <h2 class="text-2xl font-bold mb-4" data-i18n="market">📊 Рынок</h2>
-            <!-- Поиск и фильтры -->
-            <div class="flex gap-2 mb-3">
-                <input type="text" id="market-search" placeholder="Поиск..." class="flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white placeholder-gray-400" oninput="renderMarket()">
-                <select id="market-filter" class="bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white" onchange="renderMarket()">
-                    <option value="all" class="bg-gray-800">Все</option>
-                    <option value="weapon" class="bg-gray-800">Оружие</option>
-                    <option value="knife" class="bg-gray-800">Ножи</option>
-                    <option value="gloves" class="bg-gray-800">Перчатки</option>
-                </select>
-            </div>
-            <div id="market-list" class="space-y-2"></div>
-        </section>
-
-        <!-- Вкладка Инвентарь -->
-        <section id="tab-inventory" class="tab-content hidden">
-            <h2 class="text-2xl font-bold mb-4" data-i18n="inventory">🎒 Инвентарь</h2>
-            <div id="inventory-list" class="space-y-2"></div>
-        </section>
-
-        <!-- Вкладка Настройки -->
-        <section id="tab-settings" class="tab-content hidden">
-            <h2 class="text-2xl font-bold mb-4" data-i18n="settings">⚙️ Настройки</h2>
-            <div class="glass p-4 space-y-4">
-                <!-- Профиль -->
-                <div>
-                    <p class="text-sm text-gray-400">ID: <span id="user-id">Гость</span></p>
-                    <p class="text-sm text-gray-400">Имя: <input id="user-name-input" type="text" value="Гость" class="bg-transparent border-b border-white/20 focus:outline-none" onchange="updateUserName(this.value)"></p>
-                </div>
-                <!-- Звук -->
-                <div class="flex items-center justify-between">
-                    <span data-i18n="sound">Звук</span>
-                    <div id="sound-toggle" class="switch active" onclick="toggleSound()"></div>
-                </div>
-                <!-- Музыка -->
-                <div class="flex items-center justify-between">
-                    <span data-i18n="music">Музыка</span>
-                    <div id="music-toggle" class="switch" onclick="toggleMusic()"></div>
-                </div>
-                <!-- Уведомления -->
-                <div class="flex items-center justify-between">
-                    <span data-i18n="notifications">Уведомления</span>
-                    <div id="notifications-toggle" class="switch active" onclick="toggleNotifications()"></div>
-                </div>
-                <!-- Язык -->
-                <div>
-                    <label class="block mb-1 text-sm" data-i18n="language">Язык</label>
-                    <select id="language-select" class="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white" onchange="changeLanguage(this.value)">
-                        <option value="ru" class="bg-gray-800">Русский</option>
-                        <option value="en" class="bg-gray-800">English</option>
-                    </select>
-                </div>
-                <!-- Качество графики -->
-                <div>
-                    <label class="block mb-1 text-sm" data-i18n="graphics">Качество графики</label>
-                    <select id="graphics-quality" class="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white" onchange="changeGraphicsQuality(this.value)">
-                        <option value="low" class="bg-gray-800">Низкое</option>
-                        <option value="medium" class="bg-gray-800" selected>Среднее</option>
-                        <option value="high" class="bg-gray-800">Высокое</option>
-                    </select>
-                </div>
-                <!-- Громкость звука -->
-                <div>
-                    <label class="block mb-1 text-sm">Громкость звука: <span id="sound-volume-label">100%</span></label>
-                    <input type="range" min="0" max="100" value="100" class="w-full" oninput="changeSoundVolume(this.value)">
-                </div>
-                <!-- Громкость музыки -->
-                <div>
-                    <label class="block mb-1 text-sm">Громкость музыки: <span id="music-volume-label">100%</span></label>
-                    <input type="range" min="0" max="100" value="100" class="w-full" oninput="changeMusicVolume(this.value)">
-                </div>
-                <!-- Пригласить друга -->
-                <div class="border-t border-white/10 pt-3">
-                    <p class="text-sm mb-2">Пригласи друга и получи <b>100 💰</b>!</p>
-                    <button onclick="inviteFriend()" class="w-full bg-blue-500/20 text-blue-300 py-2 rounded-lg hover:bg-blue-500/30 transition" data-i18n="invite">🔗 Пригласить друга</button>
-                </div>
-                <!-- Версия -->
-                <div class="border-t border-white/10 pt-2 text-xs text-gray-500">Версия: 2.0.0</div>
-                <!-- Сброс -->
-                <button onclick="resetProgress()" class="w-full bg-red-500/20 text-red-400 py-3 rounded-lg hover:bg-red-500/30 transition">♻️ Сбросить прогресс</button>
-            </div>
-        </section>
-    </main>
-
-    <!-- ==================== НИЖНЯЯ НАВИГАЦИЯ ==================== -->
-    <nav class="fixed bottom-0 left-0 right-0 z-40">
-        <div class="max-w-md mx-auto glass-strong px-4 py-2 flex justify-around items-center">
-            <button class="tab-button active flex flex-col items-center" data-tab="cases" onclick="switchTab('cases')">
-                <span class="text-2xl">🎁</span><span class="text-xs" data-i18n="navCases">Кейсы</span>
-            </button>
-            <button class="tab-button flex flex-col items-center" data-tab="market" onclick="switchTab('market')">
-                <span class="text-2xl">📊</span><span class="text-xs" data-i18n="navMarket">Рынок</span>
-            </button>
-            <button class="tab-button flex flex-col items-center" data-tab="inventory" onclick="switchTab('inventory')">
-                <span class="text-2xl">🎒</span><span class="text-xs" data-i18n="navInventory">Инвентарь</span>
-            </button>
-            <button class="tab-button flex flex-col items-center" data-tab="settings" onclick="switchTab('settings')">
-                <span class="text-2xl">⚙️</span><span class="text-xs" data-i18n="navSettings">Настройки</span>
-            </button>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
     <!-- ==================== МОДАЛЬНЫЕ ОКНА ==================== -->
-    <!-- Кейс -->
+    
+    <!-- Модальное окно кейса -->
     <div id="case-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/70" onclick="closeCaseModal()"></div>
         <div class="absolute bottom-0 left-0 right-0 max-w-md mx-auto glass-strong p-6">
             <h2 id="modal-title" class="text-xl font-bold mb-3"></h2>
             <div id="modal-items" class="grid grid-cols-4 gap-2 mb-4"></div>
             <p class="mb-3">Цена: <span id="modal-price" class="font-bold"></span></p>
-            <button onclick="openCase()" class="w-full bg-indigo-500 hover:bg-indigo-400 py-3 rounded-lg font-bold transition" data-i18n="open">Открыть</button>
+            <button onclick="openCase()" class="w-full bg-indigo-500 hover:bg-indigo-400 py-3 rounded-lg font-bold transition">
+                🎁 Открыть
+            </button>
         </div>
     </div>
 
-    <!-- Анимация открытия -->
+    <!-- Модальное окно анимации -->
     <div id="opening-modal" class="fixed inset-0 z-50 hidden bg-black/90 flex items-center justify-center">
         <div class="text-center">
             <div id="case-animation" class="text-8xl mb-8"></div>
@@ -391,613 +254,54 @@
         </div>
     </div>
 
-    <!-- Донат -->
+    <!-- Модальное окно доната -->
     <div id="donate-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/70" onclick="closeDonate()"></div>
         <div class="absolute bottom-0 left-0 right-0 max-w-md mx-auto glass-strong p-6">
-            <h2 class="text-xl font-bold mb-3" data-i18n="donateTitle">Пополнение баланса</h2>
+            <h2 class="text-xl font-bold mb-3">⭐ Пополнение баланса</h2>
             <div class="space-y-2">
-                <button onclick="donate(10)" class="w-full glass p-3 flex justify-between"><span>⭐ 10 звёзд</span><span>💰 500</span></button>
-                <button onclick="donate(50)" class="w-full glass p-3 flex justify-between"><span>⭐ 50 звёзд</span><span>💰 3000</span></button>
-                <button onclick="donate(100)" class="w-full glass p-3 flex justify-between"><span>⭐ 100 звёзд</span><span>💰 10000</span></button>
+                <button onclick="donate(10)" class="w-full glass p-3 flex justify-between hover:bg-white/10 transition">
+                    <span>⭐ 10 звёзд</span>
+                    <span class="font-bold">💰 500</span>
+                </button>
+                <button onclick="donate(50)" class="w-full glass p-3 flex justify-between hover:bg-white/10 transition">
+                    <span>🌟 50 звёзд</span>
+                    <span class="font-bold">💰 3000</span>
+                </button>
+                <button onclick="donate(100)" class="w-full glass p-3 flex justify-between hover:bg-white/10 transition">
+                    <span>💫 100 звёзд</span>
+                    <span class="font-bold">💰 10000</span>
+                </button>
             </div>
-            <p class="text-xs text-gray-400 text-center mt-3">Оплата через Telegram</p>
+            <p class="text-xs text-gray-400 text-center mt-3">Оплата через Telegram Stars</p>
         </div>
     </div>
 
-    <!-- Выставление на рынок -->
+    <!-- Модальное окно выставления на рынок -->
     <div id="sell-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/70" onclick="closeSellModal()"></div>
         <div class="absolute bottom-0 left-0 right-0 max-w-md mx-auto glass-strong p-6">
-            <h2 class="text-xl font-bold mb-3" data-i18n="sellTitle">Выставить на рынок</h2>
+            <h2 class="text-xl font-bold mb-3">📊 Выставить на рынок</h2>
             <p id="sell-item-name" class="mb-2"></p>
             <input id="sell-price-input" type="number" min="1" placeholder="Цена в монетах" class="w-full bg-white/10 border border-white/20 rounded-lg p-2 mb-3 text-white">
-            <button onclick="confirmSell()" class="w-full bg-green-500 hover:bg-green-400 py-3 rounded-lg font-bold">Выставить</button>
+            <button onclick="confirmSell()" class="w-full bg-green-500 hover:bg-green-400 py-3 rounded-lg font-bold transition">
+                ✅ Выставить
+            </button>
         </div>
     </div>
 
-    <!-- Тосты -->
+    <!-- Контейнер для тостов -->
     <div id="toasts" class="fixed top-20 left-0 right-0 z-50 px-4 space-y-2 pointer-events-none"></div>
-</div>
 
-<script>
-    'use strict';
-    // ==================== ДАННЫЕ ====================
-    const ITEMS = [
-        // Common
-        { id: 1, name: 'Glock-18', type: 'Пистолет', category: 'weapon', rarity: 'common', price: 30, icon: '🔫' },
-        { id: 2, name: 'P250', type: 'Пистолет', category: 'weapon', rarity: 'common', price: 45, icon: '🔫' },
-        { id: 3, name: 'MP9', type: 'ПП', category: 'weapon', rarity: 'common', price: 60, icon: '🔫' },
-        { id: 4, name: 'Nova', type: 'Дробовик', category: 'weapon', rarity: 'common', price: 75, icon: '🔫' },
-        { id: 5, name: 'UMP-45', type: 'ПП', category: 'weapon', rarity: 'common', price: 90, icon: '🔫' },
-        { id: 6, name: 'Tec-9', type: 'Пистолет', category: 'weapon', rarity: 'common', price: 55, icon: '🔫' },
-        { id: 7, name: 'MAG-7', type: 'Дробовик', category: 'weapon', rarity: 'common', price: 85, icon: '🔫' },
-        // Rare
-        { id: 8, name: 'AK-47', type: 'Винтовка', category: 'weapon', rarity: 'rare', price: 180, icon: '🔫' },
-        { id: 9, name: 'M4A4', type: 'Винтовка', category: 'weapon', rarity: 'rare', price: 220, icon: '🔫' },
-        { id: 10, name: 'Desert Eagle', type: 'Пистолет', category: 'weapon', rarity: 'rare', price: 250, icon: '🔫' },
-        { id: 11, name: 'FAMAS', type: 'Винтовка', category: 'weapon', rarity: 'rare', price: 200, icon: '🔫' },
-        { id: 12, name: 'SSG 08', type: 'Снайперская', category: 'weapon', rarity: 'rare', price: 280, icon: '🔫' },
-        { id: 13, name: 'Sport Gloves', type: 'Перчатки', category: 'gloves', rarity: 'rare', price: 150, icon: '🧤' },
-        // Epic
-        { id: 14, name: 'AWP', type: 'Снайперская', category: 'weapon', rarity: 'epic', price: 450, icon: '🔫' },
-        { id: 15, name: 'M4A1-S', type: 'Винтовка', category: 'weapon', rarity: 'epic', price: 500, icon: '🔫' },
-        { id: 16, name: 'Butterfly Knife', type: 'Нож', category: 'knife', rarity: 'epic', price: 600, icon: '🗡️' },
-        { id: 17, name: 'USP-S', type: 'Пистолет', category: 'weapon', rarity: 'epic', price: 400, icon: '🔫' },
-        // Legendary
-        { id: 18, name: 'Karambit', type: 'Нож', category: 'knife', rarity: 'legendary', price: 1200, icon: '🗡️' },
-        { id: 19, name: 'Dragon Lore', type: 'Снайперская', category: 'weapon', rarity: 'legendary', price: 2500, icon: '🔫' },
-        { id: 20, name: 'Pandora Gloves', type: 'Перчатки', category: 'gloves', rarity: 'legendary', price: 1800, icon: '🧤' },
-        { id: 21, name: 'Gut Knife', type: 'Нож', category: 'knife', rarity: 'legendary', price: 1100, icon: '🗡️' },
-    ];
-
-    const CASES = [
-        { id: 0, name: 'Обычный кейс', price: 80, icon: '📦', prob: { common: 85, rare: 15 } },
-        { id: 1, name: 'Редкий кейс', price: 280, icon: '🎁', prob: { rare: 80, epic: 20 } },
-        { id: 2, name: 'Легендарный кейс', price: 650, icon: '💎', prob: { epic: 85, legendary: 15 } },
-    ];
-
-    // ==================== ПЕРЕВОДЫ ====================
-    const translations = {
-        ru: {
-            cases: '📦 Кейсы', market: '📊 Рынок', inventory: '🎒 Инвентарь', settings: '⚙️ Настройки',
-            sound: 'Звук', music: 'Музыка', notifications: 'Уведомления', language: 'Язык', graphics: 'Качество графики',
-            dailyReward: 'Ежедневная награда', invite: '🔗 Пригласить друга',
-            navCases: 'Кейсы', navMarket: 'Рынок', navInventory: 'Инвентарь', navSettings: 'Настройки',
-            open: 'Открыть', donateTitle: 'Пополнение баланса', sellTitle: 'Выставить на рынок',
-            inventoryEmpty: 'Инвентарь пуст', marketEmpty: 'Рынок пуст', sell: 'Продать', list: 'Выставить', buy: 'Купить', remove: 'Снять',
-            price: 'Цена', seller: 'Продавец', coins: 'монет',
-        },
-        en: {
-            cases: '📦 Cases', market: '📊 Market', inventory: '🎒 Inventory', settings: '⚙️ Settings',
-            sound: 'Sound', music: 'Music', notifications: 'Notifications', language: 'Language', graphics: 'Graphics Quality',
-            dailyReward: 'Daily Reward', invite: '🔗 Invite Friend',
-            navCases: 'Cases', navMarket: 'Market', navInventory: 'Inventory', navSettings: 'Settings',
-            open: 'Open', donateTitle: 'Replenish Balance', sellTitle: 'List on Market',
-            inventoryEmpty: 'Inventory is empty', marketEmpty: 'Market is empty', sell: 'Sell', list: 'List', buy: 'Buy', remove: 'Remove',
-            price: 'Price', seller: 'Seller', coins: 'coins',
-        }
-    };
-
-    // ==================== СОСТОЯНИЕ ====================
-    let state = {
-        balance: 500,
-        inventory: [],
-        sound: true,
-        music: false,
-        notifications: true,
-        language: 'ru',
-        graphicsQuality: 'medium',
-        soundVolume: 100,
-        musicVolume: 100,
-        market: [],
-        userName: 'Гость',
-        userId: 'guest',
-        inviteCount: 0,
-        lastInviteDate: '',
-    };
-
-    // ==================== АУДИО (заглушки) ====================
-    let musicPlayer = null;
-    function initAudio() {
-        musicPlayer = new Audio();
-        musicPlayer.loop = true;
-        // musicPlayer.src = 'music.mp3'; // Раскомментируйте и укажите файл
-        musicPlayer.volume = state.musicVolume / 100;
-    }
-    function playSound(type) {
-        if (!state.sound) return;
-        // Здесь можно генерировать звуки через WebAudio API
-        // Для простоты оставлено пустым
-    }
-    function toggleMusic() {
-        state.music = !state.music;
-        document.getElementById('music-toggle').classList.toggle('active', state.music);
-        if (state.music) {
-            if (!musicPlayer) initAudio();
-            musicPlayer.play().catch(() => {});
-        } else {
-            if (musicPlayer) musicPlayer.pause();
-        }
-        save();
-    }
-
-    // ==================== УТИЛИТЫ ====================
-    function save() {
-        try {
-            localStorage.setItem('storm_data', JSON.stringify(state));
-        } catch(e) {
-            console.error('Ошибка сохранения:', e);
-        }
-    }
-    function load() {
-        try {
-            const saved = localStorage.getItem('storm_data');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                state = { ...state, ...parsed };
-                // Проверка обязательных полей
-                if (!Array.isArray(state.inventory)) state.inventory = [];
-                if (!Array.isArray(state.market)) state.market = [];
-                if (typeof state.sound !== 'boolean') state.sound = true;
-                if (typeof state.music !== 'boolean') state.music = false;
-                if (typeof state.notifications !== 'boolean') state.notifications = true;
-                if (!state.language) state.language = 'ru';
-                if (!state.graphicsQuality) state.graphicsQuality = 'medium';
-                if (typeof state.soundVolume !== 'number') state.soundVolume = 100;
-                if (typeof state.musicVolume !== 'number') state.musicVolume = 100;
-                if (!state.userName) state.userName = 'Гость';
-                if (!state.userId) state.userId = 'guest';
-                if (typeof state.inviteCount !== 'number') state.inviteCount = 0;
-                if (!state.lastInviteDate) state.lastInviteDate = '';
-            } else {
-                save();
-            }
-        } catch(e) {
-            console.error('Ошибка загрузки:', e);
-        }
-    }
-    function updateBalanceUI() {
-        document.getElementById('balance').textContent = state.balance;
-    }
-    function showToast(message, type = 'info') {
-        const container = document.getElementById('toasts');
-        const toast = document.createElement('div');
-        toast.className = `toast glass px-4 py-2 text-center text-white ${type === 'error' ? 'bg-red-500/70' : type === 'success' ? 'bg-green-500/70' : 'bg-indigo-500/70'}`;
-        toast.textContent = message;
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 2500);
-    }
-    function getItemsByRarity(rarities) {
-        return ITEMS.filter(item => rarities.includes(item.rarity));
-    }
-    function randomItem(caseObj) {
-        const rand = Math.random() * 100;
-        let sum = 0;
-        for (const [rarity, chance] of Object.entries(caseObj.prob)) {
-            sum += chance;
-            if (rand <= sum) {
-                const items = getItemsByRarity([rarity]);
-                if (items.length) return items[Math.floor(Math.random() * items.length)];
-            }
-        }
-        return ITEMS[0];
-    }
-
-    // ==================== ПЕРЕВОДЫ ====================
-    function applyLanguage(lang) {
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (translations[lang] && translations[lang][key]) {
-                el.textContent = translations[lang][key];
-            }
-        });
-        // Дополнительные тексты
-        const caseCards = document.querySelectorAll('.case-card h3');
-        const caseDescs = document.querySelectorAll('.case-card p.text-sm');
-        // Можно оставить как есть, так как названия предметов не переведены
-    }
-    function changeLanguage(lang) {
-        state.language = lang;
-        applyLanguage(lang);
-        save();
-    }
-
-    // ==================== КАЧЕСТВО ГРАФИКИ ====================
-    function changeGraphicsQuality(quality) {
-        state.graphicsQuality = quality;
-        document.body.classList.remove('graphics-low', 'graphics-high');
-        if (quality === 'low') document.body.classList.add('graphics-low');
-        if (quality === 'high') document.body.classList.add('graphics-high');
-        save();
-    }
-
-    // ==================== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК ====================
-    function switchTab(tab) {
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-        document.getElementById(`tab-${tab}`).classList.remove('hidden');
-        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
-        if (tab === 'market') renderMarket();
-        if (tab === 'inventory') renderInventory();
-        if (tab === 'settings') updateSettingsUI();
-    }
-
-    // ==================== КЕЙСЫ ====================
-    let currentCase = null;
-    function openCaseModal(caseId) {
-        currentCase = CASES[caseId];
-        document.getElementById('modal-title').textContent = currentCase.name;
-        document.getElementById('modal-price').textContent = '💰 ' + currentCase.price;
-        const grid = document.getElementById('modal-items');
-        grid.innerHTML = '';
-        const rarities = Object.keys(currentCase.prob);
-        getItemsByRarity(rarities).forEach(item => {
-            const cell = document.createElement('div');
-            cell.className = 'text-center';
-            cell.innerHTML = `<span class="text-2xl">${item.icon}</span><br><small class="rarity-${item.rarity}">${item.name}</small>`;
-            grid.appendChild(cell);
-        });
-        document.getElementById('case-modal').classList.remove('hidden');
-    }
-    function closeCaseModal() {
-        document.getElementById('case-modal').classList.add('hidden');
-        currentCase = null;
-    }
-
-    // Открытие кейса с анимацией
-    function openCase() {
-        if (!currentCase) return;
-        const caseObj = currentCase;
-        if (state.balance < caseObj.price) {
-            showToast('Недостаточно монет', 'error');
-            return;
-        }
-        state.balance -= caseObj.price;
-        updateBalanceUI();
-        save();
-        closeCaseModal();
-        playSound('case_open');
-
-        const overlay = document.getElementById('opening-modal');
-        overlay.classList.remove('hidden');
-        const anim = document.getElementById('case-animation');
-        const reveal = document.getElementById('item-reveal');
-        anim.textContent = caseObj.icon;
-        anim.classList.remove('hidden');
-        reveal.classList.add('hidden');
-        anim.className = 'text-8xl animate-shake';
-
-        setTimeout(() => {
-            anim.className = 'text-8xl animate-spin';
-        }, 800);
-
-        setTimeout(() => {
-            const item = randomItem(caseObj);
-            const existing = state.inventory.find(i => i.id === item.id);
-            if (existing) existing.qty++;
-            else state.inventory.push({ ...item, qty: 1 });
-            save();
-            anim.classList.add('hidden');
-            reveal.classList.remove('hidden');
-            reveal.innerHTML = `
-                <div class="text-8xl animate-reveal glow-${item.rarity} rounded-full p-4">${item.icon}</div>
-                <p class="rarity-${item.rarity} text-2xl font-bold">${item.name}</p>
-                <p class="text-gray-400">${item.type}</p>
-                <p class="text-xl">💰 ${item.price}</p>
-            `;
-            // Частицы
-            for (let i = 0; i < 20; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.cssText = `width:8px;height:8px;background:${['#fff','#ffd700','#4a9eff','#a855f7'][Math.floor(Math.random()*4)]};left:50%;top:50%;--tx:${Math.cos(i)*150}px;--ty:${Math.sin(i)*150}px`;
-                overlay.appendChild(p);
-                setTimeout(() => p.remove(), 1000);
-            }
-            if (!document.getElementById('tab-inventory').classList.contains('hidden')) renderInventory();
-            setTimeout(() => overlay.classList.add('hidden'), 2000);
-        }, 1400);
-    }
-
-    // ==================== ИНВЕНТАРЬ ====================
-    function renderInventory() {
-        const container = document.getElementById('inventory-list');
-        container.innerHTML = '';
-        if (state.inventory.length === 0) {
-            container.innerHTML = `<p class="text-center text-gray-400 py-8" data-i18n="inventoryEmpty">${translations[state.language].inventoryEmpty}</p>`;
-            return;
-        }
-        const groups = {};
-        state.inventory.forEach(item => {
-            if (!groups[item.id]) groups[item.id] = { ...item, qty: 0 };
-            groups[item.id].qty++;
-        });
-        Object.values(groups).forEach(item => {
-            const div = document.createElement('div');
-            div.className = 'glass p-3 flex justify-between items-center';
-            div.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <span class="text-3xl">${item.icon}</span>
-                    <div>
-                        <p class="rarity-${item.rarity} font-semibold">${item.name} ${item.qty>1?`x${item.qty}`:''}</p>
-                        <p class="text-xs text-gray-400">${item.type} • 💰${item.price}</p>
-                    </div>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="sellItem(${item.id})" class="bg-red-500/20 text-red-300 px-3 py-1 rounded-lg" data-i18n="sell">Продать</button>
-                    <button onclick="openSellModal(${item.id})" class="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-lg" data-i18n="list">Выставить</button>
-                </div>
-            `;
-            container.appendChild(div);
-        });
-        // Применяем язык к новым элементам
-        applyLanguage(state.language);
-    }
-    function sellItem(itemId) {
-        const idx = state.inventory.findIndex(i => i.id === itemId);
-        if (idx === -1) return;
-        const item = state.inventory[idx];
-        state.balance += Math.floor(item.price * 0.6); // 60% от цены
-        if (item.qty > 1) item.qty--;
-        else state.inventory.splice(idx, 1);
-        save();
-        updateBalanceUI();
-        renderInventory();
-        showToast(`Продано: ${item.name}`);
-    }
-
-    // ==================== РЫНОК ====================
-    let pendingSellItemId = null;
-    function openSellModal(itemId) {
-        pendingSellItemId = itemId;
-        const item = state.inventory.find(i => i.id === itemId);
-        if (!item) return;
-        document.getElementById('sell-item-name').textContent = `${item.icon} ${item.name}`;
-        document.getElementById('sell-price-input').value = '';
-        document.getElementById('sell-modal').classList.remove('hidden');
-    }
-    function closeSellModal() {
-        document.getElementById('sell-modal').classList.add('hidden');
-        pendingSellItemId = null;
-    }
-    function confirmSell() {
-        if (!pendingSellItemId) return;
-        const price = parseInt(document.getElementById('sell-price-input').value);
-        if (!price || price < 1) {
-            showToast('Введите корректную цену', 'error');
-            return;
-        }
-        const idx = state.inventory.findIndex(i => i.id === pendingSellItemId);
-        if (idx === -1) { closeSellModal(); return; }
-        const item = state.inventory[idx];
-        if (item.qty > 1) item.qty--;
-        else state.inventory.splice(idx, 1);
-        state.market.push({ item: { ...item, qty: 1 }, seller: 'Вы', price });
-        save();
-        updateBalanceUI();
-        closeSellModal();
-        renderInventory();
-        renderMarket();
-        showToast(`Предмет выставлен на рынок за ${price} 💰`);
-    }
-    function renderMarket() {
-        const container = document.getElementById('market-list');
-        container.innerHTML = '';
-        const search = document.getElementById('market-search')?.value.toLowerCase() || '';
-        const filter = document.getElementById('market-filter')?.value || 'all';
-        let listings = state.market;
-        // Фильтрация
-        if (filter !== 'all') {
-            listings = listings.filter(l => l.item.category === filter);
-        }
-        if (search) {
-            listings = listings.filter(l => l.item.name.toLowerCase().includes(search) || l.seller.toLowerCase().includes(search));
-        }
-        if (listings.length === 0) {
-            container.innerHTML = `<p class="text-center text-gray-400 py-8" data-i18n="marketEmpty">${translations[state.language].marketEmpty}</p>`;
-            return;
-        }
-        listings.forEach((listing, idx) => {
-            const div = document.createElement('div');
-            div.className = 'glass p-3 flex justify-between items-center';
-            const isOwn = listing.seller === 'Вы';
-            const actionBtn = isOwn
-                ? `<button onclick="removeFromMarket(${idx})" class="bg-red-500/20 text-red-300 px-3 py-1 rounded-lg">${translations[state.language].remove}</button>`
-                : `<button onclick="buyFromMarket(${idx})" class="bg-green-500/20 text-green-300 px-3 py-1 rounded-lg">${translations[state.language].buy}</button>`;
-            div.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <span class="text-3xl">${listing.item.icon}</span>
-                    <div>
-                        <p class="rarity-${listing.item.rarity}">${listing.item.name}</p>
-                        <p class="text-xs text-gray-400">${listing.seller} • 💰${listing.price}</p>
-                    </div>
-                </div>
-                ${actionBtn}
-            `;
-            container.appendChild(div);
-        });
-        applyLanguage(state.language);
-    }
-    function buyFromMarket(idx) {
-        const listing = state.market[idx];
-        if (!listing) return;
-        if (state.balance < listing.price) {
-            showToast('Недостаточно монет', 'error');
-            return;
-        }
-        state.balance -= listing.price;
-        const existing = state.inventory.find(i => i.id === listing.item.id);
-        if (existing) existing.qty++;
-        else state.inventory.push({ ...listing.item, qty: 1 });
-        state.market.splice(idx, 1);
-        save();
-        updateBalanceUI();
-        renderMarket();
-        if (!document.getElementById('tab-inventory').classList.contains('hidden')) renderInventory();
-        showToast(`Куплено: ${listing.item.name}`);
-    }
-    function removeFromMarket(idx) {
-        const listing = state.market[idx];
-        if (!listing) return;
-        const existing = state.inventory.find(i => i.id === listing.item.id);
-        if (existing) existing.qty++;
-        else state.inventory.push({ ...listing.item, qty: 1 });
-        state.market.splice(idx, 1);
-        save();
-        renderMarket();
-        renderInventory();
-        showToast('Предмет снят с продажи');
-    }
-
-    // ==================== ДОНАТ ====================
-    function showDonate() { document.getElementById('donate-modal').classList.remove('hidden'); }
-    function closeDonate() { document.getElementById('donate-modal').classList.add('hidden'); }
-    function donate(stars) {
-        const coins = stars === 10 ? 500 : stars === 50 ? 3000 : 10000;
-        state.balance += coins;
-        updateBalanceUI();
-        save();
-        closeDonate();
-        showToast(`+${coins} монет`);
-    }
-
-    // ==================== НАСТРОЙКИ ====================
-    function toggleSound() {
-        state.sound = !state.sound;
-        document.getElementById('sound-toggle').classList.toggle('active', state.sound);
-        save();
-    }
-    function toggleNotifications() {
-        state.notifications = !state.notifications;
-        document.getElementById('notifications-toggle').classList.toggle('active', state.notifications);
-        save();
-    }
-    function changeSoundVolume(val) {
-        state.soundVolume = parseInt(val);
-        document.getElementById('sound-volume-label').textContent = val + '%';
-        save();
-    }
-    function changeMusicVolume(val) {
-        state.musicVolume = parseInt(val);
-        document.getElementById('music-volume-label').textContent = val + '%';
-        if (musicPlayer) musicPlayer.volume = state.musicVolume / 100;
-        save();
-    }
-    function updateUserName(name) {
-        state.userName = name.trim() || 'Гость';
-        document.getElementById('user-name-input').value = state.userName;
-        save();
-    }
-    function updateSettingsUI() {
-        document.getElementById('sound-toggle').classList.toggle('active', state.sound);
-        document.getElementById('music-toggle').classList.toggle('active', state.music);
-        document.getElementById('notifications-toggle').classList.toggle('active', state.notifications);
-        document.getElementById('language-select').value = state.language;
-        document.getElementById('graphics-quality').value = state.graphicsQuality;
-        document.getElementById('sound-volume-label').textContent = state.soundVolume + '%';
-        document.querySelector('input[oninput="changeSoundVolume(this.value)"]').value = state.soundVolume;
-        document.getElementById('music-volume-label').textContent = state.musicVolume + '%';
-        document.querySelector('input[oninput="changeMusicVolume(this.value)"]').value = state.musicVolume;
-        document.getElementById('user-name-input').value = state.userName;
-        document.getElementById('user-id').textContent = state.userId;
-        applyLanguage(state.language);
-        changeGraphicsQuality(state.graphicsQuality);
-    }
-    function resetProgress() {
-        if (confirm('Сбросить весь прогресс?')) {
-            state = {
-                balance: 500,
-                inventory: [],
-                sound: true,
-                music: false,
-                notifications: true,
-                language: 'ru',
-                graphicsQuality: 'medium',
-                soundVolume: 100,
-                musicVolume: 100,
-                market: [],
-                userName: 'Гость',
-                userId: 'guest',
-                inviteCount: 0,
-                lastInviteDate: '',
-            };
-            save();
-            updateBalanceUI();
-            switchTab('cases');
-            renderInventory();
-            renderMarket();
-            updateSettingsUI();
-        }
-    }
-
-    // ==================== ЕЖЕДНЕВНАЯ НАГРАДА ====================
-    function claimDaily() {
-        const lastClaim = parseInt(localStorage.getItem('last_daily_claim') || '0');
-        const now = Date.now();
-        if (now - lastClaim >= 24 * 60 * 60 * 1000) {
-            state.balance += 200;
-            localStorage.setItem('last_daily_claim', now.toString());
-            save();
-            updateBalanceUI();
-            showToast('Ежедневная награда получена: +200 💰', 'success');
-        } else {
-            const hoursLeft = Math.ceil((24 * 60 * 60 * 1000 - (now - lastClaim)) / (60 * 60 * 1000));
-            showToast(`Награда будет доступна через ${hoursLeft} ч.`, 'error');
-        }
-    }
-
-    // ==================== ПРИГЛАШЕНИЕ ДРУГА ====================
-    function generateInviteLink() {
-        const inviteCode = Math.random().toString(36).substring(2, 10);
-        return `https://t.me/YourBot?start=invite_${inviteCode}`;
-    }
-    function inviteFriend() {
-        // Проверка на лимит (5 приглашений в день)
-        const today = new Date().toDateString();
-        if (state.lastInviteDate !== today) {
-            state.inviteCount = 0;
-            state.lastInviteDate = today;
-        }
-        if (state.inviteCount >= 5) {
-            showToast('Лимит приглашений на сегодня исчерпан', 'error');
-            return;
-        }
-        const link = generateInviteLink();
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(link).then(() => showToast('Ссылка скопирована!'));
-        } else {
-            prompt('Скопируйте ссылку:', link);
-        }
-        // Начисляем монеты
-        state.balance += 100;
-        state.inviteCount++;
-        save();
-        updateBalanceUI();
-        showToast('+100 💰 за приглашение (демо)', 'success');
-    }
-
-    // ==================== ИНИЦИАЛИЗАЦИЯ ====================
-    function initTelegram() {
-        if (window.Telegram?.WebApp) {
-            const tg = window.Telegram.WebApp;
-            tg.ready();
-            tg.expand();
-            tg.setHeaderColor('#0a0a0f');
-            tg.setBackgroundColor('#0a0a0f');
-            if (tg.initDataUnsafe?.user) {
-                state.userId = tg.initDataUnsafe.user.id;
-                state.userName = tg.initDataUnsafe.user.first_name || 'Гость';
-            }
-        }
-    }
-    window.onload = function() {
-        initTelegram();
-        load();
-        updateBalanceUI();
-        switchTab('cases');
-        updateSettingsUI();
-        initAudio();
-        console.log('STORM CASES запущен');
-    };
-</script>
+    <!-- ==================== ПОДКЛЮЧЕНИЕ СКРИПТОВ ==================== -->
+    <script src="js/config.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/cases.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="js/market.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
