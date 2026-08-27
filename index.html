@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>STORM CASES</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Экран авторизации -->
+        <div class="screen active" id="screen-auth">
+            <div class="auth-header">
+                <h1>STORM CASES</h1>
+                <p>Игровая платформа кейсов</p>
+            </div>
+            <div class="glass auth-form">
+                <h3>Вход / Регистрация</h3>
+                <input type="text" id="auth-nick" placeholder="Никнейм" maxlength="20">
+                <input type="password" id="auth-pass" placeholder="Пароль" maxlength="50">
+                <div class="auth-buttons">
+                    <button class="btn btn-primary" id="btn-login">Войти</button>
+                    <button class="btn btn-secondary" id="btn-register">Создать</button>
+                </div>
+                <p id="auth-error" class="error-text"></p>
+            </div>
+        </div>
+
+        <!-- Экран выбора сервера -->
+        <div class="screen" id="screen-servers">
+            <div class="header">
+                <h2>Выбор сервера</h2>
+                <button class="btn btn-secondary btn-sm" id="btn-logout-account">Выйти</button>
+            </div>
+            <p class="subtitle">Выберите сервер для игры</p>
+            <div id="server-list"></div>
+        </div>
+
+        <!-- Экран правил сервера -->
+        <div class="screen" id="screen-rules">
+            <div class="header">
+                <h2 id="rules-server-name">Правила</h2>
+                <button class="btn btn-secondary btn-sm" id="btn-cancel-rules">Назад</button>
+            </div>
+            <div class="glass rules-box">
+                <h3>Правила сервера</h3>
+                <ul>
+                    <li>Запрещено использование читов и эксплойтов</li>
+                    <li>Уважайте других игроков</li>
+                    <li>Запрещён спам и флуд в чате</li>
+                    <li>Администрация всегда права</li>
+                    <li>Мошенничество на рынке запрещено</li>
+                </ul>
+            </div>
+            <button class="btn btn-primary accept-rules" id="btn-accept-rules">Принять правила</button>
+        </div>
+
+        <!-- Основной интерфейс -->
+        <div class="screen" id="screen-main">
+            <div class="header main-header">
+                <div>
+                    <h2 id="main-server-label">Сервер: —</h2>
+                    <p id="main-nick-label" class="nick-label"></p>
+                </div>
+                <div class="balance-display" id="balance-display" title="Нажмите для пополнения">
+                    💰 <span id="main-balance">0</span>
+                </div>
+            </div>
+            <div id="main-warnings"></div>
+            <div id="main-content"></div>
+        </div>
+
+        <!-- Навигация -->
+        <div class="navbar" id="navbar" style="display:none;">
+            <button class="nav-item active" data-tab="cases">Кейсы</button>
+            <button class="nav-item" data-tab="inventory">Инвентарь</button>
+            <button class="nav-item" data-tab="market">Рынок</button>
+            <button class="nav-item" data-tab="chat">Чат</button>
+            <button class="nav-item" data-tab="settings">Настройки</button>
+        </div>
+
+        <!-- Модальное окно -->
+        <div class="modal-overlay" id="modal-overlay" style="display:none;">
+            <div class="modal" id="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
