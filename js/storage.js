@@ -9,102 +9,27 @@ const STORAGE_KEYS = {
 // ===== СОХРАНЕНИЕ =====
 function save() {
     try {
-        // Проверяем, что state существует и корректен
-        if (!state || typeof state !== 'object') {
-            console.error('❌ Некорректное состояние');
+        if (!state) {
+            console.error('❌ State не инициализирован');
             return;
         }
-
-        // Создаем копию для сохранения
-        const dataToSave = JSON.parse(JSON.stringify(state));
-
-        localStorage.setItem(STORAGE_KEYS.state, JSON.stringify(dataToSave));
+        localStorage.setItem(STORAGE_KEYS.state, JSON.stringify(state));
         console.log('✅ Данные сохранены');
     } catch (error) {
         console.error('❌ Ошибка сохранения:', error);
-        showToast('Ошибка сохранения данных', 'error');
     }
 }
+
 // ===== ЗАГРУЗКА =====
 function load() {
+    console.log('🔄 Начинаем загрузку данных...');
+    
     try {
         const savedData = localStorage.getItem(STORAGE_KEYS.state);
-        if (savedData) {
-            const parsed = JSON.parse(savedData);
-
-            // Создаем новое состояние с значениями по умолчанию
-            const defaultState = {
-                balance: CONFIG.startBalance,
-                inventory: [],
-                sound: true,
-                notifications: true,
-                soundVolume: 100,
-                market: [],
-                userName: 'Гость',
-                userId: 'guest',
-                stats: {
-                    casesOpened: 0,
-                    itemsReceived: 0,
-                    totalSpent: 0,
-                    totalEarned: 0,
-                    bestDrop: null,
-                },
-            };
-
-            // Объединяем с сохраненными данными, но проверяем каждый элемент
-            state = {
-                ...defaultState,
-                ...parsed,
-            };
-
-            // Явно проверяем и исправляем каждое поле
-            if (!Array.isArray(state.inventory)) {
-                state.inventory = [];
-            } else {
-                // Проверяем каждый предмет в инвентаре
-                state.inventory = state.inventory.filter(item =>
-                    item && typeof item === 'object' && item.name
-                );
-            }
-
-            if (!Array.isArray(state.market)) {
-                state.market = [];
-            } else {
-                // Проверяем каждое предложение на рынке
-                state.market = state.market.filter(listing =>
-                    listing && typeof listing === 'object' && listing.item
-                );
-            }
-
-            if (!state.stats || typeof state.stats !== 'object') {
-                state.stats = {
-                    casesOpened: 0,
-                    itemsReceived: 0,
-                    totalSpent: 0,
-                    totalEarned: 0,
-                    bestDrop: null,
-                };
-            } else {
-                // Проверяем поля stats
-                state.stats.casesOpened = state.stats.casesOpened || 0;
-                state.stats.itemsReceived = state.stats.itemsReceived || 0;
-                state.stats.totalSpent = state.stats.totalSpent || 0;
-                state.stats.totalEarned = state.stats.totalEarned || 0;
-                state.stats.bestDrop = state.stats.bestDrop || null;
-            }
-
-            if (typeof state.sound !== 'boolean') state.sound = true;
-            if (typeof state.notifications !== 'boolean') state.notifications = true;
-            if (typeof state.soundVolume !== 'number') state.soundVolume = 100;
-            if (typeof state.balance !== 'number' || isNaN(state.balance)) state.balance = CONFIG.startBalance;
-            if (!state.userName || typeof state.userName !== 'string') state.userName = 'Гость';
-            if (!state.userId) state.userId = 'guest';
-
-            console.log('✅ Данные загружены:', state);
-            return true;
-        } else {
-            console.log('📝 Первый запуск, создаём сохранение');
-            // Инициализируем состояние с нуля
+        
+        if (!savedData) {
+            console.log('📝 Нет сохраненных данных, создаем новые');
+            // Создаем новое состояние
             state = {
                 balance: CONFIG.startBalance,
                 inventory: [],
@@ -123,16 +48,55 @@ function load() {
                 },
             };
             save();
-            return false;
+            console.log('✅ Новое состояние создано');
+            return true;
         }
+        
+        console.log('📥 Найдены сохраненные данные');
+        const parsed = JSON.parse(savedData);
+        console.log('📄 Распарсенные данные:', parsed);
+        
+        // Создаем состояние с проверкой всех полей
+        state = {
+            balance: typeof parsed.balance === 'number' && !isNaN(parsed.balance) 
+                ? parsed.balance 
+                : CONFIG.startBalance,
+            inventory: Array.isArray(parsed.inventory) 
+                ? parsed.inventory.filter(item => item && typeof item === 'object') 
+                : [],
+            sound: typeof parsed.sound === 'boolean' ? parsed.sound : true,
+            notifications: typeof parsed.notifications === 'boolean' ? parsed.notifications : true,
+            soundVolume: typeof parsed.soundVolume === 'number' ? parsed.soundVolume : 100,
+            market: Array.isArray(parsed.market) 
+                ? parsed.market.filter(item => item && typeof item === 'object') 
+                : [],
+            userName: typeof parsed.userName === 'string' && parsed.userName 
+                ? parsed.userName 
+                : 'Гость',
+            userId: parsed.userId || 'guest',
+            stats: {
+                casesOpened: parsed.stats?.casesOpened || 0,
+                itemsReceived: parsed.stats?.itemsReceived || 0,
+                totalSpent: parsed.stats?.totalSpent || 0,
+                totalEarned: parsed.stats?.totalEarned || 0,
+                bestDrop: parsed.stats?.bestDrop || null,
+            },
+        };
+        
+        console.log('✅ Данные успешно загружены:', state);
+        return true;
+        
     } catch (error) {
-        console.error('❌ Ошибка загрузки:', error);
-        console.log('🔄 Сброс данных из-за ошибки');
-
-        // Сбрасываем localStorage
-        localStorage.removeItem(STORAGE_KEYS.state);
-
-        // Инициализируем состояние с нуля
+        console.error('❌ Ошибка при загрузке данных:', error);
+        console.log('🔄 Сбрасываем поврежденные данные');
+        
+        try {
+            localStorage.removeItem(STORAGE_KEYS.state);
+        } catch (e) {
+            console.error('❌ Не удалось очистить localStorage:', e);
+        }
+        
+        // Создаем новое состояние
         state = {
             balance: CONFIG.startBalance,
             inventory: [],
@@ -150,12 +114,12 @@ function load() {
                 bestDrop: null,
             },
         };
-
-        save();
-        showToast('Данные были сброшены', 'error');
+        
+        console.log('✅ Создано новое состояние после ошибки');
         return false;
     }
 }
+
 // ===== ПОЛНАЯ ОЧИСТКА =====
 function clearAllData() {
     try {
@@ -172,20 +136,34 @@ function clearAllData() {
 
 // ===== ЕЖЕДНЕВНАЯ НАГРАДА =====
 function canClaimDaily() {
-    const lastClaim = parseInt(localStorage.getItem(STORAGE_KEYS.dailyClaim) || '0');
-    const now = Date.now();
-    return now - lastClaim >= 24 * 60 * 60 * 1000;
+    try {
+        const lastClaim = parseInt(localStorage.getItem(STORAGE_KEYS.dailyClaim) || '0');
+        const now = Date.now();
+        return now - lastClaim >= 24 * 60 * 60 * 1000;
+    } catch (error) {
+        console.error('❌ Ошибка проверки ежедневной награды:', error);
+        return true;
+    }
 }
 
 function setDailyClaimed() {
-    localStorage.setItem(STORAGE_KEYS.dailyClaim, Date.now().toString());
+    try {
+        localStorage.setItem(STORAGE_KEYS.dailyClaim, Date.now().toString());
+    } catch (error) {
+        console.error('❌ Ошибка установки ежедневной награды:', error);
+    }
 }
 
 function getTimeUntilNextDaily() {
-    const lastClaim = parseInt(localStorage.getItem(STORAGE_KEYS.dailyClaim) || '0');
-    const now = Date.now();
-    const diff = 24 * 60 * 60 * 1000 - (now - lastClaim);
-    return diff > 0 ? diff : 0;
+    try {
+        const lastClaim = parseInt(localStorage.getItem(STORAGE_KEYS.dailyClaim) || '0');
+        const now = Date.now();
+        const diff = 24 * 60 * 60 * 1000 - (now - lastClaim);
+        return diff > 0 ? diff : 0;
+    } catch (error) {
+        console.error('❌ Ошибка получения времени до награды:', error);
+        return 0;
+    }
 }
 
 // ===== ПРИГЛАШЕНИЯ =====
@@ -198,22 +176,31 @@ function getInvites() {
 }
 
 function addInvite(userId) {
-    const invites = getInvites();
-    invites.push({
-        userId: userId,
-        timestamp: Date.now(),
-    });
-    localStorage.setItem(STORAGE_KEYS.invites, JSON.stringify(invites));
+    try {
+        const invites = getInvites();
+        invites.push({
+            userId: userId,
+            timestamp: Date.now(),
+        });
+        localStorage.setItem(STORAGE_KEYS.invites, JSON.stringify(invites));
+    } catch (error) {
+        console.error('❌ Ошибка добавления приглашения:', error);
+    }
 }
 
 function canInvite() {
-    const invites = getInvites();
-    const today = new Date().toDateString();
-    const todayInvites = invites.filter(inv => new Date(inv.timestamp).toDateString() === today);
-    return todayInvites.length < CONFIG.maxInvitesPerDay;
+    try {
+        const invites = getInvites();
+        const today = new Date().toDateString();
+        const todayInvites = invites.filter(inv => new Date(inv.timestamp).toDateString() === today);
+        return todayInvites.length < CONFIG.maxInvitesPerDay;
+    } catch (error) {
+        console.error('❌ Ошибка проверки приглашений:', error);
+        return false;
+    }
 }
 
-// ===== ЭКСПОРТ / ИМПОРТ (при необходимости) =====
+// ===== ЭКСПОРТ / ИМПОРТ =====
 function exportData() {
     try {
         const data = {
@@ -223,7 +210,7 @@ function exportData() {
         };
         return JSON.stringify(data);
     } catch (error) {
-        console.error('Ошибка экспорта:', error);
+        console.error('❌ Ошибка экспорта:', error);
         return null;
     }
 }
@@ -238,18 +225,15 @@ function importData(jsonString) {
         }
         return false;
     } catch (error) {
-        console.error('Ошибка импорта:', error);
+        console.error('❌ Ошибка импорта:', error);
         return false;
     }
 }
-// Функция для полного сброса данных
+
+// ===== ФУНКЦИЯ СБРОСА =====
 function resetAllData() {
     try {
-        localStorage.removeItem(STORAGE_KEYS.state);
-        localStorage.removeItem(STORAGE_KEYS.dailyClaim);
-        localStorage.removeItem(STORAGE_KEYS.invites);
-
-        // Сбрасываем состояние
+        clearAllData();
         state = {
             balance: CONFIG.startBalance,
             inventory: [],
@@ -267,14 +251,14 @@ function resetAllData() {
                 bestDrop: null,
             },
         };
-
-        console.log('✅ Все данные сброшены');
+        save();
+        console.log('✅ Данные сброшены');
         return true;
     } catch (error) {
-        console.error('❌ Ошибка сброса данных:', error);
+        console.error('❌ Ошибка сброса:', error);
         return false;
     }
 }
 
-// Экспортируем функцию
+// Экспортируем функции
 window.resetAllData = resetAllData;
