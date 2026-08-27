@@ -1,7 +1,7 @@
 :root {
     --bg: #0a0a0f;
-    --glass: rgba(255, 255, 255, 0.05);
-    --border: rgba(255, 255, 255, 0.1);
+    --glass: rgba(255,255,255,0.05);
+    --border: rgba(255,255,255,0.1);
     --accent: #6c5ce7;
     --gold: #ffd700;
     --red: #ef4444;
@@ -37,6 +37,7 @@ body {
     background: #0a0a0f;
 }
 
+/* Шапка */
 .header {
     display: flex;
     justify-content: space-between;
@@ -171,6 +172,7 @@ body {
     color: #6b6b7b;
 }
 
+/* Кнопки */
 .btn {
     padding: 10px 14px;
     border-radius: 12px;
@@ -186,47 +188,16 @@ body {
     transform: scale(0.95);
 }
 
-.btn-sell {
-    background: rgba(239, 68, 68, 0.2);
-    color: var(--red);
-}
+.btn-sell { background: rgba(239,68,68,0.2); color: var(--red); }
+.btn-list { background: rgba(245,158,11,0.2); color: #f59e0b; }
+.btn-buy { background: rgba(16,185,129,0.2); color: var(--green); }
+.btn-craft { background: rgba(168,85,247,0.2); color: var(--purple); }
+.btn-primary { background: linear-gradient(135deg,#6c5ce7,#a855f7); color: #fff; width: 100%; padding: 14px; font-size: 16px; }
+.btn-secondary { background: var(--glass); color: #fff; width: 100%; padding: 14px; border: 1px solid var(--border); }
+.btn-remove { background: rgba(239,68,68,0.2); color: var(--red); }
+.btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
 
-.btn-list {
-    background: rgba(245, 158, 11, 0.2);
-    color: #f59e0b;
-}
-
-.btn-buy {
-    background: rgba(16, 185, 129, 0.2);
-    color: var(--green);
-}
-
-.btn-craft {
-    background: rgba(168, 85, 247, 0.2);
-    color: var(--purple);
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #6c5ce7, #a855f7);
-    color: #fff;
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
-}
-
-.btn-secondary {
-    background: var(--glass);
-    color: #fff;
-    width: 100%;
-    padding: 14px;
-    border: 1px solid var(--border);
-}
-
-.btn-remove {
-    background: rgba(239, 68, 68, 0.2);
-    color: var(--red);
-}
-
+/* Настройки */
 .settings-section {
     background: var(--glass);
     border: 1px solid var(--border);
@@ -246,13 +217,14 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 12px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .settings-row:last-child {
     border-bottom: none;
 }
 
+/* Переключатель */
 .switch {
     width: 50px;
     height: 25px;
@@ -263,9 +235,7 @@ body {
     transition: all 0.3s;
 }
 
-.switch.active {
-    background: var(--accent);
-}
+.switch.active { background: var(--accent); }
 
 .switch::after {
     content: '';
@@ -279,10 +249,9 @@ body {
     transition: all 0.3s;
 }
 
-.switch.active::after {
-    left: 27px;
-}
+.switch.active::after { left: 27px; }
 
+/* Нижняя навигация */
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -297,7 +266,7 @@ body {
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
-    background: rgba(26, 26, 46, 0.95);
+    background: rgba(26,26,46,0.95);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 8px;
@@ -318,19 +287,11 @@ body {
     position: relative;
 }
 
-.nav-btn.active {
-    color: var(--accent);
-}
+.nav-btn.active { color: var(--accent); }
+.nav-icon { font-size: 22px; }
+.nav-label { font-size: 10px; font-weight: 600; }
 
-.nav-icon {
-    font-size: 22px;
-}
-
-.nav-label {
-    font-size: 10px;
-    font-weight: 600;
-}
-
+/* Модальные окна */
 .modal {
     position: fixed;
     inset: 0;
@@ -344,13 +305,13 @@ body {
 .modal-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0,0,0,0.7);
     backdrop-filter: blur(5px);
 }
 
 .modal-content {
     position: relative;
-    background: rgba(26, 26, 46, 0.95);
+    background: rgba(26,26,46,0.95);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 24px;
@@ -360,11 +321,12 @@ body {
     overflow-y: auto;
 }
 
+/* Анимация открытия кейса */
 .opening-overlay {
     position: fixed;
     inset: 0;
     z-index: 60;
-    background: rgba(0, 0, 0, 0.95);
+    background: rgba(0,0,0,0.95);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -376,7 +338,7 @@ body {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
+    0%,100% { transform: translateX(0); }
     20% { transform: translateX(-10px) rotate(-5deg); }
     40% { transform: translateX(10px) rotate(5deg); }
     60% { transform: translateX(-5px); }
@@ -404,6 +366,7 @@ body {
     100% { transform: scale(1) rotate(0); opacity: 1; }
 }
 
+/* Тосты */
 .toasts {
     position: fixed;
     top: 20px;
@@ -422,10 +385,9 @@ body {
     margin-bottom: 8px;
 }
 
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }
 
+/* Формы */
 .form-input {
     width: 100%;
     padding: 14px;
@@ -438,15 +400,16 @@ body {
     outline: none;
 }
 
-.form-input:focus {
-    border-color: var(--accent);
-}
+.form-input:focus { border-color: var(--accent); }
 
 textarea.form-input {
     min-height: 100px;
     resize: vertical;
     font-family: inherit;
 }
+
+.form-group { margin-bottom: 12px; }
+.form-label { display: block; margin-bottom: 4px; font-size: 13px; color: #ccc; }
 
 /* Чат */
 .chat-tabs {
@@ -463,9 +426,7 @@ textarea.form-input {
     font-size: 12px;
 }
 
-.chat-tab.active {
-    background: var(--accent);
-}
+.chat-tab.active { background: var(--accent); }
 
 .chat-messages {
     display: flex;
@@ -491,29 +452,13 @@ textarea.form-input {
 .chat-bubble {
     padding: 8px 12px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255,255,255,0.1);
 }
 
-.my-msg .chat-bubble {
-    background: var(--accent);
-}
-
-.chat-user {
-    font-size: 12px;
-    color: #6b6b7b;
-    margin-bottom: 2px;
-}
-
-.chat-text {
-    font-size: 14px;
-    word-break: break-word;
-}
-
-.chat-time {
-    font-size: 10px;
-    color: #6b6b7b;
-    margin-top: 2px;
-}
+.my-msg .chat-bubble { background: var(--accent); }
+.chat-user { font-size: 12px; color: #6b6b7b; margin-bottom: 2px; }
+.chat-text { font-size: 14px; word-break: break-word; }
+.chat-time { font-size: 10px; color: #6b6b7b; margin-top: 2px; }
 
 /* Админ-панель */
 .admin-tabs {
@@ -534,9 +479,7 @@ textarea.form-input {
     transition: all 0.3s;
 }
 
-.admin-tab.active {
-    background: var(--accent);
-}
+.admin-tab.active { background: var(--accent); }
 
 .admin-btn {
     margin: 4px;
@@ -552,28 +495,12 @@ textarea.form-input {
     border-bottom: 1px solid var(--border);
 }
 
-.player-row span {
-    font-size: 13px;
-}
+.player-row span { font-size: 13px; }
 
-.form-group {
-    margin-bottom: 12px;
-}
-
-.form-label {
-    display: block;
-    margin-bottom: 4px;
-    font-size: 13px;
-    color: #ccc;
-}
-
-/* Прокрутка админ-контента */
 #admin-content {
     max-height: 60vh;
     overflow-y: auto;
 }
 
 /* Мифические предметы */
-.mythic {
-    color: var(--mythic);
-}
+.mythic { color: var(--mythic); }
