@@ -2,10 +2,14 @@
 
 let pendingSellItemId = null;
 
+// ===== ОТОБРАЖЕНИЕ РЫНКА =====
 function renderMarket() {
     const container = document.getElementById('market-list');
     
-    if (!container) return;
+    if (!container) {
+        console.error('Контейнер рынка не найден');
+        return;
+    }
     
     container.innerHTML = '';
     
@@ -44,38 +48,66 @@ function renderMarket() {
     });
 }
 
+// ===== ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ВЫСТАВЛЕНИЯ =====
 function openSellModal(itemId) {
-    pendingSellItemId = itemId;
+    console.log('Открытие модального окна для предмета:', itemId);
     
     const item = getItemById(itemId);
+    
     if (!item) {
         showToast('Предмет не найден', 'error');
         return;
     }
     
-    document.getElementById('sell-item-name').textContent = `${item.icon} ${item.name}`;
-    document.getElementById('sell-price-input').value = item.price;
-    document.getElementById('sell-modal').classList.remove('hidden');
+    pendingSellItemId = itemId;
+    
+    // Заполняем информацию
+    const nameElement = document.getElementById('sell-item-name');
+    const priceInput = document.getElementById('sell-price-input');
+    const modal = document.getElementById('sell-modal');
+    
+    if (!nameElement || !priceInput || !modal) {
+        console.error('Элементы модального окна не найдены');
+        showToast('Ошибка интерфейса', 'error');
+        return;
+    }
+    
+    nameElement.textContent = `${item.icon} ${item.name}`;
+    priceInput.value = item.price;
+    
+    // Показываем модальное окно
+    modal.classList.remove('hidden');
+    
+    console.log('Модальное окно открыто');
 }
 
+// ===== ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА =====
 function closeSellModal() {
-    document.getElementById('sell-modal').classList.add('hidden');
+    const modal = document.getElementById('sell-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
     pendingSellItemId = null;
 }
 
+// ===== ПОДТВЕРЖДЕНИЕ ВЫСТАВЛЕНИЯ =====
 function confirmSell() {
+    console.log('Подтверждение выставления, itemId:', pendingSellItemId);
+    
     if (!pendingSellItemId) {
         showToast('Предмет не выбран', 'error');
         return;
     }
     
-    const price = parseInt(document.getElementById('sell-price-input').value);
+    const priceInput = document.getElementById('sell-price-input');
+    const price = parseInt(priceInput.value);
     
     if (!price || price < 1) {
         showToast('Введите корректную цену', 'error');
         return;
     }
     
+    // Ищем предмет в инвентаре
     const index = state.inventory.findIndex(i => i.id === pendingSellItemId);
     
     if (index === -1) {
@@ -98,13 +130,19 @@ function confirmSell() {
     });
     
     save();
+    
+    // Закрываем модальное окно
     closeSellModal();
+    
+    // Обновляем интерфейс
     renderMarket();
     renderInventory();
     
     showToast(`✅ Выставлено за 💰 ${price}`, 'success');
+    hapticFeedback('success');
 }
 
+// ===== ПОКУПКА =====
 function buyFromMarket(index) {
     const listing = state.market[index];
     
@@ -127,6 +165,7 @@ function buyFromMarket(index) {
     showToast(`✅ Куплено: ${listing.item.name}`, 'success');
 }
 
+// ===== СНЯТИЕ С РЫНКА =====
 function removeFromMarket(index) {
     const listing = state.market[index];
     
@@ -142,7 +181,7 @@ function removeFromMarket(index) {
     showToast('✅ Снято с продажи', 'success');
 }
 
-// Экспорт
+// ===== ЭКСПОРТ =====
 window.renderMarket = renderMarket;
 window.openSellModal = openSellModal;
 window.closeSellModal = closeSellModal;
