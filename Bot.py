@@ -9,6 +9,7 @@ import logging
 import json
 from datetime import datetime
 
+from aiogram.client.default import DefaultBotProperties
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import CommandStart, Command
 from aiogram.types import (
@@ -29,7 +30,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ==================== ИНИЦИАЛИЗАЦИЯ ====================
-bot = Bot(token=BOT_TOKEN, parse_mode=ParseMode.HTML)
+bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 db = Database()
 
