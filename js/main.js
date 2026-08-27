@@ -102,7 +102,7 @@ function showRegistration() {
             <h2 style="text-align:center;margin-bottom:16px">👤 Регистрация</h2>
             <input id="reg-username" class="form-input" placeholder="Придумайте ник">
             <input id="reg-password" type="password" class="form-input" placeholder="Придумайте пароль">
-            <button class="btn btn-primary" onclick="registerAccount()">Создать аккаунт</button>
+            <button class="btn btn-primary" onclick="closeModal(this.closest('.modal'))">Принять</button>
             <p style="text-align:center;margin-top:8px;font-size:12px">Уже есть аккаунт? <span style="color:var(--accent);cursor:pointer" onclick="showLogin()">Войти</span></p>
         </div>
     `;
@@ -198,7 +198,7 @@ function showServerRules() {
                 <p>4. Администрация всегда права.</p>
                 <p>5. 1 предупреждение - ограничения, 2 - запрет торговли, 3 - бан на 7 дней.</p>
             </div>
-            <button class="btn btn-primary" onclick="this.parentElement.remove()">Принять</button>
+            <button class="btn btn-primary" onclick="closeModal(this.closest('.modal')); renderCases();">Принять</button>
         </div>
     `;
     document.body.appendChild(modal);
@@ -725,6 +725,19 @@ function showConfirmModal(icon, text, priceText, callback) {
     `;
     document.body.appendChild(modal);
     document.getElementById('confirm-btn').onclick = () => { modal.remove(); callback(); };
+}
+
+function closeModal(modalElement) {
+    if (modalElement && modalElement.classList.contains('modal')) {
+        modalElement.remove();
+    } else if (modalElement) {
+        const modal = modalElement.closest('.modal');
+        if (modal) modal.remove();
+    }
+}
+
+function closeAllModals() {
+    document.querySelectorAll('.modal').forEach(m => m.remove());
 }
 
 // ==================== ЗАПУСК ====================
