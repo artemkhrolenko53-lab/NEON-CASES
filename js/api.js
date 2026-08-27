@@ -2,42 +2,44 @@
 
 const tg = window.Telegram?.WebApp;
 
+// ===== ИНИЦИАЛИЗАЦИЯ =====
 function initTelegram() {
     if (!tg) {
-        console.log('⚠️ Telegram WebApp не обнаружен, работаем в браузере');
+        console.log('⚠️ Telegram WebApp не обнаружен');
         return;
     }
 
     try {
         tg.ready();
         tg.expand();
-
+        
         tg.setHeaderColor('#0a0a0f');
         tg.setBackgroundColor('#0a0a0f');
-
+        
         if (tg.initDataUnsafe?.user) {
             state.userId = tg.initDataUnsafe.user.id;
             state.userName = tg.initDataUnsafe.user.first_name || 'Гость';
             updateUserInfo();
         }
-
+        
         console.log('✅ Telegram WebApp инициализирован');
     } catch (error) {
-        console.error('❌ Ошибка инициализации Telegram:', error);
+        console.error('❌ Ошибка инициализации:', error);
     }
 }
 
 function updateUserInfo() {
     const userIdElement = document.getElementById('user-id');
     const userNameInput = document.getElementById('user-name-input');
-
+    
     if (userIdElement) userIdElement.textContent = state.userId;
     if (userNameInput) userNameInput.value = state.userName;
 }
 
+// ===== ВИБРАЦИЯ =====
 function hapticFeedback(type = 'light') {
     if (!tg?.HapticFeedback) return;
-
+    
     try {
         switch(type) {
             case 'light': tg.HapticFeedback.impactOccurred('light'); break;
@@ -52,9 +54,10 @@ function hapticFeedback(type = 'light') {
     }
 }
 
+// ===== ОТПРАВКА ДАННЫХ В БОТА =====
 function sendDataToBot(data) {
     if (!tg) return;
-
+    
     try {
         tg.sendData(JSON.stringify(data));
     } catch (error) {
@@ -62,30 +65,29 @@ function sendDataToBot(data) {
     }
 }
 
-// ===== ДОНАТ (ИСПРАВЛЕННЫЙ) =====
+// ===== ДОНАТ (ИСПРАВЛЕН) =====
 function donate(stars) {
     const option = DONATION_OPTIONS[stars];
     if (!option) {
         showToast('Неверный пакет', 'error');
         return;
     }
-
+    
     closeDonate();
-
+    
     if (tg) {
-        // Открываем бота для оплаты
-        tg.openTelegramLink(`https://t.me/YOUR_BOT_USERNAME?start=donate_${stars}`);
+        // Открываем бота с параметром для оплаты
+        tg.openTelegramLink(`https://t.me/${BOT_USERNAME}?start=donate_${stars}`);
     } else {
-        // В браузере показываем сообщение
         showToast('Оплата доступна только в Telegram', 'error');
     }
 }
 
-// ===== ПРИГЛАШЕНИЕ ДРУГА (ИСПРАВЛЕННОЕ) =====
+// ===== ПРИГЛАШЕНИЕ ДРУГА (ИСПРАВЛЕНО) =====
 function inviteFriend() {
     const inviteCode = generateInviteCode();
-    const inviteLink = `https://t.me/YOUR_BOT_USERNAME?start=invite_${inviteCode}`;
-
+    const inviteLink = `https://t.me/${BOT_USERNAME}?start=invite_${inviteCode}`;
+    
     showInviteModal(inviteLink);
 }
 
@@ -107,7 +109,7 @@ function showInviteModal(link) {
             </button>
         </div>
     `;
-
+    
     showModal(modalHTML);
 }
 
@@ -132,10 +134,11 @@ function generateInviteCode() {
     return Math.random().toString(36).substring(2, 8);
 }
 
+// ===== ОБРАБОТКА ВХОДЯЩИХ ДАННЫХ =====
 function handleIncomingData(data) {
     try {
         const parsed = JSON.parse(data);
-
+        
         switch(parsed.action) {
             case 'add_balance':
                 addBalance(parsed.amount);
@@ -158,48 +161,18 @@ function handleIncomingData(data) {
 
 function setupEventHandlers() {
     if (!tg) return;
-
+    
     tg.onEvent('mainButtonClicked', () => {
         console.log('Main button clicked');
     });
-
+    
     tg.onEvent('message', (data) => {
         handleIncomingData(data);
     });
 }
 
+// ===== ЗВУКИ =====
 function playSound(type) {
     if (!state.sound) return;
     console.log(`🔊 Звук: ${type}`);
-}
-
-function toggleMusic() {
-    state.music = !state.music;
-    document.getElementById('music-toggle').classList.toggle('active', state.music);
-
-    if (state.music) {
-        startMusic();
-    } else {
-        stopMusic();
-    }
-
-    save();
-}
-
-function startMusic() {
-    if (!musicPlayer) {
-        musicPlayer = new Audio();
-        musicPlayer.loop = true;
-        musicPlayer.volume = state.musicVolume / 100;
-    }
-
-    musicPlayer.play().catch(() => {
-        console.log('⚠️ Не удалось воспроизвести музыку');
-    });
-}
-
-function stopMusic() {
-    if (musicPlayer) {
-        musicPlayer.pause();
-    }
 }
