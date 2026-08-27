@@ -1,11 +1,9 @@
-// ==================== STORM CASES - РАБОТА С ХРАНИЛИЩЕМ ====================
+// ==================== STORM CASES - ХРАНИЛИЩЕ ДАННЫХ ====================
 
-// ===== КЛЮЧИ ДЛЯ LOCALSTORAGE =====
 const STORAGE_KEYS = {
     state: 'storm_data',
     dailyClaim: 'last_daily_claim',
     invites: 'storm_invites',
-    settings: 'storm_settings',
 };
 
 // ===== СОХРАНЕНИЕ =====
@@ -25,13 +23,13 @@ function load() {
         const savedData = localStorage.getItem(STORAGE_KEYS.state);
         if (savedData) {
             const parsed = JSON.parse(savedData);
-
+            
             // Объединяем с текущим состоянием
             state = { ...state, ...parsed };
-
-            // Проверка на отсутствующие поля
-            if (!state.inventory) state.inventory = [];
-            if (!state.market) state.market = [];
+            
+            // Проверка и восстановление полей
+            if (!Array.isArray(state.inventory)) state.inventory = [];
+            if (!Array.isArray(state.market)) state.market = [];
             if (!state.stats) {
                 state.stats = {
                     casesOpened: 0,
@@ -41,16 +39,13 @@ function load() {
                     bestDrop: null,
                 };
             }
-            if (state.sound === undefined) state.sound = true;
-            if (state.music === undefined) state.music = false;
-            if (state.notifications === undefined) state.notifications = true;
-            if (state.language === undefined) state.language = 'ru';
-            if (state.graphicsQuality === undefined) state.graphicsQuality = 'medium';
-            if (state.soundVolume === undefined) state.soundVolume = 100;
-            if (state.musicVolume === undefined) state.musicVolume = 100;
-            if (state.userName === undefined) state.userName = 'Гость';
-            if (state.userId === undefined) state.userId = 'guest';
-
+            if (typeof state.sound !== 'boolean') state.sound = true;
+            if (typeof state.notifications !== 'boolean') state.notifications = true;
+            if (typeof state.soundVolume !== 'number') state.soundVolume = 100;
+            if (typeof state.balance !== 'number') state.balance = CONFIG.startBalance;
+            if (!state.userName) state.userName = 'Гость';
+            if (!state.userId) state.userId = 'guest';
+            
             console.log('✅ Данные загружены');
             return true;
         } else {
@@ -65,7 +60,7 @@ function load() {
     }
 }
 
-// ===== СБРОС ДАННЫХ =====
+// ===== ПОЛНАЯ ОЧИСТКА =====
 function clearAllData() {
     try {
         localStorage.removeItem(STORAGE_KEYS.state);
@@ -79,7 +74,7 @@ function clearAllData() {
     }
 }
 
-// ===== ПРОВЕРКА ЕЖЕДНЕВНОЙ НАГРАДЫ =====
+// ===== ЕЖЕДНЕВНАЯ НАГРАДА =====
 function canClaimDaily() {
     const lastClaim = parseInt(localStorage.getItem(STORAGE_KEYS.dailyClaim) || '0');
     const now = Date.now();
@@ -122,7 +117,7 @@ function canInvite() {
     return todayInvites.length < CONFIG.maxInvitesPerDay;
 }
 
-// ===== ЭКСПОРТ/ИМПОРТ ДАННЫХ =====
+// ===== ЭКСПОРТ / ИМПОРТ (при необходимости) =====
 function exportData() {
     try {
         const data = {
