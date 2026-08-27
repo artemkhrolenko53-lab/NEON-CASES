@@ -1,4 +1,4 @@
-// ==================== STORM CASES - ЛОГИКА КЕЙСОВ (ИСПРАВЛЕНО) ====================
+// ==================== STORM CASES - ЛОГИКА КЕЙСОВ ====================
 
 function openCaseModal(caseId) {
     currentCase = CASES[caseId];
@@ -39,7 +39,6 @@ function closeCaseModal() {
 function openCase() {
     if (!currentCase || isOpening) return;
     
-    // Сохраняем объект кейса ДО закрытия модального окна
     const caseObj = currentCase;
     
     if (!spendBalance(caseObj.price)) {
@@ -48,7 +47,7 @@ function openCase() {
         return;
     }
     
-    closeCaseModal(); // теперь currentCase = null, но caseObj остаётся
+    closeCaseModal();
     isOpening = true;
     playSound('open');
     hapticFeedback('medium');
@@ -61,18 +60,15 @@ function openCase() {
     anim.classList.remove('hidden');
     reveal.classList.add('hidden');
     
-    // Используем caseObj вместо currentCase
     anim.textContent = caseObj.icon;
     anim.className = 'text-8xl animate-shake';
     
-    // Фаза 1: Тряска (0.8 сек)
     setTimeout(() => {
         anim.className = 'text-8xl animate-spin';
     }, 800);
     
-    // Фаза 2: Вращение и результат (1.4 сек)
     setTimeout(() => {
-        const item = getRandomItem(caseObj); // используем caseObj
+        const item = getRandomItem(caseObj);
         
         addItemToInventory(item);
         incrementCasesOpened();
@@ -102,7 +98,6 @@ function openCase() {
             overlay.classList.add('hidden');
             isOpening = false;
         }, 2000);
-        
     }, 1400);
 }
 
