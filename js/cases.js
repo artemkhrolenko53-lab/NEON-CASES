@@ -1,6 +1,5 @@
-// ==================== STORM CASES - ЛОГИКА КЕЙСОВ ====================
+// ==================== STORM CASES - ЛОГИКА КЕЙСОВ (ИСПРАВЛЕНО) ====================
 
-// ===== ОТКРЫТИЕ МОДАЛЬНОГО ОКНА КЕЙСА =====
 function openCaseModal(caseId) {
     currentCase = CASES[caseId];
     
@@ -32,23 +31,24 @@ function openCaseModal(caseId) {
     hapticFeedback('light');
 }
 
-// ===== ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА =====
 function closeCaseModal() {
     document.getElementById('case-modal').classList.add('hidden');
     currentCase = null;
 }
 
-// ===== ОТКРЫТИЕ КЕЙСА =====
 function openCase() {
     if (!currentCase || isOpening) return;
     
-    if (!spendBalance(currentCase.price)) {
+    // Сохраняем объект кейса ДО закрытия модального окна
+    const caseObj = currentCase;
+    
+    if (!spendBalance(caseObj.price)) {
         showToast('Недостаточно монет', 'error');
         hapticFeedback('error');
         return;
     }
     
-    closeCaseModal();
+    closeCaseModal(); // теперь currentCase = null, но caseObj остаётся
     isOpening = true;
     playSound('open');
     hapticFeedback('medium');
@@ -61,17 +61,18 @@ function openCase() {
     anim.classList.remove('hidden');
     reveal.classList.add('hidden');
     
-    anim.textContent = currentCase.icon;
+    // Используем caseObj вместо currentCase
+    anim.textContent = caseObj.icon;
     anim.className = 'text-8xl animate-shake';
     
-    // Фаза 1: Тряска
+    // Фаза 1: Тряска (0.8 сек)
     setTimeout(() => {
         anim.className = 'text-8xl animate-spin';
     }, 800);
     
-    // Фаза 2: Вращение и результат
+    // Фаза 2: Вращение и результат (1.4 сек)
     setTimeout(() => {
-        const item = getRandomItem(currentCase);
+        const item = getRandomItem(caseObj); // используем caseObj
         
         addItemToInventory(item);
         incrementCasesOpened();
@@ -101,10 +102,10 @@ function openCase() {
             overlay.classList.add('hidden');
             isOpening = false;
         }, 2000);
+        
     }, 1400);
 }
 
-// ===== ВЫБОР СЛУЧАЙНОГО ПРЕДМЕТА =====
 function getRandomItem(caseObj) {
     const rand = Math.random() * 100;
     let cumulative = 0;
@@ -122,7 +123,6 @@ function getRandomItem(caseObj) {
     return ITEMS[0];
 }
 
-// ===== СОЗДАНИЕ ЧАСТИЦ =====
 function createParticles(rarity) {
     const colors = {
         common: ['#ffffff', '#cccccc', '#999999'],
@@ -159,7 +159,6 @@ function createParticles(rarity) {
     }
 }
 
-// ===== ЕЖЕДНЕВНАЯ НАГРАДА =====
 function claimDaily() {
     if (!canClaimDaily()) {
         const timeLeft = getTimeUntilNextDaily();
