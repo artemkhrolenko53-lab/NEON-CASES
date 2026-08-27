@@ -142,35 +142,10 @@
                         <div id="sound-toggle" class="switch active" onclick="toggleSound()"></div>
                     </div>
                     
-                    <!-- Музыка -->
-                    <div class="flex items-center justify-between">
-                        <span>🎵 Музыка</span>
-                        <div id="music-toggle" class="switch" onclick="toggleMusic()"></div>
-                    </div>
-                    
                     <!-- Уведомления -->
                     <div class="flex items-center justify-between">
                         <span>🔔 Уведомления</span>
                         <div id="notifications-toggle" class="switch active" onclick="toggleNotifications()"></div>
-                    </div>
-                    
-                    <!-- Язык -->
-                    <div>
-                        <label class="block mb-1 text-sm">🌍 Язык</label>
-                        <select id="language-select" class="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white" onchange="changeLanguage(this.value)">
-                            <option value="ru" class="bg-gray-800">Русский</option>
-                            <option value="en" class="bg-gray-800">English</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Качество графики -->
-                    <div>
-                        <label class="block mb-1 text-sm">🎨 Качество графики</label>
-                        <select id="graphics-quality" class="w-full bg-white/10 border border-white/20 rounded-lg p-2 text-white" onchange="changeGraphicsQuality(this.value)">
-                            <option value="low" class="bg-gray-800">Низкое</option>
-                            <option value="medium" class="bg-gray-800" selected>Среднее</option>
-                            <option value="high" class="bg-gray-800">Высокое</option>
-                        </select>
                     </div>
                     
                     <!-- Громкость звука -->
@@ -179,24 +154,10 @@
                         <input type="range" min="0" max="100" value="100" class="w-full" oninput="changeSoundVolume(this.value)">
                     </div>
                     
-                    <!-- Громкость музыки -->
-                    <div>
-                        <label class="block mb-1 text-sm">🎵 Громкость музыки: <span id="music-volume-label">100%</span></label>
-                        <input type="range" min="0" max="100" value="100" class="w-full" oninput="changeMusicVolume(this.value)">
-                    </div>
-                    
-                    <!-- Дополнительно -->
-                    <div class="border-t border-white/10 pt-3 space-y-2">
+                    <!-- Статистика -->
+                    <div class="border-t border-white/10 pt-3">
                         <button onclick="showFullStats()" class="w-full bg-white/10 text-white py-3 rounded-lg hover:bg-white/20 transition">
                             📊 Показать статистику
-                        </button>
-                        
-                        <button onclick="showHelp()" class="w-full bg-white/10 text-white py-3 rounded-lg hover:bg-white/20 transition">
-                            ❓ Как играть?
-                        </button>
-                        
-                        <button onclick="showAbout()" class="w-full bg-white/10 text-white py-3 rounded-lg hover:bg-white/20 transition">
-                            ℹ️ О приложении
                         </button>
                     </div>
                     
