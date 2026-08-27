@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>STORM CASES - Кейсы и предметы</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Шапка -->
+        <header class="header glass">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">STORM CASES</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="balance-btn glass" onclick="showDonate()">
+                    <span class="balance-icon">💰</span>
+                    <span class="balance-value" id="balance">0</span>
+                    <span class="balance-plus">+</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Контент -->
+        <main class="main-content">
+            <!-- Вкладка кейсов -->
+            <div id="tab-cases" class="tab-content active">
+                <div id="cases-list" class="cases-list"></div>
+            </div>
+
+            <!-- Вкладка рынка -->
+            <div id="tab-market" class="tab-content hidden">
+                <div id="market-list" class="market-list"></div>
+            </div>
+
+            <!-- Вкладка инвентаря -->
+            <div id="tab-inventory" class="tab-content hidden">
+                <div id="inventory-list" class="inventory-list"></div>
+            </div>
+
+            <!-- Вкладка настроек -->
+            <div id="tab-settings" class="tab-content hidden">
+                <div id="settings-list" class="settings-list"></div>
+            </div>
+        </main>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <div class="nav-container glass-strong">
+                <button class="nav-btn active" data-tab="cases" onclick="switchTab('cases')">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-label">Кейсы</span>
+                </button>
+                <button class="nav-btn" data-tab="market" onclick="switchTab('market')">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-label">Рынок</span>
+                </button>
+                <button class="nav-btn" data-tab="inventory" onclick="switchTab('inventory')">
+                    <span class="nav-icon">🎒</span>
+                    <span class="nav-label">Инвентарь</span>
+                </button>
+                <button class="nav-btn" data-tab="settings" onclick="switchTab('settings')">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-label">Настройки</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Модальное окно кейса -->
+        <div id="case-modal" class="modal hidden">
+            <div class="modal-overlay" onclick="closeCaseModal()"></div>
+            <div class="modal-content glass-strong">
+                <div class="modal-header">
+                    <h3 id="modal-title" class="modal-title"></h3>
+                    <button class="modal-close" onclick="closeCaseModal()">✕</button>
+                </div>
+                <p id="modal-price" class="modal-price"></p>
+                <div id="modal-items" class="modal-items"></div>
+                <div class="modal-actions">
+                    <button onclick="openCase()" class="btn btn-primary btn-block">
+                        🎮 Открыть кейс
+                    </button>
+                    <button onclick="closeCaseModal()" class="btn btn-secondary btn-block">
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно открытия -->
+        <div id="opening-modal" class="modal hidden">
+            <div class="modal-overlay-dark"></div>
+            <div class="opening-content">
+                <div id="case-animation" class="case-animation"></div>
+                <div id="item-reveal" class="item-reveal hidden"></div>
+            </div>
+        </div>
+
+        <!-- Модальное окно выставления на рынок -->
+        <div id="sell-modal" class="modal hidden">
+            <div class="modal-overlay" onclick="closeSellModal()"></div>
+            <div class="modal-content glass-strong">
+                <div class="modal-header">
+                    <h3 class="modal-title">📊 Выставить на рынок</h3>
+                    <button class="modal-close" onclick="closeSellModal()">✕</button>
+                </div>
+                <p id="sell-item-name" class="sell-item-name"></p>
+                <div class="form-group">
+                    <label class="form-label">Цена</label>
+                    <input id="sell-price-input" type="number" class="form-input" placeholder="Введите цену" min="1">
+                </div>
+                <div class="modal-actions">
+                    <button onclick="confirmSell()" class="btn btn-warning btn-block">
+                        📊 Выставить
+                    </button>
+                    <button onclick="closeSellModal()" class="btn btn-secondary btn-block">
+                        Отмена
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно доната -->
+        <div id="donate-modal" class="modal hidden">
+            <div class="modal-overlay" onclick="closeDonate()"></div>
+            <div class="modal-content glass-strong">
+                <div class="modal-header">
+                    <h3 class="modal-title">⭐ Пополнение баланса</h3>
+                    <button class="modal-close" onclick="closeDonate()">✕</button>
+                </div>
+                <div id="donate-options" class="donate-options"></div>
+                <button onclick="closeDonate()" class="btn btn-secondary btn-block">
+                    Закрыть
+                </button>
+            </div>
+        </div>
+
+        <!-- Тосты -->
+        <div id="toasts" class="toasts"></div>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="config.js"></script>
+    <script src="state.js"></script>
+    <script src="storage.js"></script>
+    <script src="api.js"></script>
+    <script src="cases.js"></script>
+    <script src="inventory.js"></script>
+    <script src="market.js"></script>
+    <script src="settings.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
