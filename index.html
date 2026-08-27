@@ -268,14 +268,19 @@
 </section>
 
     <!-- ==================== ПОДКЛЮЧЕНИЕ СКРИПТОВ ==================== -->
-<script src="js/config.js"></script>   <!-- 1 -->
-<script src="js/state.js"></script>    <!-- 2 -->
-<script src="js/storage.js"></script>  <!-- 3 -->
-<script src="js/api.js"></script>      <!-- 4 -->
-<script src="js/cases.js"></script>    <!-- 5 -->
-<script src="js/inventory.js"></script><!-- 6 -->
-<script src="js/market.js"></script>   <!-- 7 -->
-<script src="js/settings.js"></script> <!-- 8 -->
-<script src="js/main.js"></script>     <!-- 9 -->
+<!-- Сначала конфигурация -->
+<script src="config.js"></script>
+<!-- Потом состояние -->
+<script src="state.js"></script>
+<!-- Потом хранилище -->
+<script src="storage.js"></script>
+<!-- Потом все остальные -->
+<script src="telegram.js"></script>
+<script src="cases.js"></script>
+<script src="inventory.js"></script>
+<script src="market.js"></script>
+<script src="settings.js"></script>
+<!-- Главный файл последним -->
+<script src="main.js"></script>
 </body>
 </html>
