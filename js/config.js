@@ -1,8 +1,11 @@
 // ==================== STORM CASES - КОНФИГУРАЦИЯ ====================
 
+// ===== ИМЯ БОТА =====
+const BOT_USERNAME = 'StormCases_Bot'; // ← ЗАМЕНИТЕ НА ВАШЕ ИМЯ БОТА БЕЗ @
+
 // ===== ПРЕДМЕТЫ =====
 const ITEMS = [
-    // ===== COMMON (Обычные) =====
+    // ===== COMMON =====
     { id: 1, name: 'Glock-18', type: 'Пистолет', rarity: 'common', price: 30, icon: '🔫' },
     { id: 2, name: 'P250', type: 'Пистолет', rarity: 'common', price: 45, icon: '🔫' },
     { id: 3, name: 'MP9', type: 'ПП', rarity: 'common', price: 60, icon: '🔫' },
@@ -14,7 +17,7 @@ const ITEMS = [
     { id: 9, name: 'Sawed-Off', type: 'Дробовик', rarity: 'common', price: 65, icon: '🔫' },
     { id: 10, name: 'MAC-10', type: 'ПП', rarity: 'common', price: 50, icon: '🔫' },
 
-    // ===== RARE (Редкие) =====
+    // ===== RARE =====
     { id: 11, name: 'AK-47', type: 'Винтовка', rarity: 'rare', price: 180, icon: '🔫' },
     { id: 12, name: 'M4A4', type: 'Винтовка', rarity: 'rare', price: 220, icon: '🔫' },
     { id: 13, name: 'Desert Eagle', type: 'Пистолет', rarity: 'rare', price: 250, icon: '🔫' },
@@ -24,7 +27,7 @@ const ITEMS = [
     { id: 17, name: 'P90', type: 'ПП', rarity: 'rare', price: 210, icon: '🔫' },
     { id: 18, name: 'Galil AR', type: 'Винтовка', rarity: 'rare', price: 190, icon: '🔫' },
 
-    // ===== EPIC (Эпические) =====
+    // ===== EPIC =====
     { id: 19, name: 'AWP', type: 'Снайперская', rarity: 'epic', price: 450, icon: '🔫' },
     { id: 20, name: 'M4A1-S', type: 'Винтовка', rarity: 'epic', price: 500, icon: '🔫' },
     { id: 21, name: 'Butterfly Knife', type: 'Нож', rarity: 'epic', price: 600, icon: '🗡️' },
@@ -32,7 +35,7 @@ const ITEMS = [
     { id: 23, name: 'Specialist Gloves', type: 'Перчатки', rarity: 'epic', price: 550, icon: '🧤' },
     { id: 24, name: 'SCAR-20', type: 'Снайперская', rarity: 'epic', price: 480, icon: '🔫' },
 
-    // ===== LEGENDARY (Легендарные) =====
+    // ===== LEGENDARY =====
     { id: 25, name: 'Karambit', type: 'Нож', rarity: 'legendary', price: 1200, icon: '🗡️' },
     { id: 26, name: 'Dragon Lore', type: 'Снайперская', rarity: 'legendary', price: 2500, icon: '🔫' },
     { id: 27, name: 'Pandora Gloves', type: 'Перчатки', rarity: 'legendary', price: 1800, icon: '🧤' },
@@ -48,7 +51,6 @@ const CASES = [
         name: 'Обычный кейс',
         price: 80,
         icon: '📦',
-        description: 'Common 85% • Rare 15%',
         prob: { common: 85, rare: 15 },
     },
     {
@@ -56,7 +58,6 @@ const CASES = [
         name: 'Редкий кейс',
         price: 280,
         icon: '🎁',
-        description: 'Rare 80% • Epic 20%',
         prob: { rare: 80, epic: 20 },
     },
     {
@@ -64,7 +65,6 @@ const CASES = [
         name: 'Легендарный кейс',
         price: 650,
         icon: '💎',
-        description: 'Epic 85% • Legendary 15%',
         prob: { epic: 85, legendary: 15 },
     },
 ];
@@ -76,57 +76,11 @@ const DONATION_OPTIONS = {
     100: { stars: 100, coins: 10000 },
 };
 
-// ===== ПЕРЕВОДЫ =====
-const translations = {
-    ru: {
-        cases: '📦 Кейсы',
-        market: '📊 Рынок',
-        inventory: '🎒 Инвентарь',
-        settings: '⚙️ Настройки',
-        sound: 'Звук',
-        music: 'Музыка',
-        notifications: 'Уведомления',
-        language: 'Язык',
-        graphics: 'Качество графики',
-        dailyReward: 'Ежедневная награда',
-        invite: 'Пригласить друга',
-        navCases: 'Кейсы',
-        navMarket: 'Рынок',
-        navInventory: 'Инвентарь',
-        navSettings: 'Настройки',
-        open: 'Открыть',
-        donateTitle: 'Пополнение баланса',
-        sellTitle: 'Выставить на рынок',
-        balance: 'Баланс',
-    },
-    en: {
-        cases: '📦 Cases',
-        market: '📊 Market',
-        inventory: '🎒 Inventory',
-        settings: '⚙️ Settings',
-        sound: 'Sound',
-        music: 'Music',
-        notifications: 'Notifications',
-        language: 'Language',
-        graphics: 'Graphics Quality',
-        dailyReward: 'Daily Reward',
-        invite: 'Invite Friend',
-        navCases: 'Cases',
-        navMarket: 'Market',
-        navInventory: 'Inventory',
-        navSettings: 'Settings',
-        open: 'Open',
-        donateTitle: 'Replenish Balance',
-        sellTitle: 'List on Market',
-        balance: 'Balance',
-    },
-};
-
-// ===== КОНФИГУРАЦИЯ =====
+// ===== ОБЩИЕ НАСТРОЙКИ =====
 const CONFIG = {
     startBalance: 500,
     dailyReward: 200,
     inviteReward: 100,
-    sellMultiplier: 0.6, // Продажа за 60% от цены
+    sellMultiplier: 0.6, // продажа за 60% от цены
     maxInvitesPerDay: 5,
 };
