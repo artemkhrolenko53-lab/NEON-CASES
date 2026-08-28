@@ -7,7 +7,7 @@ from aiogram.types import Message, WebAppInfo, InlineKeyboardMarkup, InlineKeybo
 from aiogram.client.default import DefaultBotProperties
 
 # Токен бота (замените!)
-BOT_TOKEN = "1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"
+BOT_TOKEN = "8907615374:AAE9oS1KbtKtEuVCnNteDPQmg1ojGXaN2sk"
 # Ссылка на Mini App
 WEBAPP_URL = "https://artemkhrolenko53-lab.github.io/NEON-CASES/"
 
