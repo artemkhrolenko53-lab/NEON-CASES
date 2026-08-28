@@ -195,6 +195,7 @@
                 const headers = {
                     'Content-Type': 'application/json',
                     'X-Telegram-Init-Data': initData,
+                    'bypass-tunnel-reminder': 'true'
                 };
                 const config = { method, headers };
                 if (body) config.body = JSON.stringify(body);
