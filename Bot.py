@@ -21,12 +21,14 @@ processed_actions = set()
 # Инициализация БД
 db.init_db()
 
+
 # ---------- Вспомогательные функции ----------
 def get_user(user_id):
     conn = db.get_conn()
     user = conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone()
     conn.close()
     return user
+
 
 def create_user(user_id, nickname=None):
     conn = db.get_conn()
@@ -44,6 +46,7 @@ def create_user(user_id, nickname=None):
         conn.commit()
     conn.close()
 
+
 def get_or_create_user(user_id, nickname=None):
     user = get_user(user_id)
     if not user:
@@ -51,21 +54,25 @@ def get_or_create_user(user_id, nickname=None):
         user = get_user(user_id)
     return user
 
+
 def update_balance(user_id, delta):
     conn = db.get_conn()
     conn.execute("UPDATE users SET balance = balance + ? WHERE user_id = ?", (delta, user_id))
     conn.commit()
     conn.close()
 
+
 def add_item_to_inventory(user_id, item_id, rarity):
     conn = db.get_conn()
     user = conn.execute("SELECT inventory FROM users WHERE user_id = ?", (user_id,)).fetchone()
     if user:
         inv = json.loads(user['inventory'])
-        inv.append({"uid": int(time.time()*1000), "item_id": item_id, "rarity": rarity, "obtained_at": int(time.time())})
+        inv.append(
+            {"uid": int(time.time() * 1000), "item_id": item_id, "rarity": rarity, "obtained_at": int(time.time())})
         conn.execute("UPDATE users SET inventory = ? WHERE user_id = ?", (json.dumps(inv), user_id))
         conn.commit()
     conn.close()
+
 
 def log_action(server, admin_id, action, details):
     conn = db.get_conn()
@@ -74,20 +81,22 @@ def log_action(server, admin_id, action, details):
     conn.commit()
     conn.close()
 
+
 # ---------- Обработчики команд ----------
 @dp.message(CommandStart())
 async def start(message: Message):
     # Создаём пользователя при первом запуске
     nickname = message.from_user.full_name or f"player{message.from_user.id}"
     get_or_create_user(message.from_user.id, nickname)
-    
+
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🎁 Открыть STORM CASES", web_app=WebAppInfo(url=config.WEBAPP_URL))]
+        [InlineKeyboardButton(text="🎁 Открыть STORM CASES", web_app=WebAppInfo(url=config.https://artemkhrolenko53-lab.github.io/NEON-CASES/))]
     ])
     await message.answer(
         "Добро пожаловать в STORM CASES! Открывай кейсы, собирай коллекцию и торгуй на рынке.",
         reply_markup=keyboard
     )
+
 
 @dp.message(Command("profile"))
 async def profile(message: Message):
@@ -101,6 +110,7 @@ async def profile(message: Message):
         f"🌐 Сервер: {user['server']}"
     )
 
+
 @dp.message(Command("help"))
 async def help_cmd(message: Message):
     await message.answer(
@@ -112,6 +122,7 @@ async def help_cmd(message: Message):
         "/admin - панель администратора (только для админов)"
     )
 
+
 @dp.message(Command("donate"))
 async def donate(message: Message):
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
@@ -120,6 +131,7 @@ async def donate(message: Message):
         [InlineKeyboardButton(text="⭐ 100 звёзд = 10000 монет", callback_data="donate_100")],
     ])
     await message.answer("Выберите пакет пополнения:", reply_markup=keyboard)
+
 
 @dp.callback_query(lambda c: c.data and c.data.startswith("donate_"))
 async def process_donate(callback: types.CallbackQuery):
@@ -135,6 +147,7 @@ async def process_donate(callback: types.CallbackQuery):
     else:
         await callback.answer("Ошибка", show_alert=True)
 
+
 @dp.message(Command("admin"))
 async def admin_panel(message: Message):
     user_id = message.from_user.id
@@ -144,7 +157,7 @@ async def admin_panel(message: Message):
     conn = db.get_conn()
     admin = conn.execute("SELECT level FROM admins WHERE server = ? AND user_id = ?", (server, user_id)).fetchone()
     conn.close()
-    
+
     if user_id == config.OWNER_ID:
         level = 5
     elif admin:
@@ -156,7 +169,9 @@ async def admin_panel(message: Message):
     # Показываем простую статистику
     conn = db.get_conn()
     total_users = conn.execute("SELECT COUNT(*) as cnt FROM users WHERE server = ?", (server,)).fetchone()['cnt']
-    open_tickets = conn.execute("SELECT COUNT(*) as cnt FROM tickets WHERE server = ? AND status = 'open'", (server,)).fetchone()['cnt']
+    open_tickets = \
+    conn.execute("SELECT COUNT(*) as cnt FROM tickets WHERE server = ? AND status = 'open'", (server,)).fetchone()[
+        'cnt']
     conn.close()
 
     text = (
@@ -175,6 +190,7 @@ async def admin_panel(message: Message):
         f"/admin_tickets — список тикетов"
     )
     await message.answer(text)
+
 
 @dp.message(Command("admin_give"))
 async def admin_give(message: Message):
@@ -203,6 +219,7 @@ async def admin_give(message: Message):
         conn.close()
         await message.answer("❌ Игрок не найден")
 
+
 # Другие admin-команды (ban, unban, mute, unmute, logs, tickets) реализуются аналогично.
 
 def is_admin(user_id):
@@ -212,6 +229,7 @@ def is_admin(user_id):
     admin = conn.execute("SELECT level FROM admins WHERE user_id = ?", (user_id,)).fetchone()
     conn.close()
     return admin is not None
+
 
 # ---------- Обработка данных из Mini App ----------
 @dp.message(F.content_type == "web_app_data")
@@ -276,7 +294,8 @@ async def handle_web_app_data(message: Message):
         conn.execute("""
             INSERT INTO chat_messages (server, sender_id, sender_nick, text, recipient_id, is_private, timestamp)
             VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (server, user_id, user['nickname'], text, data.get("recipient_id"), 1 if data.get("private") else 0, int(time.time())))
+        """, (server, user_id, user['nickname'], text, data.get("recipient_id"), 1 if data.get("private") else 0,
+              int(time.time())))
         conn.commit()
         conn.close()
 
@@ -293,10 +312,12 @@ async def handle_web_app_data(message: Message):
     else:
         await message.answer("Данные получены")
 
+
 # ---------- Запуск ----------
 async def main():
     logging.basicConfig(level=logging.INFO)
     await dp.start_polling(bot)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
