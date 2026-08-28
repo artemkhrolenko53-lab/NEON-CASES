@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Токен бота
-BOT_TOKEN = os.getenv("BOT_TOKEN", "ВАШ_ТОКЕН_БОТА")
+BOT_TOKEN = os.getenv("8907615374:AAE9oS1KbtKtEuVCnNteDPQmg1ojGXaN2sk", "ВАШ_ТОКЕН_БОТА")
 
 # Telegram ID владельца
 OWNER_ID = 8601398572
