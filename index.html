@@ -626,9 +626,9 @@
                 allItems = gameState.items || {};
                 allCases = gameState.cases || [];
                 allServers = gameState.servers || [];
-                
+
                 adminLevel = isOwner() ? 5 : 0;
-                
+
                 updateMainUI();
                 renderCases();
             } catch (e) {
@@ -688,7 +688,7 @@
             updateMainUI();
             let html = '';
             allCases.forEach(cs => {
-                const chancesStr = Object.keys(cs.chances).filter(k => cs.chances[k] > 0).map(k => 
+                const chancesStr = Object.keys(cs.chances).filter(k => cs.chances[k] > 0).map(k =>
                     `${RARITY_LABELS[k]}: ${Math.round(cs.chances[k]*100)}%`).join(' | ');
                 html += `
                     <div class="case-card" onclick="showCaseDetails('${cs.id}')" style="border-color:${cs.color || '#7c3aed'}44;">
@@ -734,14 +734,14 @@
                     </div>
                     <p class="text-center text-muted">Открываем...</p>
                 `);
-                
+
                 const result = await apiCall('/api/action', 'POST', {
                     type: 'open_case',
                     case_id: caseId
                 });
-                
+
                 currentUser.balance = result.new_balance;
-                
+
                 setTimeout(() => {
                     caseOpeningInProgress = false;
                     openModal(`
@@ -771,7 +771,7 @@
             const searchTerm = (document.getElementById('inv-search')?.value || '').toLowerCase();
             const activeFilters = [];
             document.querySelectorAll('.inv-filter-checkbox:checked').forEach(cb => activeFilters.push(cb.value));
-            
+
             let filtered = inv;
             if (searchTerm) {
                 filtered = filtered.filter(item => {
@@ -782,7 +782,7 @@
             if (activeFilters.length > 0) {
                 filtered = filtered.filter(item => activeFilters.includes(item.rarity));
             }
-            
+
             let itemsHtml = '';
             if (filtered.length === 0) {
                 itemsHtml = `<div class="empty-state"><div class="icon">🎒</div>Нет предметов</div>`;
@@ -806,7 +806,7 @@
                     `;
                 });
             }
-            
+
             mainContent.innerHTML = `
                 <h3 class="mb-8">🎒 Инвентарь</h3>
                 <div class="flex-row gap-8 mb-8">
@@ -971,7 +971,7 @@
                             </div>
                             <div class="flex-col gap-6">
                                 <span class="price-tag">${l.price}💰</span>
-                                ${isOwn ? 
+                                ${isOwn ?
                                     `<button class="btn btn-xs btn-secondary" onclick="cancelListing(${l.uid})">Снять</button>` :
                                     `<button class="btn btn-xs btn-success" onclick="buyMarket(${l.uid})">Купить</button>`
                                 }
@@ -1023,7 +1023,7 @@
             updateMainUI();
             const isPrivate = chatTab === 'private';
             const messages = isPrivate ? (gameState.private_chat || []) : (gameState.chat || []);
-            
+
             let msgsHtml = '';
             if (messages.length === 0) {
                 msgsHtml = `<div class="empty-state"><div class="icon">💬</div>Нет сообщений</div>`;
@@ -1039,7 +1039,7 @@
                     `;
                 });
             }
-            
+
             const chatHeader = isPrivate ?
                 `<div class="flex-row gap-8 mb-8">
                     <button class="btn btn-xs btn-secondary" onclick="switchChatTab('general')">← Общий</button>
@@ -1049,7 +1049,7 @@
                     <button class="btn btn-xs btn-secondary" onclick="switchChatTab('private')">💬 ЛС</button>
                     <span class="fw-bold text-sm">Общий чат</span>
                 </div>`;
-            
+
             mainContent.innerHTML = `
                 <h3 class="mb-8">💬 Чат</h3>
                 ${chatHeader}
@@ -1096,7 +1096,7 @@
                     <div class="fw-bold text-sm">⚠️ Предупреждения:</div>
                     ${currentUser.warnings.map(w => `<div class="text-xs text-muted">${w.reason || w} (${new Date(w.date || Date.now()).toLocaleDateString()})</div>`).join('')}
                 </div>` : '';
-            
+
             mainContent.innerHTML = `
                 <h3 class="mb-8">⚙️ Настройки</h3>
                 <div class="glass" style="padding:14px;">
@@ -1217,12 +1217,12 @@
             if (!isAdminMode) return;
             const tabs = ['players', 'logs', 'give', 'tickets', 'chat', 'servers', 'economy'];
             if (isOwner()) tabs.push('admins');
-            
+
             const tabsHtml = tabs.map(t => {
                 const labels = { players: '👥 Игроки', logs: '📋 Логи', give: '🎁 Выдать', tickets: '🎫 Тикеты', chat: '💬 Чат', servers: '🖥️ Серверы', economy: '💰 Экономика', admins: '👑 Админы' };
                 return `<button class="tab-btn ${t === 'players' ? 'active' : ''}" data-atab="${t}" onclick="switchAdminTab('${t}')">${labels[t] || t}</button>`;
             }).join('');
-            
+
             mainContent.innerHTML = `
                 <div class="flex-row gap-8 mb-8">
                     <button class="btn btn-xs btn-secondary" onclick="closeAdminPanel()">← Назад</button>
@@ -1243,7 +1243,7 @@
         function renderAdminTab(tab) {
             const container = document.getElementById('admin-content');
             if (!container) return;
-            
+
             let html = '';
             switch (tab) {
                 case 'players':
@@ -1307,7 +1307,7 @@
             const coins = parseInt(document.getElementById('give-coins')?.value || '0');
             const rarity = document.getElementById('give-item-rarity')?.value;
             if (!nick) return;
-            
+
             // Отправляем на сервер (нужно добавить в main.py)
             openModal(`<h3>✅ Выдано</h3><p class="text-center text-muted">${coins > 0 ? coins + ' монет ' : ''}${rarity ? 'предмет ' + RARITY_LABELS[rarity] : ''} для ${nick}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
         }
