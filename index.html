@@ -36,8 +36,7 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-        html,
-        body {
+        html, body {
             height: 100%;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: var(--bg);
@@ -88,71 +87,29 @@
             display: flex;
         }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes pulse {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         @keyframes shake {
-            0%,
-            100% {
-                transform: translateX(0);
-            }
-            10%,
-            30%,
-            50%,
-            70%,
-            90% {
-                transform: translateX(-8px);
-            }
-            20%,
-            40%,
-            60%,
-            80% {
-                transform: translateX(8px);
-            }
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
         }
         @keyframes spinReveal {
-            0% {
-                transform: rotate(0deg) scale(0.5);
-                opacity: 0;
-            }
-            50% {
-                transform: rotate(180deg) scale(1.1);
-                opacity: 1;
-            }
-            100% {
-                transform: rotate(360deg) scale(1);
-            }
+            0% { transform: rotate(0deg) scale(0.5); opacity: 0; }
+            50% { transform: rotate(180deg) scale(1.1); opacity: 1; }
+            100% { transform: rotate(360deg) scale(1); }
         }
         @keyframes glow {
-            0%,
-            100% {
-                box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
-            }
-            50% {
-                box-shadow: 0 0 35px rgba(168, 85, 247, 0.8);
-            }
+            0%, 100% { box-shadow: 0 0 15px rgba(124, 58, 237, 0.5); }
+            50% { box-shadow: 0 0 35px rgba(168, 85, 247, 0.8); }
         }
-        .shake {
-            animation: shake 0.5s ease;
-        }
-        .spin-reveal {
-            animation: spinReveal 0.8s ease forwards;
-        }
+        .shake { animation: shake 0.5s ease; }
+        .spin-reveal { animation: spinReveal 0.8s ease forwards; }
         .glass {
             background: var(--glass);
             backdrop-filter: blur(20px);
@@ -169,13 +126,8 @@
             transition: var(--transition);
             cursor: pointer;
         }
-        .card:hover {
-            background: var(--card-hover);
-            transform: translateY(-2px);
-        }
-        .card:active {
-            transform: scale(0.97);
-        }
+        .card:hover { background: var(--card-hover); transform: translateY(-2px); }
+        .card:active { transform: scale(0.97); }
         .btn {
             display: inline-flex;
             align-items: center;
@@ -195,53 +147,22 @@
             text-align: center;
             user-select: none;
         }
-        .btn:hover {
-            background: var(--accent2);
-            transform: translateY(-1px);
-        }
-        .btn:active {
-            transform: scale(0.96);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
+        .btn:hover { background: var(--accent2); transform: translateY(-1px); }
+        .btn:active { transform: scale(0.96); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
         .btn-secondary {
             background: rgba(255, 255, 255, 0.08);
             color: var(--text);
             border: 1px solid var(--border);
         }
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        .btn-danger {
-            background: var(--red);
-        }
-        .btn-danger:hover {
-            background: #dc2626;
-        }
-        .btn-success {
-            background: var(--green);
-        }
-        .btn-success:hover {
-            background: #16a34a;
-        }
-        .btn-sm {
-            padding: 7px 12px;
-            font-size: 12px;
-            width: auto;
-            border-radius: 7px;
-        }
-        .btn-xs {
-            padding: 5px 9px;
-            font-size: 11px;
-            width: auto;
-            border-radius: 6px;
-        }
-        input,
-        textarea,
-        select {
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.15); }
+        .btn-danger { background: var(--red); }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-success { background: var(--green); }
+        .btn-success:hover { background: #16a34a; }
+        .btn-sm { padding: 7px 12px; font-size: 12px; width: auto; border-radius: 7px; }
+        .btn-xs { padding: 5px 9px; font-size: 11px; width: auto; border-radius: 6px; }
+        input, textarea, select {
             width: 100%;
             padding: 12px 14px;
             border-radius: 10px;
@@ -253,16 +174,11 @@
             transition: var(--transition);
             font-family: inherit;
         }
-        input:focus,
-        textarea:focus,
-        select:focus {
+        input:focus, textarea:focus, select:focus {
             border-color: var(--accent);
             box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
         }
-        input::placeholder,
-        textarea::placeholder {
-            color: #555;
-        }
+        input::placeholder, textarea::placeholder { color: #555; }
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -276,9 +192,7 @@
             padding: 16px;
             animation: fadeIn 0.2s ease;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
         .modal {
             background: var(--glass);
             backdrop-filter: blur(25px);
@@ -292,14 +206,9 @@
             overflow-y: auto;
             box-shadow: var(--shadow);
             animation: fadeIn 0.3s ease;
+            position: relative;
         }
-        .modal h3 {
-            margin-bottom: 14px;
-            font-size: 18px;
-            font-weight: 700;
-            text-align: center;
-            color: var(--text);
-        }
+        .modal h3 { margin-bottom: 14px; font-size: 18px; font-weight: 700; text-align: center; }
         .modal .close-btn {
             position: absolute;
             top: 10px;
@@ -317,12 +226,7 @@
             justify-content: center;
             transition: var(--transition);
         }
-        .modal .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .modal {
-            position: relative;
-        }
+        .modal .close-btn:hover { background: rgba(255, 255, 255, 0.2); }
         .tab-bar {
             display: flex;
             gap: 6px;
@@ -346,29 +250,13 @@
             transition: var(--transition);
             flex-shrink: 0;
         }
-        .tab-btn.active {
-            background: var(--accent);
-            color: #fff;
-        }
-        .tab-btn:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.06);
-        }
-        .rarity-common {
-            color: var(--c-common);
-        }
-        .rarity-rare {
-            color: var(--c-rare);
-        }
-        .rarity-epic {
-            color: var(--c-epic);
-        }
-        .rarity-legendary {
-            color: var(--c-legendary);
-        }
-        .rarity-mythic {
-            color: var(--c-mythic);
-            text-shadow: 0 0 10px rgba(255, 64, 129, 0.6);
-        }
+        .tab-btn.active { background: var(--accent); color: #fff; }
+        .tab-btn:hover:not(.active) { background: rgba(255, 255, 255, 0.06); }
+        .rarity-common { color: var(--c-common); }
+        .rarity-rare { color: var(--c-rare); }
+        .rarity-epic { color: var(--c-epic); }
+        .rarity-legendary { color: var(--c-legendary); }
+        .rarity-mythic { color: var(--c-mythic); text-shadow: 0 0 10px rgba(255, 64, 129, 0.6); }
         .badge {
             display: inline-block;
             padding: 3px 8px;
@@ -378,27 +266,11 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
-        .badge-common {
-            background: rgba(158, 158, 158, 0.2);
-            color: var(--c-common);
-        }
-        .badge-rare {
-            background: rgba(79, 195, 247, 0.2);
-            color: var(--c-rare);
-        }
-        .badge-epic {
-            background: rgba(171, 71, 188, 0.25);
-            color: var(--c-epic);
-        }
-        .badge-legendary {
-            background: rgba(255, 215, 0, 0.2);
-            color: var(--c-legendary);
-        }
-        .badge-mythic {
-            background: rgba(255, 64, 129, 0.25);
-            color: var(--c-mythic);
-            animation: glow 2s infinite;
-        }
+        .badge-common { background: rgba(158, 158, 158, 0.2); color: var(--c-common); }
+        .badge-rare { background: rgba(79, 195, 247, 0.2); color: var(--c-rare); }
+        .badge-epic { background: rgba(171, 71, 188, 0.25); color: var(--c-epic); }
+        .badge-legendary { background: rgba(255, 215, 0, 0.2); color: var(--c-legendary); }
+        .badge-mythic { background: rgba(255, 64, 129, 0.25); color: var(--c-mythic); animation: glow 2s infinite; }
         .item-row {
             display: flex;
             align-items: center;
@@ -411,9 +283,7 @@
             transition: var(--transition);
             cursor: pointer;
         }
-        .item-row:hover {
-            background: rgba(255, 255, 255, 0.06);
-        }
+        .item-row:hover { background: rgba(255, 255, 255, 0.06); }
         .item-icon {
             width: 40px;
             height: 40px;
@@ -446,80 +316,31 @@
             color: var(--text);
             border-bottom-left-radius: 4px;
         }
-        .chat-message .sender {
-            font-size: 11px;
-            font-weight: 700;
-            opacity: 0.7;
-            margin-bottom: 2px;
-        }
-        .chat-message .time {
-            font-size: 10px;
-            opacity: 0.5;
-            text-align: right;
-            margin-top: 3px;
-        }
+        .chat-message .sender { font-size: 11px; font-weight: 700; opacity: 0.7; margin-bottom: 2px; }
+        .chat-message .time { font-size: 10px; opacity: 0.5; text-align: right; margin-top: 3px; }
         .scroll-y {
             overflow-y: auto;
             flex: 1;
             min-height: 0;
             -webkit-overflow-scrolling: touch;
         }
-        .flex-col {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .flex-row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .mt-8 {
-            margin-top: 8px;
-        }
-        .mt-12 {
-            margin-top: 12px;
-        }
-        .mt-16 {
-            margin-top: 16px;
-        }
-        .mb-8 {
-            margin-bottom: 8px;
-        }
-        .mb-12 {
-            margin-bottom: 12px;
-        }
-        .text-center {
-            text-align: center;
-        }
-        .text-sm {
-            font-size: 12px;
-        }
-        .text-xs {
-            font-size: 11px;
-        }
-        .text-muted {
-            color: var(--text2);
-        }
-        .fw-bold {
-            font-weight: 700;
-        }
-        .w-100 {
-            width: 100%;
-        }
-        .gap-6 {
-            gap: 6px;
-        }
-        .gap-8 {
-            gap: 8px;
-        }
-        .gap-10 {
-            gap: 10px;
-        }
-        .hidden {
-            display: none !important;
-        }
+        .flex-col { display: flex; flex-direction: column; gap: 8px; }
+        .flex-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .mt-8 { margin-top: 8px; }
+        .mt-12 { margin-top: 12px; }
+        .mt-16 { margin-top: 16px; }
+        .mb-8 { margin-bottom: 8px; }
+        .mb-12 { margin-bottom: 12px; }
+        .text-center { text-align: center; }
+        .text-sm { font-size: 12px; }
+        .text-xs { font-size: 11px; }
+        .text-muted { color: var(--text2); }
+        .fw-bold { font-weight: 700; }
+        .w-100 { width: 100%; }
+        .gap-6 { gap: 6px; }
+        .gap-8 { gap: 8px; }
+        .gap-10 { gap: 10px; }
+        .hidden { display: none !important; }
         .server-card {
             display: flex;
             align-items: center;
@@ -532,10 +353,7 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        .server-card:hover {
-            background: var(--card-hover);
-            transform: translateX(4px);
-        }
+        .server-card:hover { background: var(--card-hover); transform: translateX(4px); }
         .server-online {
             display: flex;
             align-items: center;
@@ -550,9 +368,7 @@
             background: var(--green);
             display: inline-block;
         }
-        .dot-offline {
-            background: var(--red);
-        }
+        .dot-offline { background: var(--red); }
         .case-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -569,20 +385,9 @@
             position: relative;
             overflow: hidden;
         }
-        .case-card:hover {
-            background: var(--card-hover);
-            transform: translateY(-3px);
-        }
-        .case-card .case-icon {
-            font-size: 40px;
-            margin-bottom: 8px;
-            animation: pulse 2s infinite;
-        }
-        .case-card .price {
-            font-weight: 700;
-            color: var(--gold);
-            font-size: 14px;
-        }
+        .case-card:hover { background: var(--card-hover); transform: translateY(-3px); }
+        .case-card .case-icon { font-size: 40px; margin-bottom: 8px; animation: pulse 2s infinite; }
+        .case-card .price { font-weight: 700; color: var(--gold); font-size: 14px; }
         .admin-badge {
             background: var(--accent);
             color: #fff;
@@ -606,10 +411,7 @@
             margin-bottom: 10px;
             display: none;
         }
-        .filter-section.active {
-            display: block;
-            animation: fadeIn 0.2s ease;
-        }
+        .filter-section.active { display: block; animation: fadeIn 0.2s ease; }
         .market-row {
             display: flex;
             align-items: center;
@@ -640,9 +442,7 @@
             padding: 8px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .stat-row:last-child {
-            border-bottom: none;
-        }
+        .stat-row:last-child { border-bottom: none; }
         .toggle-switch {
             width: 48px;
             height: 26px;
@@ -653,9 +453,7 @@
             transition: var(--transition);
             flex-shrink: 0;
         }
-        .toggle-switch.active {
-            background: var(--accent);
-        }
+        .toggle-switch.active { background: var(--accent); }
         .toggle-switch::after {
             content: '';
             position: absolute;
@@ -667,62 +465,30 @@
             background: #fff;
             transition: var(--transition);
         }
-        .toggle-switch.active::after {
-            left: 25px;
-        }
-        .admin-tab-content {
-            display: none;
-        }
-        .admin-tab-content.active {
-            display: block;
-            animation: fadeIn 0.2s ease;
-        }
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 2px;
-        }
-        .price-tag {
-            color: var(--gold);
-            font-weight: 700;
-        }
+        .toggle-switch.active::after { left: 25px; }
+        .admin-tab-content { display: none; }
+        .admin-tab-content.active { display: block; animation: fadeIn 0.2s ease; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
+        .price-tag { color: var(--gold); font-weight: 700; }
         .empty-state {
             text-align: center;
             padding: 30px 15px;
             color: var(--text2);
             font-size: 14px;
         }
-        .empty-state .icon {
-            font-size: 48px;
-            margin-bottom: 10px;
-            opacity: 0.5;
-        }
+        .empty-state .icon { font-size: 48px; margin-bottom: 10px; opacity: 0.5; }
     </style>
 </head>
 <body>
     <div id="app">
-        <!-- Auth Screen -->
-        <div class="screen active" id="screen-auth">
-            <div class="flex-col" style="justify-content:center;height:100%;max-width:360px;margin:0 auto;width:100%;">
-                <div class="text-center mb-12">
-                    <div style="font-size:60px;margin-bottom:8px;">🎁</div>
-                    <h1 style="font-size:28px;font-weight:800;letter-spacing:2px;background:linear-gradient(135deg,#a855f7,#7c3aed,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">STORM CASES</h1>
-                    <p class="text-muted text-sm mt-8">Открывай кейсы, собирай коллекцию, торгуй на рынке</p>
-                </div>
-                <div class="glass" style="padding:20px;">
-                    <div class="flex-col gap-8">
-                        <input type="text" id="auth-nick" placeholder="Никнейм" autocomplete="off">
-                        <input type="password" id="auth-password" placeholder="Пароль" autocomplete="off">
-                        <button class="btn" id="btn-login">Войти</button>
-                        <button class="btn btn-secondary" id="btn-register">Создать аккаунт</button>
-                        <p class="text-xs text-muted text-center mt-8">Данные хранятся локально в вашем браузере</p>
-                    </div>
-                </div>
+        <!-- Loading Screen -->
+        <div class="screen active" id="screen-loading">
+            <div class="flex-col" style="justify-content:center;height:100%;align-items:center;">
+                <div style="font-size:60px;animation:pulse 1s infinite;">🎁</div>
+                <h2 class="mt-8">STORM CASES</h2>
+                <p class="text-muted mt-8">Загрузка...</p>
             </div>
         </div>
 
@@ -736,7 +502,7 @@
                 <div class="scroll-y flex-col gap-8" style="flex:1;">
                     <div id="servers-list"></div>
                 </div>
-                <button class="btn btn-secondary mt-8" id="btn-logout">Выйти из аккаунта</button>
+                <button class="btn btn-secondary mt-8" onclick="location.reload()">🔄 Перезагрузить</button>
             </div>
         </div>
 
@@ -768,1663 +534,887 @@
     </div>
 
     <script>
-        (function() {
-            const STORAGE_KEY = 'storm_data';
-            const OWNER_TG_ID = 8601398572;
-            const SERVER_NAMES = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon'];
-            const SERVER_PASSWORDS = { Alpha: 'alpha123', Beta: 'beta123', Gamma: 'gamma123', Delta: 'delta123',
-                Epsilon: 'epsilon123' };
-            const RARITIES = ['common', 'rare', 'epic', 'legendary', 'mythic'];
-            const RARITY_COLORS = { common: '#9e9e9e', rare: '#4fc3f7', epic: '#ab47bc', legendary: '#ffd700',
-                mythic: '#ff4081' };
-            const RARITY_LABELS = { common: 'Обычный', rare: 'Редкий', epic: 'Эпический', legendary: 'Легендарный',
-                mythic: 'Мифический' };
+        const API_URL = "http://localhost:8000";
+        const tg = window.Telegram?.WebApp;
+        const initData = tg?.initData || "";
 
-            const ITEMS_DATA = {
-                common: [
-                    { id: 'c1', name: 'Потрёпанный нож', icon: '🔪', rarity: 'common' },
-                    { id: 'c2', name: 'Старый пистолет', icon: '🔫', rarity: 'common' },
-                    { id: 'c3', name: 'Ржавый ключ', icon: '🗝️', rarity: 'common' },
-                    { id: 'c4', name: 'Треснувшая маска', icon: '🎭', rarity: 'common' },
-                    { id: 'c5', name: 'Пыльная перчатка', icon: '🧤', rarity: 'common' },
-                    { id: 'c6', name: 'Сломанный прицел', icon: '🎯', rarity: 'common' },
-                    { id: 'c7', name: 'Грязная повязка', icon: '🩹', rarity: 'common' },
-                    { id: 'c8', name: 'Дешёвый брелок', icon: '🔑', rarity: 'common' },
-                    { id: 'c9', name: 'Изношенный чехол', icon: '📱', rarity: 'common' },
-                    { id: 'c10', name: 'Старая монета', icon: '🪙', rarity: 'common' },
-                    { id: 'c11', name: 'Потёртая кепка', icon: '🧢', rarity: 'common' },
-                    { id: 'c12', name: 'Рваный плащ', icon: '🧥', rarity: 'common' },
-                    { id: 'c13', name: 'Тусклый фонарик', icon: '🔦', rarity: 'common' },
-                    { id: 'c14', name: 'Погнутый гвоздь', icon: '📌', rarity: 'common' },
-                    { id: 'c15', name: 'Пустая гильза', icon: '🧨', rarity: 'common' },
-                ],
-                rare: [
-                    { id: 'r1', name: 'Штурмовая винтовка', icon: '🔫', rarity: 'rare' },
-                    { id: 'r2', name: 'Тактический нож', icon: '🗡️', rarity: 'rare' },
-                    { id: 'r3', name: 'Боевая маска', icon: '😷', rarity: 'rare' },
-                    { id: 'r4', name: 'Лазерный прицел', icon: '🔴', rarity: 'rare' },
-                    { id: 'r5', name: 'Кевларовый жилет', icon: '🦺', rarity: 'rare' },
-                    { id: 'r6', name: 'Дымовая граната', icon: '💨', rarity: 'rare' },
-                    { id: 'r7', name: 'Шлем спецназа', icon: '🪖', rarity: 'rare' },
-                    { id: 'r8', name: 'Нарукавная повязка', icon: '🎗️', rarity: 'rare' },
-                    { id: 'r9', name: 'Армейские ботинки', icon: '🥾', rarity: 'rare' },
-                    { id: 'r10', name: 'Глушитель', icon: '🔇', rarity: 'rare' },
-                    { id: 'r11', name: 'Кобура', icon: '👜', rarity: 'rare' },
-                    { id: 'r12', name: 'Мачете', icon: '⚔️', rarity: 'rare' },
-                ],
-                epic: [
-                    { id: 'e1', name: 'Снайперская винтовка', icon: '🎯', rarity: 'epic' },
-                    { id: 'e2', name: 'Золотой пистолет', icon: '🔫', rarity: 'epic' },
-                    { id: 'e3', name: 'Кибернетическая рука', icon: '🦾', rarity: 'epic' },
-                    { id: 'e4', name: 'Плазменный резак', icon: '⚡', rarity: 'epic' },
-                    { id: 'e5', name: 'Экзоскелет', icon: '🦿', rarity: 'epic' },
-                    { id: 'e6', name: 'Голографический щит', icon: '🛡️', rarity: 'epic' },
-                    { id: 'e7', name: 'Телепорт-маяк', icon: '📡', rarity: 'epic' },
-                    { id: 'e8', name: 'Мини-дрон', icon: '🛸', rarity: 'epic' },
-                    { id: 'e9', name: 'Энергетический клинок', icon: '🔋', rarity: 'epic' },
-                    { id: 'e10', name: 'Фазовый пистолет', icon: '🌀', rarity: 'epic' },
-                ],
-                legendary: [
-                    { id: 'l1', name: 'Драконий клинок', icon: '🐉', rarity: 'legendary' },
-                    { id: 'l2', name: 'Титан-пушка', icon: '💥', rarity: 'legendary' },
-                    { id: 'l3', name: 'Королевский щит', icon: '👑', rarity: 'legendary' },
-                    { id: 'l4', name: 'Меч Хаоса', icon: '🌪️', rarity: 'legendary' },
-                    { id: 'l5', name: 'Лук Артемиды', icon: '🏹', rarity: 'legendary' },
-                    { id: 'l6', name: 'Коса Смерти', icon: '💀', rarity: 'legendary' },
-                    { id: 'l7', name: 'Молот Тора', icon: '🔨', rarity: 'legendary' },
-                    { id: 'l8', name: 'Ключ Миров', icon: '🌍', rarity: 'legendary' },
-                ],
-                mythic: [
-                    { id: 'm1', name: 'Клинок Вселенной', icon: '🌌', rarity: 'mythic' },
-                    { id: 'm2', name: 'Венец Богов', icon: '✨', rarity: 'mythic' },
-                    { id: 'm3', name: 'Сердце Звезды', icon: '⭐', rarity: 'mythic' },
-                    { id: 'm4', name: 'Печать Вечности', icon: '♾️', rarity: 'mythic' },
-                    { id: 'm5', name: 'Глаз Абсолюта', icon: '🔮', rarity: 'mythic' },
-                ]
+        let currentUser = null;
+        let currentServer = null;
+        let currentTab = 'cases';
+        let isAdminMode = false;
+        let adminLevel = 0;
+        let chatTab = 'general';
+        let chatRecipient = null;
+        let caseOpeningInProgress = false;
+        let gameState = null;
+        let allItems = {};
+        let allCases = [];
+        let allServers = [];
+        let filterState = false;
+
+        const RARITY_LABELS = {
+            common: 'Обычный', rare: 'Редкий', epic: 'Эпический', legendary: 'Легендарный', mythic: 'Мифический'
+        };
+        const RARITIES = ['common', 'rare', 'epic', 'legendary', 'mythic'];
+
+        const CRAFT_RECIPES = [
+            { id: 'craft_rare', name: 'Крафт: Редкий предмет', resultRarity: 'rare', cost: { common: 5 }, description: '5 обычных предметов → 1 редкий' },
+            { id: 'craft_legendary', name: 'Крафт: Легендарный предмет', resultRarity: 'legendary', cost: { epic: 3 }, description: '3 эпических предмета → 1 легендарный' },
+            { id: 'craft_mythic', name: 'Крафт: Мифический предмет', resultRarity: 'mythic', cost: { legendary: 3 }, description: '3 легендарных предмета → 1 мифический' },
+        ];
+
+        const screenLoading = document.getElementById('screen-loading');
+        const screenServers = document.getElementById('screen-servers');
+        const screenMain = document.getElementById('screen-main');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalContent = document.getElementById('modal-content');
+        const mainContent = document.getElementById('main-content');
+        const mainNick = document.getElementById('main-nick');
+        const mainServerBadge = document.getElementById('main-server-badge');
+        const mainBalance = document.getElementById('main-balance');
+        const mainTabs = document.getElementById('main-tabs');
+        const serversList = document.getElementById('servers-list');
+        const serversGreeting = document.getElementById('servers-greeting');
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            modalContent.innerHTML = '';
+            caseOpeningInProgress = false;
+        }
+
+        function openModal(html) {
+            modalContent.innerHTML = html;
+            modalOverlay.classList.add('active');
+        }
+
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay && !caseOpeningInProgress) closeModal();
+        });
+
+        async function apiCall(url, method = 'GET', body = null) {
+            const headers = {
+                'X-Telegram-Init-Data': initData,
+                'Content-Type': 'application/json'
             };
-
-            const ALL_ITEMS = {};
-            RARITIES.forEach(r => { ALL_ITEMS[r] = ITEMS_DATA[r] || []; });
-
-            const CASES_DATA = [
-                { id: 'case_common', name: 'Обычный кейс', icon: '📦', price: 80, color: '#9e9e9e',
-                    chances: { common: 0.80, rare: 0.15, epic: 0.04, legendary: 0.01, mythic: 0 } },
-                { id: 'case_rare', name: 'Редкий кейс', icon: '🎁', price: 280, color: '#4fc3f7',
-                    chances: { common: 0.50, rare: 0.35, epic: 0.10, legendary: 0.05, mythic: 0 } },
-                { id: 'case_legendary', name: 'Легендарный кейс', icon: '💎', price: 650, color: '#ffd700',
-                    chances: { common: 0, rare: 0.30, epic: 0.40, legendary: 0.25, mythic: 0.05 } },
-                { id: 'case_knife', name: 'Ножевой кейс', icon: '🔪', price: 1000, color: '#f97316',
-                    chances: { common: 0.20, rare: 0.30, epic: 0.30, legendary: 0.20, mythic: 0 } },
-                { id: 'case_premium', name: 'Премиум кейс', icon: '🌟', price: 1500, color: '#a855f7',
-                    chances: { common: 0, rare: 0.20, epic: 0.35, legendary: 0.35, mythic: 0.10 } },
-                { id: 'case_mythic', name: 'Мифический кейс', icon: '🌌', price: 3000, color: '#ff4081',
-                    chances: { common: 0, rare: 0, epic: 0.20, legendary: 0.50, mythic: 0.30 } },
-            ];
-
-            const CRAFT_RECIPES = [
-                { id: 'craft_rare', name: 'Крафт: Редкий предмет', resultRarity: 'rare', cost: { common: 5 },
-                    description: '5 обычных предметов → 1 редкий' },
-                { id: 'craft_legendary', name: 'Крафт: Легендарный предмет', resultRarity: 'legendary', cost: { epic: 3 },
-                    description: '3 эпических предмета → 1 легендарный' },
-                { id: 'craft_mythic', name: 'Крафт: Мифический предмет', resultRarity: 'mythic', cost: { legendary: 3 },
-                    description: '3 легендарных предмета → 1 мифический' },
-            ];
-
-            const DONATE_PACKS = [
-                { id: 'donate_10', stars: 10, coins: 500 },
-                { id: 'donate_50', stars: 50, coins: 3000 },
-                { id: 'donate_100', stars: 100, coins: 10000 },
-            ];
-
-            let tg = null;
-            let tgUser = null;
             try {
-                if (window.Telegram && window.Telegram.WebApp) {
-                    tg = window.Telegram.WebApp;
-                    tg.ready();
-                    tg.expand();
-                    tgUser = tg.initDataUnsafe && tg.initDataUnsafe.user ? tg.initDataUnsafe.user : null;
-                }
-            } catch (e) { tg = null; }
-
-            function isOwner() {
-                return tgUser && tgUser.id === OWNER_TG_ID;
-            }
-
-            function sendToBot(data) {
-                if (tg) {
-                    try {
-                        tg.sendData(JSON.stringify(data));
-                        console.log('Sent to bot:', data);
-                    } catch (e) { console.error('sendData error:', e); }
-                }
-            }
-
-            function getDefaultData() {
-                const servers = {};
-                SERVER_NAMES.forEach(name => {
-                    servers[name] = {
-                        online: Math.floor(Math.random() * 100) + 1,
-                        market: [],
-                        chat: [],
-                        settings: { startBalance: 1000, sellMultiplier: 0.5, isOnline: true },
-                        admins: [],
-                        isOnline: true,
-                    };
+                const response = await fetch(API_URL + url, {
+                    method,
+                    headers,
+                    body: body ? JSON.stringify(body) : null
                 });
-                return {
-                    users: [],
-                    servers: servers,
-                    tickets: [],
-                    logs: [],
-                    nextUserId: 1,
-                    nextItemUid: 1,
-                    nextChatId: 1,
-                    currentUserId: null,
-                };
-            }
-
-            function loadData() {
-                try {
-                    const raw = localStorage.getItem(STORAGE_KEY);
-                    if (raw) {
-                        const data = JSON.parse(raw);
-                        if (!data.servers) return getDefaultData();
-                        return data;
-                    }
-                } catch (e) { console.error('Load data error:', e); }
-                return getDefaultData();
-            }
-
-            function saveData() {
-                try {
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-                } catch (e) { console.error('Save data error:', e); }
-            }
-
-            let appData = loadData();
-            if (!appData.servers || Object.keys(appData.servers).length === 0) {
-                appData = getDefaultData();
-                saveData();
-            }
-            SERVER_NAMES.forEach(name => {
-                if (!appData.servers[name]) {
-                    appData.servers[name] = {
-                        online: Math.floor(Math.random() * 100) + 1,
-                        market: [],
-                        chat: [],
-                        settings: { startBalance: 1000, sellMultiplier: 0.5, isOnline: true },
-                        admins: [],
-                        isOnline: true,
-                    };
+                if (!response.ok) {
+                    const error = await response.text();
+                    throw new Error(error);
                 }
-                if (!appData.servers[name].settings) {
-                    appData.servers[name].settings = { startBalance: 1000, sellMultiplier: 0.5, isOnline: true };
-                }
-                if (!appData.servers[name].market) appData.servers[name].market = [];
-                if (!appData.servers[name].chat) appData.servers[name].chat = [];
-                if (!appData.servers[name].admins) appData.servers[name].admins = [];
-            });
-            if (!appData.tickets) appData.tickets = [];
-            if (!appData.logs) appData.logs = [];
-            if (!appData.nextUserId) appData.nextUserId = 1;
-            if (!appData.nextItemUid) appData.nextItemUid = 1;
-            if (!appData.nextChatId) appData.nextChatId = 1;
-            if (!appData.currentUserId) appData.currentUserId = null;
-            saveData();
-
-            let currentUser = null;
-            let currentServer = null;
-            let currentTab = 'cases';
-            let isAdminMode = false;
-            let adminLevel = 0;
-            let chatTab = 'general';
-            let chatRecipient = null;
-            let pendingCaseOpen = null;
-            let caseOpeningInProgress = false;
-
-            const screenAuth = document.getElementById('screen-auth');
-            const screenServers = document.getElementById('screen-servers');
-            const screenMain = document.getElementById('screen-main');
-            const modalOverlay = document.getElementById('modal-overlay');
-            const modalContent = document.getElementById('modal-content');
-            const serversList = document.getElementById('servers-list');
-            const serversGreeting = document.getElementById('servers-greeting');
-            const mainContent = document.getElementById('main-content');
-            const mainNick = document.getElementById('main-nick');
-            const mainServerBadge = document.getElementById('main-server-badge');
-            const mainBalance = document.getElementById('main-balance');
-            const mainTabs = document.getElementById('main-tabs');
-
-            function showScreen(screenId) {
-                [screenAuth, screenServers, screenMain].forEach(s => s.classList.remove('active'));
-                document.getElementById(screenId).classList.add('active');
+                return response.json();
+            } catch (e) {
+                console.error('API Error:', e);
+                throw e;
             }
+        }
 
-            function closeModal() {
-                modalOverlay.classList.remove('active');
-                modalContent.innerHTML = '';
-                pendingCaseOpen = null;
-                caseOpeningInProgress = false;
-            }
-
-            function openModal(html) {
-                modalContent.innerHTML = html;
-                modalOverlay.classList.add('active');
-            }
-
-            modalOverlay.addEventListener('click', function(e) {
-                if (e.target === modalOverlay && !caseOpeningInProgress) closeModal();
-            });
-
-            function getCurrentUser() {
-                if (!appData.currentUserId) return null;
-                return appData.users.find(u => u.id === appData.currentUserId) || null;
-            }
-
-            function updateCurrentUser() {
-                currentUser = getCurrentUser();
-                if (currentUser && currentServer) {
-                    currentServer = appData.servers[currentServer.name] || null;
-                }
-            }
-
-            function getServer(name) {
-                return appData.servers[name] || null;
-            }
-
-            function getUserById(id) {
-                return appData.users.find(u => u.id === id) || null;
-            }
-
-            function getUserByNick(nick) {
-                return appData.users.find(u => u.nick.toLowerCase() === nick.toLowerCase()) || null;
-            }
-
-            function getItemByUid(uid) {
-                for (const r of RARITIES) {
-                    for (const it of (ALL_ITEMS[r] || [])) {
-                        if (it.id === uid) return it;
-                    }
-                }
-                for (const r of RARITIES) {
-                    for (const it of (ALL_ITEMS[r] || [])) {
-                        if (it.uid === uid) return it;
-                    }
-                }
-                return null;
-            }
-
-            function getItemById(id) {
-                for (const r of RARITIES) {
-                    for (const it of (ALL_ITEMS[r] || [])) {
-                        if (it.id === id) return it;
-                    }
-                }
-                return null;
-            }
-
-            function generateUid() {
-                return appData.nextItemUid++;
-            }
-
-            function generateUserId() {
-                return appData.nextUserId++;
-            }
-
-            function generateChatId() {
-                return appData.nextChatId++;
-            }
-
-            function getRandomItemByRarity(rarity) {
-                const items = ALL_ITEMS[rarity] || [];
-                if (items.length === 0) return null;
-                return items[Math.floor(Math.random() * items.length)];
-            }
-
-            function rollCaseItem(caseData) {
-                const chances = caseData.chances;
-                const roll = Math.random();
-                let cumulative = 0;
-                for (const rarity of RARITIES) {
-                    cumulative += (chances[rarity] || 0);
-                    if (roll <= cumulative) {
-                        return getRandomItemByRarity(rarity);
-                    }
-                }
-                return getRandomItemByRarity('common');
-            }
-
-            function addToInventory(user, item) {
-                const invItem = {
-                    uid: generateUid(),
-                    itemId: item.id,
-                    rarity: item.rarity,
-                    obtainedAt: Date.now(),
-                };
-                user.inventory.push(invItem);
-                saveData();
-                return invItem;
-            }
-
-            function removeFromInventory(user, uid) {
-                const idx = user.inventory.findIndex(i => i.uid === uid);
-                if (idx !== -1) {
-                    user.inventory.splice(idx, 1);
-                    saveData();
-                    return true;
-                }
-                return false;
-            }
-
-            function getInventoryItems(user) {
-                return user.inventory || [];
-            }
-
-            function getItemInfoByInvItem(invItem) {
-                const item = getItemById(invItem.itemId);
-                return item || { id: invItem.itemId, name: 'Неизвестно', icon: '❓', rarity: invItem.rarity };
-            }
-
-            function hashPassword(pw) {
-                let hash = 0;
-                for (let i = 0; i < pw.length; i++) {
-                    const char = pw.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash |= 0;
-                }
-                return 'h_' + Math.abs(hash).toString(36);
-            }
-
-            function registerUser(nick, password) {
-                if (getUserByNick(nick)) return { error: 'Ник уже занят' };
-                if (nick.length < 2) return { error: 'Ник слишком короткий' };
-                if (password.length < 3) return { error: 'Пароль слишком короткий' };
-                const user = {
-                    id: generateUserId(),
-                    nick: nick.trim(),
-                    password: hashPassword(password),
-                    balance: 0,
-                    inventory: [],
-                    stats: { openedCases: 0, itemsObtained: 0, spent: 0, earned: 0 },
-                    warnings: [],
-                    isMuted: false,
-                    muteUntil: null,
-                    isBanned: false,
-                    banReason: null,
-                    servers: {},
-                    soundEnabled: true,
-                    notificationsEnabled: true,
-                };
-                const server = appData.servers[Object.keys(appData.servers)[0]];
-                if (server) user.balance = server.settings.startBalance || 1000;
-                appData.users.push(user);
-                appData.currentUserId = user.id;
-                saveData();
-                updateCurrentUser();
-                return { user };
-            }
-
-            function loginUser(nick, password) {
-                const user = getUserByNick(nick);
-                if (!user) return { error: 'Пользователь не найден' };
-                if (user.password !== hashPassword(password)) return { error: 'Неверный пароль' };
-                if (user.isBanned) return { error: 'Вы забанены: ' + (user.banReason || 'нет причины') };
-                appData.currentUserId = user.id;
-                saveData();
-                updateCurrentUser();
-                return { user };
-            }
-
-            function logoutUser() {
-                appData.currentUserId = null;
-                saveData();
-                currentUser = null;
-                currentServer = null;
-                isAdminMode = false;
-                adminLevel = 0;
-                chatTab = 'general';
-                chatRecipient = null;
-                showScreen('screen-auth');
-                document.getElementById('auth-nick').value = '';
-                document.getElementById('auth-password').value = '';
-            }
-
-            function isAdminOfServer(user, serverName) {
-                if (!user || !serverName) return 0;
-                if (isOwner()) return 5;
-                const server = getServer(serverName);
-                if (!server) return 0;
-                const adminEntry = server.admins.find(a => a.userId === user.id);
-                return adminEntry ? adminEntry.level : 0;
-            }
-
-            function hasAdminAccess(user, serverName) {
-                return isAdminOfServer(user, serverName) > 0;
-            }
-
-            function addLog(serverName, action, details) {
-                appData.logs.push({
-                    server: serverName,
-                    action: action,
-                    details: details,
-                    timestamp: Date.now(),
-                    adminId: currentUser ? currentUser.id : null,
-                    adminNick: currentUser ? currentUser.nick : 'System',
-                });
-                if (appData.logs.length > 500) appData.logs.shift();
-                saveData();
-            }
-
-            function addTicket(userId, serverName, subject, message) {
-                const ticket = {
-                    id: appData.tickets.length + 1,
-                    userId: userId,
-                    serverName: serverName,
-                    subject: subject,
-                    message: message,
-                    status: 'open',
-                    createdAt: Date.now(),
-                };
-                appData.tickets.push(ticket);
-                saveData();
-                return ticket;
-            }
-
-            function sendChatMessage(text, recipientId) {
-                if (!currentUser || !currentServer) return;
-                if (currentUser.isMuted && Date.now() < (currentUser.muteUntil || 0)) {
-                    openModal(`<h3>🔇 Вы замучены</h3><p class="text-center text-muted">До ${new Date(currentUser.muteUntil).toLocaleString()}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
-                    return;
-                }
-                const msg = {
-                    id: generateChatId(),
-                    senderId: currentUser.id,
-                    senderNick: currentUser.nick,
-                    text: text.trim(),
-                    timestamp: Date.now(),
-                    isPrivate: !!recipientId,
-                    recipientId: recipientId || null,
-                };
-                currentServer.chat.push(msg);
-                if (currentServer.chat.length > 200) currentServer.chat.shift();
-                saveData();
-                sendToBot({ type: 'chat', server: currentServer.name, nick: currentUser.nick, text: text, private: !!recipientId });
-                renderChat();
-            }
-
-            function getServerChat(server, isPrivate, recipientId) {
-                return server.chat.filter(m => {
-                    if (isPrivate) {
-                        return m.isPrivate && (m.senderId === recipientId || m.recipientId === recipientId || m.senderId ===
-                            currentUser.id || m.recipientId === currentUser.id);
-                    }
-                    return !m.isPrivate;
-                });
-            }
-
-            function sellItemFromInventory(uid) {
-                if (!currentUser || !currentServer) return;
-                const invItem = currentUser.inventory.find(i => i.uid === uid);
-                if (!invItem) return;
-                const item = getItemById(invItem.itemId);
-                if (!item) return;
-                const serverSettings = currentServer.settings;
-                const sellPrice = Math.floor(estimateItemPrice(item) * (serverSettings.sellMultiplier || 0.5));
-                removeFromInventory(currentUser, uid);
-                currentUser.balance += sellPrice;
-                currentUser.stats.earned += sellPrice;
-                saveData();
-                sendToBot({ type: 'sell', server: currentServer.name, nick: currentUser.nick, item: item.name, price: sellPrice });
-                updateMainUI();
-                renderInventory();
-            }
-
-            function estimateItemPrice(item) {
-                const base = { common: 50, rare: 150, epic: 400, legendary: 1000, mythic: 3000 };
-                return base[item.rarity] || 50;
-            }
-
-            function listItemOnMarket(uid, price) {
-                if (!currentUser || !currentServer) return;
-                const invItem = currentUser.inventory.find(i => i.uid === uid);
-                if (!invItem) return;
-                const item = getItemById(invItem.itemId);
-                if (!item) return;
-                if (price < 1) return;
-                removeFromInventory(currentUser, uid);
-                currentServer.market.push({
-                    uid: generateUid(),
-                    itemId: item.id,
-                    rarity: item.rarity,
-                    price: price,
-                    sellerId: currentUser.id,
-                    sellerNick: currentUser.nick,
-                    listedAt: Date.now(),
-                });
-                saveData();
-                sendToBot({ type: 'market_list', server: currentServer.name, nick: currentUser.nick, item: item.name, price: price });
-                updateMainUI();
-                renderInventory();
-                renderMarket();
-            }
-
-            function buyFromMarket(marketUid) {
-                if (!currentUser || !currentServer) return;
-                const listing = currentServer.market.find(m => m.uid === marketUid);
-                if (!listing) return;
-                if (currentUser.balance < listing.price) {
-                    openModal(`<h3>💰 Недостаточно средств</h3><p class="text-center">Нужно ${listing.price} монет</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
-                    return;
-                }
-                const seller = getUserById(listing.sellerId);
-                currentUser.balance -= listing.price;
-                currentUser.stats.spent += listing.price;
-                const invItem = { uid: generateUid(), itemId: listing.itemId, rarity: listing.rarity,
-                    obtainedAt: Date.now() };
-                currentUser.inventory.push(invItem);
-                const idx = currentServer.market.indexOf(listing);
-                if (idx !== -1) currentServer.market.splice(idx, 1);
-                if (seller) {
-                    seller.balance += listing.price;
-                    seller.stats.earned += listing.price;
-                }
-                saveData();
-                sendToBot({ type: 'market_buy', server: currentServer.name, nick: currentUser.nick, item: listing.itemId,
-                    price: listing.price });
-                updateMainUI();
-                renderMarket();
-                renderInventory();
-            }
-
-            function removeMarketListing(marketUid) {
-                if (!currentUser || !currentServer) return;
-                const idx = currentServer.market.findIndex(m => m.uid === marketUid && m.sellerId === currentUser.id);
-                if (idx !== -1) {
-                    const listing = currentServer.market[idx];
-                    currentServer.market.splice(idx, 1);
-                    currentUser.inventory.push({ uid: generateUid(), itemId: listing.itemId, rarity: listing.rarity,
-                        obtainedAt: Date.now() });
-                    saveData();
-                    sendToBot({ type: 'market_cancel', server: currentServer.name, nick: currentUser.nick, item: listing
-                            .itemId });
-                    updateMainUI();
-                    renderMarket();
-                    renderInventory();
-                }
-            }
-
-            function craftItem(recipeId) {
-                if (!currentUser || !currentServer) return;
-                const recipe = CRAFT_RECIPES.find(r => r.id === recipeId);
-                if (!recipe) return;
-                const costKeys = Object.keys(recipe.cost);
-                let canCraft = true;
-                for (const key of costKeys) {
-                    const count = currentUser.inventory.filter(i => i.rarity === key).length;
-                    if (count < recipe.cost[key]) { canCraft = false; break; }
-                }
-                if (!canCraft) {
-                    openModal(
-                        `<h3>🔧 Недостаточно предметов</h3><p class="text-center text-muted">${recipe.description}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`
-                        );
-                    return;
-                }
-                for (const key of costKeys) {
-                    let toRemove = recipe.cost[key];
-                    const items = currentUser.inventory.filter(i => i.rarity === key);
-                    for (const it of items) {
-                        if (toRemove <= 0) break;
-                        removeFromInventory(currentUser, it.uid);
-                        toRemove--;
-                    }
-                }
-                const resultItem = getRandomItemByRarity(recipe.resultRarity);
-                if (resultItem) {
-                    addToInventory(currentUser, resultItem);
-                    currentUser.stats.itemsObtained++;
-                }
-                saveData();
-                sendToBot({ type: 'craft', server: currentServer.name, nick: currentUser.nick, recipe: recipeId, result: resultItem
-                        ? resultItem.name : 'None' });
-                updateMainUI();
-                renderInventory();
-                openModal(
-                    `<h3>🔧 Крафт успешен!</h3><div class="text-center mt-8"><div style="font-size:60px;">${resultItem?resultItem.icon:'❓'}</div><p class="fw-bold mt-8 ${resultItem?resultItem.rarity:''}">${resultItem?resultItem.name:'Неизвестно'}</p><span class="badge badge-${resultItem?resultItem.rarity:'common'} mt-8">${RARITY_LABELS[resultItem?resultItem.rarity:'common']}</span></div><button class="btn mt-16" onclick="closeModal()">Забрать</button>`
-                    );
-            }
-
-            function openCase(caseData) {
-                if (!currentUser || !currentServer) return;
-                if (currentUser.balance < caseData.price) {
-                    openModal(
-                        `<h3>💰 Недостаточно средств</h3><p class="text-center">Нужно ${caseData.price} монет, у вас ${currentUser.balance}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`
-                        );
-                    return;
-                }
-                currentUser.balance -= caseData.price;
-                currentUser.stats.spent += caseData.price;
-                currentUser.stats.openedCases++;
-                saveData();
-                const item = rollCaseItem(caseData);
-                if (item) {
-                    addToInventory(currentUser, item);
-                    currentUser.stats.itemsObtained++;
-                    saveData();
-                    sendToBot({ type: 'case_open', server: currentServer.name, nick: currentUser.nick, case: caseData.name,
-                        item: item.name, rarity: item.rarity });
-                    pendingCaseOpen = { caseData, item };
-                    caseOpeningInProgress = true;
-                    showCaseAnimation(caseData, item);
-                } else {
-                    saveData();
-                    updateMainUI();
-                    renderCases();
-                }
-            }
-
-            function showCaseAnimation(caseData, item) {
-                const html = `
-              <div class="case-animation-container" id="case-anim">
-                <div class="case-box" id="case-box-anim">${caseData.icon}</div>
-                <div class="reveal-item" id="reveal-item-anim">${item.icon}</div>
-              </div>
-              <p class="text-center text-muted" id="case-anim-text">Открываем...</p>
-            `;
-                openModal(html);
-                const caseBox = document.getElementById('case-box-anim');
-                const revealItem = document.getElementById('reveal-item-anim');
-                const animText = document.getElementById('case-anim-text');
-                setTimeout(() => {
-                    caseBox.style.display = 'none';
-                    revealItem.style.display = 'block';
-                    animText.innerHTML =
-                        `<span class="fw-bold ${item.rarity}">${item.name}</span><br><span class="badge badge-${item.rarity} mt-8">${RARITY_LABELS[item.rarity]}</span>`;
-                    caseOpeningInProgress = false;
-                    updateMainUI();
-                    renderCases();
-                }, 1200);
-            }
-
-            function renderServers() {
-                if (!currentUser) return;
-                serversGreeting.textContent = `Игрок: ${currentUser.nick}`;
-                let html = '';
-                SERVER_NAMES.forEach(name => {
-                    const server = getServer(name);
-                    if (!server) return;
-                    const isOnline = server.isOnline !== false;
-                    html += `
-                <div class="server-card" onclick="selectServer('${name}')">
-                  <div>
-                    <div class="fw-bold" style="font-size:16px;">${name}</div>
-                    <div class="text-xs text-muted mt-8">Пароль админа: ${SERVER_PASSWORDS[name]}</div>
-                  </div>
-                  <div class="server-online">
-                    <span class="dot ${isOnline?'':'dot-offline'}"></span>
-                    <span>${isOnline?server.online:'Откл.'}</span>
-                  </div>
-                </div>
-              `;
-                });
-                serversList.innerHTML = html;
-            }
-
-            function selectServer(name) {
-                const server = getServer(name);
-                if (!server) return;
-                if (server.isOnline === false) {
-                    openModal(
-                        `<h3>🚫 Сервер отключён</h3><p class="text-center text-muted">Сервер ${name} временно недоступен.</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`
-                        );
-                    return;
-                }
-                const rulesHtml = `
-              <h3>📋 Правила сервера ${name}</h3>
-              <div class="text-sm mt-8" style="line-height:1.7;">
-                <p>1. Запрещены оскорбления и токсичное поведение.</p>
-                <p>2. Запрещено использование читов и эксплойтов.</p>
-                <p>3. Запрещена реклама сторонних сервисов.</p>
-                <p>4. Запрещён обман игроков на рынке.</p>
-                <p>5. Уважайте других участников.</p>
-                <p class="mt-8 text-muted">Нарушение правил ведёт к предупреждениям, муту или бану.</p>
-              </div>
-              <button class="btn mt-16" onclick="acceptServerRules('${name}')">✅ Принять правила</button>
-              <button class="btn btn-secondary mt-8" onclick="closeModal()">Отмена</button>
-            `;
-                openModal(rulesHtml);
-            }
-
-            function acceptServerRules(name) {
-                const server = getServer(name);
-                if (!server || !currentUser) return;
-                if (server.isOnline === false) {
-                    closeModal();
-                    openModal(
-                        `<h3>🚫 Сервер отключён</h3><p class="text-center text-muted">Сервер ${name} временно недоступен.</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`
-                        );
-                    return;
-                }
-                if (currentUser.isBanned) {
-                    closeModal();
-                    openModal(
-                        `<h3>🚫 Вы забанены</h3><p class="text-center text-muted">Причина: ${currentUser.banReason||'нет'}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`
-                        );
-                    return;
-                }
-                currentServer = server;
-                currentServer.name = name;
-                isAdminMode = false;
-                adminLevel = 0;
-                const ownerCheck = isOwner();
-                const adminCheck = isAdminOfServer(currentUser, name);
-                if (ownerCheck) adminLevel = 5;
-                else if (adminCheck > 0) adminLevel = adminCheck;
-                chatTab = 'general';
-                chatRecipient = null;
-                closeModal();
-                showScreen('screen-main');
+        async function loadGameState() {
+            try {
+                gameState = await apiCall('/api/state');
+                currentUser = gameState.user;
+                currentServer = gameState.user.server;
+                allItems = gameState.items || {};
+                allCases = gameState.cases || [];
+                allServers = gameState.servers || [];
+                
+                adminLevel = isOwner() ? 5 : 0;
+                
                 updateMainUI();
                 renderCases();
-                sendToBot({ type: 'server_join', server: name, nick: currentUser.nick });
+            } catch (e) {
+                try {
+                    const reg = await apiCall('/api/register', 'POST');
+                    currentUser = reg.user;
+                    await loadGameState();
+                } catch (regError) {
+                    showScreen('screen-loading');
+                    openModal(`<h3>❌ Ошибка подключения</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
+                }
             }
+        }
 
-            function exitServer() {
-                currentServer = null;
-                isAdminMode = false;
-                adminLevel = 0;
-                chatTab = 'general';
-                chatRecipient = null;
-                showScreen('screen-servers');
+        async function loadServers() {
+            try {
+                const data = await apiCall('/api/servers');
+                allServers = data.servers || [];
                 renderServers();
-                sendToBot({ type: 'server_exit', nick: currentUser ? currentUser.nick : 'Unknown' });
+            } catch (e) {
+                console.error('Error loading servers:', e);
             }
+        }
 
-            function updateMainUI() {
-                if (!currentUser || !currentServer) return;
-                mainNick.textContent = currentUser.nick;
-                mainServerBadge.textContent = currentServer.name;
-                mainBalance.textContent = '💰 ' + currentUser.balance;
-                const server = getServer(currentServer.name);
-                if (server) {
-                    currentServer = server;
-                    currentServer.name = currentServer.name;
-                }
+        function isOwner() {
+            try {
+                const user = JSON.parse(new URLSearchParams(initData).get('user') || '{}');
+                return user.id === 8601398572;
+            } catch {
+                return false;
             }
+        }
 
-            function renderCases() {
-                if (!currentUser || !currentServer) return;
-                updateMainUI();
-                let html = '';
-                CASES_DATA.forEach(cs => {
-                    const chancesStr = Object.keys(cs.chances).filter(k => cs.chances[k] > 0).map(k =>
-                        `${RARITY_LABELS[k]}: ${Math.round(cs.chances[k]*100)}%`).join(' | ');
-                    html += `
-                <div class="case-card" onclick="showCaseDetails('${cs.id}')" style="border-color:${cs.color}44;">
-                  <div class="case-icon">${cs.icon}</div>
-                  <div class="fw-bold">${cs.name}</div>
-                  <div class="price mt-8">${cs.price} монет</div>
-                  <div class="text-xs text-muted mt-8">${chancesStr}</div>
-                </div>
-              `;
+        function updateMainUI() {
+            if (!currentUser) return;
+            mainNick.textContent = currentUser.nickname;
+            mainServerBadge.textContent = currentUser.server;
+            mainBalance.textContent = '💰 ' + currentUser.balance;
+        }
+
+        function getItemById(id) {
+            for (const rarity in allItems) {
+                const item = allItems[rarity]?.find(i => i.id === id);
+                if (item) return item;
+            }
+            return null;
+        }
+
+        function estimateItemPrice(rarity) {
+            const base = { common: 50, rare: 150, epic: 400, legendary: 1000, mythic: 3000 };
+            return base[rarity] || 50;
+        }
+
+        // ---------- Cases ----------
+        function renderCases() {
+            if (!currentUser) return;
+            updateMainUI();
+            let html = '';
+            allCases.forEach(cs => {
+                const chancesStr = Object.keys(cs.chances).filter(k => cs.chances[k] > 0).map(k => 
+                    `${RARITY_LABELS[k]}: ${Math.round(cs.chances[k]*100)}%`).join(' | ');
+                html += `
+                    <div class="case-card" onclick="showCaseDetails('${cs.id}')" style="border-color:${cs.color || '#7c3aed'}44;">
+                        <div class="case-icon">${cs.icon}</div>
+                        <div class="fw-bold">${cs.name}</div>
+                        <div class="price mt-8">${cs.price} монет</div>
+                        <div class="text-xs text-muted mt-8">${chancesStr}</div>
+                    </div>
+                `;
+            });
+            mainContent.innerHTML = `
+                <h3 class="mb-8">🎁 Кейсы</h3>
+                <div class="case-grid">${html}</div>
+            `;
+        }
+
+        function showCaseDetails(caseId) {
+            const cs = allCases.find(c => c.id === caseId);
+            if (!cs) return;
+            const itemsList = Object.keys(cs.chances).filter(k => cs.chances[k] > 0).map(r => {
+                return `<div class="text-sm ${r}">${RARITY_LABELS[r]}: ${Math.round(cs.chances[r]*100)}%</div>`;
+            }).join('');
+            openModal(`
+                <button class="close-btn" onclick="closeModal()">✕</button>
+                <h3>${cs.icon} ${cs.name}</h3>
+                <p class="text-center price-tag">${cs.price} монет</p>
+                <div class="mt-8 text-sm">${itemsList}</div>
+                <p class="text-xs text-muted mt-8 text-center">Возможные предметы соответствующих редкостей</p>
+                <button class="btn mt-16" onclick="openCaseById('${cs.id}')">🔓 Открыть за ${cs.price}</button>
+                <button class="btn btn-secondary mt-8" onclick="closeModal()">Закрыть</button>
+            `);
+        }
+
+        async function openCaseById(caseId) {
+            const cs = allCases.find(c => c.id === caseId);
+            if (!cs) return;
+            closeModal();
+            try {
+                caseOpeningInProgress = true;
+                openModal(`
+                    <div class="case-animation-container">
+                        <div class="case-box">${cs.icon}</div>
+                    </div>
+                    <p class="text-center text-muted">Открываем...</p>
+                `);
+                
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'open_case',
+                    case_id: caseId
                 });
-                mainContent.innerHTML = `
-              <h3 class="mb-8">🎁 Кейсы</h3>
-              <div class="case-grid">${html}</div>
-            `;
-            }
-
-            function showCaseDetails(caseId) {
-                const cs = CASES_DATA.find(c => c.id === caseId);
-                if (!cs) return;
-                const itemsList = Object.keys(cs.chances).filter(k => cs.chances[k] > 0).map(r => {
-                    return `<div class="text-sm ${r}">${RARITY_LABELS[r]}: ${Math.round(cs.chances[r]*100)}%</div>`;
-                }).join('');
-                openModal(`
-              <h3>${cs.icon} ${cs.name}</h3>
-              <p class="text-center price-tag">${cs.price} монет</p>
-              <div class="mt-8 text-sm">${itemsList}</div>
-              <p class="text-xs text-muted mt-8 text-center">Возможные предметы соответствующих редкостей</p>
-              <button class="btn mt-16" onclick="openCaseById('${cs.id}')">🔓 Открыть за ${cs.price}</button>
-              <button class="btn btn-secondary mt-8" onclick="closeModal()">Закрыть</button>
-            `);
-            }
-
-            function openCaseById(caseId) {
-                const cs = CASES_DATA.find(c => c.id === caseId);
-                if (!cs) return;
+                
+                currentUser.balance = result.new_balance;
+                
+                setTimeout(() => {
+                    caseOpeningInProgress = false;
+                    openModal(`
+                        <button class="close-btn" onclick="closeModal()">✕</button>
+                        <h3>🎉 Вы получили!</h3>
+                        <div class="text-center mt-8">
+                            <div style="font-size:60px;">${result.item.icon}</div>
+                            <p class="fw-bold mt-8 ${result.item.rarity}">${result.item.name}</p>
+                            <span class="badge badge-${result.item.rarity} mt-8">${RARITY_LABELS[result.item.rarity]}</span>
+                        </div>
+                        <button class="btn mt-16" onclick="closeModal();renderCases();">Забрать</button>
+                    `);
+                    updateMainUI();
+                }, 1200);
+            } catch (e) {
+                caseOpeningInProgress = false;
                 closeModal();
-                openCase(cs);
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
             }
+        }
 
-            function renderInventory() {
-                if (!currentUser || !currentServer) return;
-                updateMainUI();
-                const inv = getInventoryItems(currentUser);
-                const searchTerm = (document.getElementById('inv-search')?.value || '').toLowerCase();
-                const activeFilters = [];
-                document.querySelectorAll('.inv-filter-checkbox:checked').forEach(cb => activeFilters.push(cb.value));
-                let filtered = inv;
-                if (searchTerm) {
-                    filtered = filtered.filter(item => {
-                        const info = getItemInfoByInvItem(item);
-                        return info.name.toLowerCase().includes(searchTerm);
-                    });
-                }
-                if (activeFilters.length > 0) {
-                    filtered = filtered.filter(item => activeFilters.includes(item.rarity));
-                }
-                let itemsHtml = '';
-                if (filtered.length === 0) {
-                    itemsHtml = `<div class="empty-state"><div class="icon">🎒</div>Нет предметов</div>`;
-                } else {
-                    filtered.forEach(invItem => {
-                        const info = getItemInfoByInvItem(invItem);
-                        const sellPrice = Math.floor(estimateItemPrice(info) * (currentServer.settings
-                            .sellMultiplier || 0.5));
-                        itemsHtml += `
-                  <div class="item-row">
-                    <div class="item-icon">${info.icon}</div>
-                    <div style="flex:1;">
-                      <div class="fw-bold text-sm ${info.rarity}">${info.name}</div>
-                      <span class="badge badge-${info.rarity}">${RARITY_LABELS[info.rarity]}</span>
-                      <div class="text-xs text-muted mt-8">${new Date(invItem.obtainedAt).toLocaleDateString()}</div>
-                    </div>
-                    <div class="flex-col gap-6">
-                      <button class="btn btn-sm btn-success" onclick="sellInvItem(${invItem.uid})">💰 ${sellPrice}</button>
-                      <button class="btn btn-sm btn-secondary" onclick="listInvItem(${invItem.uid})">📦 Рынок</button>
-                    </div>
-                  </div>
-                `;
-                    });
-                }
-                const filtersHtml = `
-              <div class="flex-row gap-6 mb-8">
-                <label class="text-sm"><input type="checkbox" class="inv-filter-checkbox" value="common"> Обычные</label>
-                <label class="text-sm"><input type="checkbox" class="inv-filter-checkbox" value="rare"> Редкие</label>
-                <label class="text-sm"><input type="checkbox" class="inv-filter-checkbox" value="epic"> Эпические</label>
-                <label class="text-sm"><input type="checkbox" class="inv-filter-checkbox" value="legendary"> Легендарные</label>
-                <label class="text-sm"><input type="checkbox" class="inv-filter-checkbox" value="mythic"> Мифические</label>
-              </div>
-            `;
-                mainContent.innerHTML = `
-              <h3 class="mb-8">🎒 Инвентарь</h3>
-              <div class="flex-row gap-8 mb-8">
-                <input type="text" id="inv-search" placeholder="Поиск..." oninput="renderInventory()" style="flex:1;">
-                <button class="btn btn-sm btn-secondary" onclick="toggleFilters()">🔍 Фильтры</button>
-              </div>
-              <div class="filter-section" id="inv-filters">${filtersHtml}</div>
-              <div class="flex-row gap-8 mb-8">
-                <button class="btn btn-sm btn-secondary" onclick="showCrafts()">🔧 Крафты</button>
-              </div>
-              <div class="scroll-y" style="max-height:50vh;">${itemsHtml}</div>
-            `;
-                const savedFilterState = window._filterState || false;
-                if (savedFilterState) {
-                    document.getElementById('inv-filters').classList.add('active');
-                }
+        // ---------- Inventory ----------
+        function renderInventory() {
+            if (!currentUser) return;
+            updateMainUI();
+            const inv = currentUser.inventory || [];
+            const searchTerm = (document.getElementById('inv-search')?.value || '').toLowerCase();
+            const activeFilters = [];
+            document.querySelectorAll('.inv-filter-checkbox:checked').forEach(cb => activeFilters.push(cb.value));
+            
+            let filtered = inv;
+            if (searchTerm) {
+                filtered = filtered.filter(item => {
+                    const info = getItemById(item.item_id);
+                    return info?.name?.toLowerCase().includes(searchTerm);
+                });
             }
-
-            function toggleFilters() {
-                const el = document.getElementById('inv-filters');
-                if (el) {
-                    el.classList.toggle('active');
-                    window._filterState = el.classList.contains('active');
-                }
+            if (activeFilters.length > 0) {
+                filtered = filtered.filter(item => activeFilters.includes(item.rarity));
             }
-
-            function sellInvItem(uid) {
-                if (!currentUser) return;
-                const invItem = currentUser.inventory.find(i => i.uid === uid);
-                if (!invItem) return;
-                const info = getItemInfoByInvItem(invItem);
-                const sellPrice = Math.floor(estimateItemPrice(info) * (currentServer.settings.sellMultiplier || 0.5));
-                openModal(`
-              <h3>💰 Продажа</h3>
-              <p class="text-center mt-8">Продать <span class="fw-bold ${info.rarity}">${info.name}</span> за ${sellPrice} монет?</p>
-              <button class="btn btn-success mt-16" onclick="confirmSell(${uid})">Продать</button>
-              <button class="btn btn-secondary mt-8" onclick="closeModal()">Отмена</button>
-            `);
-            }
-
-            function confirmSell(uid) {
-                closeModal();
-                sellItemFromInventory(uid);
-            }
-
-            function listInvItem(uid) {
-                if (!currentUser) return;
-                const invItem = currentUser.inventory.find(i => i.uid === uid);
-                if (!invItem) return;
-                const info = getItemInfoByInvItem(invItem);
-                openModal(`
-              <h3>📦 Выставить на рынок</h3>
-              <p class="text-center mt-8">${info.icon} <span class="fw-bold ${info.rarity}">${info.name}</span></p>
-              <input type="number" id="market-price" class="mt-8" placeholder="Цена" min="1" value="${Math.floor(estimateItemPrice(info)*1.5)}">
-              <button class="btn mt-16" onclick="confirmList(${uid})">Выставить</button>
-              <button class="btn btn-secondary mt-8" onclick="closeModal()">Отмена</button>
-            `);
-            }
-
-            function confirmList(uid) {
-                const priceInput = document.getElementById('market-price');
-                const price = parseInt(priceInput?.value || '0');
-                if (price < 1) return;
-                closeModal();
-                listItemOnMarket(uid, price);
-            }
-
-            function showCrafts() {
-                const recipesHtml = CRAFT_RECIPES.map(r => {
-                    const canCraft = checkCraftAvailability(r);
-                    return `
-                <div class="item-row" style="cursor:${canCraft?'pointer':'default'};opacity:${canCraft?'1':'0.5'};">
-                  <div style="flex:1;">
-                    <div class="fw-bold text-sm">${r.name}</div>
-                    <div class="text-xs text-muted">${r.description}</div>
-                  </div>
-                  <button class="btn btn-sm ${canCraft?'btn-success':'btn-secondary'}" ${canCraft?'':'disabled'} onclick="craftItem('${r.id}')">Крафт</button>
-                </div>
-              `;
-                }).join('');
-                openModal(`
-              <h3>🔧 Крафты</h3>
-              <div class="mt-8">${recipesHtml}</div>
-              <button class="btn btn-secondary mt-16" onclick="closeModal()">Закрыть</button>
-            `);
-            }
-
-            function checkCraftAvailability(recipe) {
-                if (!currentUser) return false;
-                for (const key of Object.keys(recipe.cost)) {
-                    const count = currentUser.inventory.filter(i => i.rarity === key).length;
-                    if (count < recipe.cost[key]) return false;
-                }
-                return true;
-            }
-
-            function renderMarket() {
-                if (!currentUser || !currentServer) return;
-                updateMainUI();
-                const listings = currentServer.market || [];
-                let html = '';
-                if (listings.length === 0) {
-                    html = `<div class="empty-state"><div class="icon">📦</div>Рынок пуст</div>`;
-                } else {
-                    listings.forEach(l => {
-                        const info = getItemById(l.itemId);
-                        const isOwn = l.sellerId === currentUser.id;
-                        html += `
-                  <div class="market-row">
-                    <div class="item-icon">${info?info.icon:'❓'}</div>
-                    <div style="flex:1;">
-                      <div class="fw-bold text-sm ${info?info.rarity:'common'}">${info?info.name:'Неизвестно'}</div>
-                      <span class="badge badge-${info?info.rarity:'common'}">${RARITY_LABELS[info?info.rarity:'common']}</span>
-                      <div class="text-xs text-muted mt-8">Продавец: ${l.sellerNick}</div>
-                    </div>
-                    <div class="flex-col gap-6">
-                      <span class="price-tag">${l.price}💰</span>
-                      ${isOwn?
-                        `<button class="btn btn-xs btn-secondary" onclick="removeMarketListing(${l.uid})">Снять</button>`:
-                        `<button class="btn btn-xs btn-success" onclick="buyFromMarket(${l.uid})">Купить</button>`
-                      }
-                    </div>
-                  </div>
-                `;
-                    });
-                }
-                mainContent.innerHTML = `
-              <h3 class="mb-8">📦 Рынок</h3>
-              <p class="text-xs text-muted mb-8">Общий рынок сервера ${currentServer.name}</p>
-              <div class="scroll-y" style="max-height:55vh;">${html}</div>
-            `;
-            }
-
-            function renderChat() {
-                if (!currentUser || !currentServer) return;
-                updateMainUI();
-                const isPrivate = chatTab === 'private';
-                const recipient = chatRecipient;
-                let messages = [];
-                if (isPrivate && recipient) {
-                    messages = getServerChat(currentServer, true, recipient.id);
-                } else {
-                    messages = getServerChat(currentServer, false, null);
-                }
-                let msgsHtml = '';
-                if (messages.length === 0) {
-                    msgsHtml = `<div class="empty-state"><div class="icon">💬</div>Нет сообщений</div>`;
-                } else {
-                    messages.forEach(m => {
-                        const isOwn = m.senderId === currentUser.id;
-                        msgsHtml += `
-                  <div class="chat-message ${isOwn?'own':'other'}">
-                    <div class="sender">${m.senderNick}</div>
-                    <div>${m.text}</div>
-                    <div class="time">${new Date(m.timestamp).toLocaleTimeString()}</div>
-                  </div>
-                `;
-                    });
-                }
-                const usersList = appData.users.filter(u => u.id !== currentUser.id && !u.isBanned).map(u =>
-                    `<option value="${u.id}">${u.nick}</option>`).join('');
-                const chatHeader = isPrivate ?
-                    `<div class="flex-row gap-8 mb-8">
-                <button class="btn btn-xs btn-secondary" onclick="switchChatTab('general')">← Общий</button>
-                <span class="fw-bold text-sm">ЛС: ${recipient?recipient.nick:'Выберите'}</span>
-              </div>` :
-                    `<div class="flex-row gap-8 mb-8">
-                <button class="btn btn-xs btn-secondary" onclick="switchChatTab('private')">💬 ЛС</button>
-                <span class="fw-bold text-sm">Общий чат</span>
-              </div>`;
-                const inputHtml = isPrivate ?
-                    `<div class="flex-row gap-6 mt-8">
-                <select id="chat-recipient-select" class="w-100">${usersList}</select>
-                <input type="text" id="chat-input" placeholder="Сообщение..." style="flex:2;">
-                <button class="btn btn-sm" onclick="sendChatFromInput()">📨</button>
-              </div>` :
-                    `<div class="flex-row gap-6 mt-8">
-                <input type="text" id="chat-input" placeholder="Сообщение..." style="flex:1;">
-                <button class="btn btn-sm" onclick="sendChatFromInput()">📨</button>
-              </div>`;
-                mainContent.innerHTML = `
-              <h3 class="mb-8">💬 Чат</h3>
-              ${chatHeader}
-              <div class="scroll-y" id="chat-messages" style="max-height:40vh;">${msgsHtml}</div>
-              ${inputHtml}
-            `;
-                const chatDiv = document.getElementById('chat-messages');
-                if (chatDiv) chatDiv.scrollTop = chatDiv.scrollHeight;
-            }
-
-            function switchChatTab(tab) {
-                chatTab = tab;
-                if (tab === 'general') chatRecipient = null;
-                renderChat();
-            }
-
-            function sendChatFromInput() {
-                const input = document.getElementById('chat-input');
-                if (!input || !input.value.trim()) return;
-                const text = input.value.trim();
-                if (chatTab === 'private') {
-                    const select = document.getElementById('chat-recipient-select');
-                    if (select) {
-                        const recipientId = parseInt(select.value);
-                        const recipient = getUserById(recipientId);
-                        if (recipient) {
-                            chatRecipient = recipient;
-                            sendChatMessage(text, recipientId);
-                            input.value = '';
-                            renderChat();
-                            return;
-                        }
-                    }
-                    if (chatRecipient) {
-                        sendChatMessage(text, chatRecipient.id);
-                        input.value = '';
-                        renderChat();
-                    } else {
-                        openModal(
-                            `<h3>💬 Выберите собеседника</h3><button class="btn mt-8" onclick="closeModal()">ОК</button>`
-                            );
-                    }
-                } else {
-                    sendChatMessage(text, null);
-                    input.value = '';
-                    renderChat();
-                }
-            }
-
-            function renderSettings() {
-                if (!currentUser || !currentServer) return;
-                updateMainUI();
-                const adminLvl = isAdminOfServer(currentUser, currentServer.name);
-                const isOwnerUser = isOwner();
-                const adminSection = (adminLvl > 0 || isOwnerUser) ?
-                    `<button class="btn btn-sm btn-secondary" onclick="openAdminPanel()">🛠️ Админ-панель (Уровень ${adminLvl||(isOwnerUser?5:0)})</button>` :
-                    '';
-                const warningsHtml = currentUser.warnings && currentUser.warnings.length > 0 ?
-                    `<div class="glass mt-8" style="padding:10px;border-left:3px solid var(--orange);">
-                <div class="fw-bold text-sm">⚠️ Предупреждения:</div>
-                ${currentUser.warnings.map(w=>`<div class="text-xs text-muted">${w.reason} (${new Date(w.date).toLocaleDateString()})</div>`).join('')}
-              </div>` : '';
-                mainContent.innerHTML = `
-              <h3 class="mb-8">⚙️ Настройки</h3>
-              <div class="glass" style="padding:14px;">
-                <div class="stat-row"><span class="text-muted">Ник:</span><span class="fw-bold">${currentUser.nick}</span></div>
-                <div class="stat-row"><span class="text-muted">Баланс:</span><span class="price-tag">${currentUser.balance} монет</span></div>
-                <div class="stat-row"><span class="text-muted">Сервер:</span><span>${currentServer.name}</span></div>
-              </div>
-              ${warningsHtml}
-              <div class="glass mt-8" style="padding:14px;">
-                <div class="stat-row"><span>🔊 Звук</span><div class="toggle-switch ${currentUser.soundEnabled?'active':''}" onclick="toggleSound()"></div></div>
-                <div class="stat-row"><span>🔔 Уведомления</span><div class="toggle-switch ${currentUser.notificationsEnabled?'active':''}" onclick="toggleNotifications()"></div></div>
-              </div>
-              <div class="glass mt-8" style="padding:14px;">
-                <div class="fw-bold mb-8">📊 Статистика</div>
-                <div class="stat-row"><span class="text-muted">Открыто кейсов:</span><span>${currentUser.stats.openedCases||0}</span></div>
-                <div class="stat-row"><span class="text-muted">Получено предметов:</span><span>${currentUser.stats.itemsObtained||0}</span></div>
-                <div class="stat-row"><span class="text-muted">Потрачено:</span><span>${currentUser.stats.spent||0} монет</span></div>
-                <div class="stat-row"><span class="text-muted">Заработано:</span><span>${currentUser.stats.earned||0} монет</span></div>
-              </div>
-              <div class="glass mt-8" style="padding:14px;">
-                <div class="fw-bold mb-8">🎫 Поддержка</div>
-                <button class="btn btn-sm btn-secondary" onclick="showSupportForm()">Создать тикет</button>
-              </div>
-              <div class="flex-col gap-8 mt-8">
-                ${adminSection}
-                <button class="btn btn-secondary" onclick="showDonateModal()">💎 Пополнить баланс</button>
-                <button class="btn btn-danger" onclick="exitServer()">🚪 Выйти из сервера</button>
-                <button class="btn btn-secondary" onclick="logoutUser()">🔒 Выйти из аккаунта</button>
-              </div>
-            `;
-            }
-
-            function toggleSound() {
-                if (!currentUser) return;
-                currentUser.soundEnabled = !currentUser.soundEnabled;
-                saveData();
-                renderSettings();
-            }
-
-            function toggleNotifications() {
-                if (!currentUser) return;
-                currentUser.notificationsEnabled = !currentUser.notificationsEnabled;
-                saveData();
-                renderSettings();
-            }
-
-            function showSupportForm() {
-                openModal(`
-              <h3>🎫 Поддержка</h3>
-              <input type="text" id="ticket-subject" class="mt-8" placeholder="Тема">
-              <textarea id="ticket-message" class="mt-8" placeholder="Опишите проблему..." rows="4"></textarea>
-              <button class="btn mt-16" onclick="submitTicket()">Отправить</button>
-              <button class="btn btn-secondary mt-8" onclick="closeModal()">Отмена</button>
-            `);
-            }
-
-            function submitTicket() {
-                const subject = document.getElementById('ticket-subject')?.value.trim() || 'Без темы';
-                const message = document.getElementById('ticket-message')?.value.trim() || 'Без описания';
-                if (!currentUser || !currentServer) return;
-                const ticket = addTicket(currentUser.id, currentServer.name, subject, message);
-                sendToBot({ type: 'ticket', server: currentServer.name, nick: currentUser.nick, subject, message,
-                    ticketId: ticket.id });
-                closeModal();
-                openModal(`<h3>✅ Тикет отправлен</h3><p class="text-center text-muted">ID: ${ticket.id}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
-            }
-
-            function showDonateModal() {
-                const packsHtml = DONATE_PACKS.map(p => `
-              <div class="item-row" style="cursor:pointer;" onclick="donatePack('${p.id}')">
-                <div style="flex:1;">
-                  <div class="fw-bold">${p.stars} ⭐ = ${p.coins} монет</div>
-                </div>
-                <button class="btn btn-xs btn-secondary">Купить</button>
-              </div>
-            `).join('');
-                openModal(`
-              <h3>💎 Пополнение баланса</h3>
-              <p class="text-xs text-muted text-center mt-8">Оплата через звёзды Telegram</p>
-              <div class="mt-8">${packsHtml}</div>
-              <button class="btn btn-secondary mt-16" onclick="closeModal()">Закрыть</button>
-            `);
-            }
-
-            function donatePack(packId) {
-                const pack = DONATE_PACKS.find(p => p.id === packId);
-                if (!pack) return;
-                sendToBot({ type: 'donate', pack: packId, stars: pack.stars, coins: pack.coins, nick: currentUser ? currentUser
-                        .nick : 'Unknown' });
-                closeModal();
-                openModal(
-                    `<h3>⭐ Оплата</h3><p class="text-center text-muted">Отправляем запрос на оплату ${pack.stars} звёзд...<br>Ссылка: https://t.me/storm_cases_bot?start=${packId}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`
-                    );
-            }
-
-            function openAdminPanel() {
-                if (!currentUser || !currentServer) return;
-                const lvl = isAdminOfServer(currentUser, currentServer.name);
-                const owner = isOwner();
-                if (lvl <= 0 && !owner) return;
-                adminLevel = owner ? 5 : lvl;
-                isAdminMode = true;
-                renderAdminPanel();
-            }
-
-            function renderAdminPanel() {
-                if (!isAdminMode) return;
-                const owner = isOwner();
-                const lvl = adminLevel;
-                let tabs = ['players', 'logs', 'give', 'tickets', 'chat', 'servers', 'economy'];
-                if (owner || lvl >= 5) tabs.push('admins');
-                const tabsHtml = tabs.map(t => {
-                    const labels = { players: '👥 Игроки', logs: '📋 Логи', give: '🎁 Выдать', tickets: '🎫 Тикеты',
-                        chat: '💬 Чат', servers: '🖥️ Серверы', economy: '💰 Экономика', admins: '👑 Админы' };
-                    return `<button class="tab-btn ${t==='players'?'active':''}" data-atab="${t}" onclick="switchAdminTab('${t}')">${labels[t]||t}</button>`;
-                }).join('');
-                mainContent.innerHTML = `
-              <div class="flex-row gap-8 mb-8">
-                <button class="btn btn-xs btn-secondary" onclick="closeAdminPanel()">← Назад</button>
-                <span class="fw-bold">🛠️ Админ-панель (Уровень ${lvl})</span>
-              </div>
-              <div class="tab-bar" style="flex-wrap:wrap;">${tabsHtml}</div>
-              <div id="admin-content" class="scroll-y" style="max-height:55vh;"></div>
-            `;
-                renderAdminTab('players');
-            }
-
-            function switchAdminTab(tab) {
-                document.querySelectorAll('[data-atab]').forEach(b => b.classList.remove('active'));
-                document.querySelector(`[data-atab="${tab}"]`)?.classList.add('active');
-                renderAdminTab(tab);
-            }
-
-            function closeAdminPanel() {
-                isAdminMode = false;
-                adminLevel = 0;
-                renderSettings();
-            }
-
-            function renderAdminTab(tab) {
-                if (!isAdminMode) return;
-                const container = document.getElementById('admin-content');
-                if (!container) return;
-                const owner = isOwner();
-                const lvl = adminLevel;
-                const server = currentServer;
-                const serverName = currentServer.name;
-                const canManageAdmins = owner || lvl >= 5;
-                let html = '';
-                switch (tab) {
-                    case 'players':
-                        const users = appData.users.filter(u => u.servers && u.servers[serverName] !== undefined || true);
-                        html =
-                            `<h4 class="mb-8">Игроки на сервере ${serverName}</h4>${appData.users.map(u=>{
-                          const isAdmin=isAdminOfServer(u,serverName);
-                          return `<div class="item-row">
+            
+            let itemsHtml = '';
+            if (filtered.length === 0) {
+                itemsHtml = `<div class="empty-state"><div class="icon">🎒</div>Нет предметов</div>`;
+            } else {
+                filtered.forEach(invItem => {
+                    const info = getItemById(invItem.item_id);
+                    const sellPrice = Math.floor(estimateItemPrice(invItem.rarity) * 0.5);
+                    itemsHtml += `
+                        <div class="item-row">
+                            <div class="item-icon">${info ? info.icon : '❓'}</div>
                             <div style="flex:1;">
-                              <div class="fw-bold text-sm">${u.nick} ${isAdmin>0?'<span class="admin-badge">ADMIN</span>':''}</div>
-                              <div class="text-xs text-muted">Баланс: ${u.balance} | Предметов: ${u.inventory.length} | Предупреждения: ${u.warnings.length}</div>
-                              ${u.isBanned?'<span class="badge badge-common">🔨 Забанен</span>':''}
-                              ${u.isMuted&&Date.now()<(u.muteUntil||0)?'<span class="badge badge-common">🔇 Замучен</span>':''}
+                                <div class="fw-bold text-sm ${invItem.rarity}">${info ? info.name : 'Неизвестно'}</div>
+                                <span class="badge badge-${invItem.rarity}">${RARITY_LABELS[invItem.rarity]}</span>
+                                <div class="text-xs text-muted mt-8">${new Date(invItem.obtained_at).toLocaleDateString()}</div>
                             </div>
-                            <div class="flex-row gap-6">
-                              <button class="btn btn-xs btn-secondary" onclick="adminAction('warn',${u.id})">⚠️</button>
-                              <button class="btn btn-xs btn-secondary" onclick="adminAction('mute',${u.id})">🔇</button>
-                              <button class="btn btn-xs btn-danger" onclick="adminAction('ban',${u.id})">🔨</button>
-                              <button class="btn btn-xs btn-secondary" onclick="adminAction('unmute',${u.id})">✅</button>
+                            <div class="flex-col gap-6">
+                                <button class="btn btn-sm btn-success" onclick="sellInvItem(${invItem.uid})">💰 ${sellPrice}</button>
+                                <button class="btn btn-sm btn-secondary" onclick="listInvItem(${invItem.uid})">📦 Рынок</button>
                             </div>
-                          </div>`}).join('')}`;
-                        break;
-                    case 'logs':
-                        html =
-                            `<h4 class="mb-8">Логи действий</h4>${appData.logs.filter(l=>l.server===serverName).slice(-50).reverse().map(l=>`<div class="text-xs text-muted mb-8">[${new Date(l.timestamp).toLocaleString()}] ${l.adminNick}: ${l.action} - ${l.details}</div>`).join('')||'<div class="empty-state">Нет логов</div>'}`;
-                        break;
-                    case 'give':
-                        html = `
-                  <h4 class="mb-8">Выдать монеты или предмет</h4>
-                  <input type="text" id="give-nick" class="mb-8" placeholder="Ник игрока">
-                  <input type="number" id="give-coins" class="mb-8" placeholder="Количество монет" min="0">
-                  <div class="flex-row gap-8 mb-8">
-                    <select id="give-item-rarity" class="mb-8" style="flex:1;">
-                      <option value="">— Предмет (необязательно) —</option>
-                      ${RARITIES.map(r=>`<option value="${r}">${RARITY_LABELS[r]}</option>`).join('')}
-                    </select>
-                  </div>
-                  <button class="btn" onclick="adminGiveItem()">Выдать</button>
-                `;
-                        break;
-                    case 'tickets':
-                        html =
-                            `<h4 class="mb-8">Тикеты</h4>${appData.tickets.filter(t=>t.serverName===serverName).map(t=>`<div class="item-row">
-                  <div style="flex:1;">
-                    <div class="fw-bold text-sm">#${t.id} ${t.subject}</div>
-                    <div class="text-xs text-muted">${t.message}</div>
-                    <div class="text-xs text-muted">От: ${getUserById(t.userId)?.nick||'Неизв.'} | ${new Date(t.createdAt).toLocaleString()}</div>
-                    <span class="badge badge-${t.status==='open'?'epic':'common'}">${t.status==='open'?'Открыт':'Решён'}</span>
-                  </div>
-                  <div class="flex-row gap-6">
-                    <button class="btn btn-xs btn-success" onclick="resolveTicket(${t.id})">✅</button>
-                    <button class="btn btn-xs btn-danger" onclick="deleteTicket(${t.id})">🗑️</button>
-                  </div>
-                </div>`).join('')||'<div class="empty-state">Нет тикетов</div>'}`;
-                        break;
-                    case 'chat':
-                        html = `
-                  <h4 class="mb-8">Управление чатом</h4>
-                  <p class="text-xs text-muted mb-8">Сообщений в общем чате: ${server.chat.filter(m=>!m.isPrivate).length}</p>
-                  <button class="btn btn-danger" onclick="clearServerChat()">🗑️ Очистить общий чат</button>
-                `;
-                        break;
-                    case 'servers':
-                        html = `
-                  <h4 class="mb-8">Управление серверами</h4>
-                  ${SERVER_NAMES.map(sn=>{
-                    const s=getServer(sn);
-                    return `<div class="item-row">
-                      <div style="flex:1;">
-                        <div class="fw-bold">${sn}</div>
-                        <div class="text-xs text-muted">Онлайн: ${s.online} | Статус: ${s.isOnline!==false?'🟢':'🔴'}</div>
-                      </div>
-                      <div class="flex-row gap-6">
-                        <button class="btn btn-xs btn-secondary" onclick="adminServerToggle('${sn}')">${s.isOnline!==false?'Отключить':'Включить'}</button>
-                        <button class="btn btn-xs btn-secondary" onclick="adminServerRestart('${sn}')">🔄</button>
-                      </div>
-                    </div>`}).join('')}
-                `;
-                        break;
-                    case 'economy':
-                        html = `
-                  <h4 class="mb-8">Экономика сервера</h4>
-                  <div class="flex-col gap-8">
-                    <label class="text-sm">Начальный баланс: <span class="price-tag">${server.settings.startBalance}</span></label>
-                    <input type="number" id="eco-start-balance" value="${server.settings.startBalance}" min="0">
-                    <label class="text-sm">Множитель продажи: <span class="price-tag">${server.settings.sellMultiplier}</span></label>
-                    <input type="number" id="eco-sell-mult" value="${server.settings.sellMultiplier}" min="0.1" step="0.1">
-                    <button class="btn" onclick="adminSaveEconomy()">Сохранить</button>
-                  </div>
-                `;
-                        break;
-                    case 'admins':
-                        if (!canManageAdmins) {
-                            html = '<div class="empty-state">Нет доступа</div>';
-                            break;
-                        }
-                        const admins = server.admins || [];
-                        html = `
-                  <h4 class="mb-8">Администраторы сервера</h4>
-                  ${admins.map(a=>`<div class="item-row">
-                    <div style="flex:1;">
-                      <div class="fw-bold text-sm">${getUserById(a.userId)?.nick||'Неизв.'}</div>
-                      <div class="text-xs text-muted">Уровень: ${a.level}</div>
+                        </div>
+                    `;
+                });
+            }
+            
+            mainContent.innerHTML = `
+                <h3 class="mb-8">🎒 Инвентарь</h3>
+                <div class="flex-row gap-8 mb-8">
+                    <input type="text" id="inv-search" placeholder="Поиск..." oninput="renderInventory()" style="flex:1;">
+                    <button class="btn btn-sm btn-secondary" onclick="toggleFilters()">🔍 Фильтры</button>
+                </div>
+                <div class="filter-section ${filterState ? 'active' : ''}" id="inv-filters">
+                    <div class="flex-row gap-6 mb-8">
+                        ${RARITIES.map(r => `<label class="text-sm"><input type="checkbox" class="inv-filter-checkbox" value="${r}"> ${RARITY_LABELS[r]}</label>`).join('')}
                     </div>
-                    <button class="btn btn-xs btn-danger" onclick="removeAdmin(${a.userId})">Удалить</button>
-                  </div>`).join('')||'<div class="empty-state">Нет админов</div>'}
-                  <div class="flex-row gap-8 mt-8">
-                    <input type="text" id="admin-nick" placeholder="Ник нового админа" style="flex:1;">
-                    <input type="number" id="admin-level" placeholder="Уровень" min="1" max="4" value="1" style="width:70px;">
-                  </div>
-                  <button class="btn mt-8" onclick="addAdmin()">Добавить</button>
+                </div>
+                <div class="flex-row gap-8 mb-8">
+                    <button class="btn btn-sm btn-secondary" onclick="showCrafts()">🔧 Крафты</button>
+                </div>
+                <div class="scroll-y" style="max-height:50vh;">${itemsHtml}</div>
+            `;
+        }
+
+        function toggleFilters() {
+            filterState = !filterState;
+            const el = document.getElementById('inv-filters');
+            if (el) el.classList.toggle('active');
+        }
+
+        function sellInvItem(uid) {
+            const invItem = currentUser.inventory.find(i => i.uid === uid);
+            if (!invItem) return;
+            const info = getItemById(invItem.item_id);
+            const sellPrice = Math.floor(estimateItemPrice(invItem.rarity) * 0.5);
+            openModal(`
+                <button class="close-btn" onclick="closeModal()">✕</button>
+                <h3>💰 Продажа</h3>
+                <p class="text-center mt-8">Продать <span class="fw-bold ${invItem.rarity}">${info ? info.name : 'Предмет'}</span> за ${sellPrice} монет?</p>
+                <button class="btn btn-success mt-16" onclick="confirmSell(${uid})">Продать</button>
+                <button class="btn btn-secondary mt-8" onclick="closeModal()">Отмена</button>
+            `);
+        }
+
+        async function confirmSell(uid) {
+            closeModal();
+            try {
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'sell_item',
+                    uid: uid
+                });
+                currentUser.balance = result.new_balance;
+                currentUser.inventory = result.inventory;
+                updateMainUI();
+                renderInventory();
+            } catch (e) {
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
+            }
+        }
+
+        function listInvItem(uid) {
+            const invItem = currentUser.inventory.find(i => i.uid === uid);
+            if (!invItem) return;
+            const info = getItemById(invItem.item_id);
+            openModal(`
+                <button class="close-btn" onclick="closeModal()">✕</button>
+                <h3>📦 Выставить на рынок</h3>
+                <p class="text-center mt-8">${info ? info.icon : '❓'} <span class="fw-bold ${invItem.rarity}">${info ? info.name : 'Предмет'}</span></p>
+                <input type="number" id="market-price" class="mt-8" placeholder="Цена" min="1" value="${Math.floor(estimateItemPrice(invItem.rarity)*1.5)}">
+                <button class="btn mt-16" onclick="confirmList(${uid})">Выставить</button>
+                <button class="btn btn-secondary mt-8" onclick="closeModal()">Отмена</button>
+            `);
+        }
+
+        async function confirmList(uid) {
+            const priceInput = document.getElementById('market-price');
+            const price = parseInt(priceInput?.value || '0');
+            if (price < 1) return;
+            closeModal();
+            try {
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'list_market',
+                    uid: uid,
+                    price: price
+                });
+                currentUser.inventory = result.inventory;
+                renderInventory();
+            } catch (e) {
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
+            }
+        }
+
+        function showCrafts() {
+            const recipesHtml = CRAFT_RECIPES.map(r => {
+                const canCraft = checkCraftAvailability(r);
+                return `
+                    <div class="item-row" style="cursor:${canCraft ? 'pointer' : 'default'};opacity:${canCraft ? '1' : '0.5'};">
+                        <div style="flex:1;">
+                            <div class="fw-bold text-sm">${r.name}</div>
+                            <div class="text-xs text-muted">${r.description}</div>
+                        </div>
+                        <button class="btn btn-sm ${canCraft ? 'btn-success' : 'btn-secondary'}" ${canCraft ? '' : 'disabled'} onclick="craftItem('${r.id}')">Крафт</button>
+                    </div>
                 `;
-                        break;
-                    default:
-                        html = '<div class="empty-state">Выберите вкладку</div>';
-                }
-                container.innerHTML = html;
-            }
+            }).join('');
+            openModal(`
+                <button class="close-btn" onclick="closeModal()">✕</button>
+                <h3>🔧 Крафты</h3>
+                <div class="mt-8">${recipesHtml}</div>
+                <button class="btn btn-secondary mt-16" onclick="closeModal()">Закрыть</button>
+            `);
+        }
 
-            function adminAction(action, userId) {
-                const target = getUserById(userId);
-                if (!target || !currentServer) return;
-                const server = currentServer;
-                switch (action) {
-                    case 'warn':
-                        const reason = prompt('Причина предупреждения:') || 'Нарушение правил';
-                        target.warnings.push({ reason, date: Date.now(), by: currentUser.nick });
-                        addLog(currentServer.name, 'warn', `${target.nick} предупреждён: ${reason}`);
-                        sendToBot({ type: 'admin_warn', server: currentServer.name, target: target.nick, reason });
-                        break;
-                    case 'mute':
-                        target.isMuted = true;
-                        target.muteUntil = Date.now() + 3600000;
-                        addLog(currentServer.name, 'mute', `${target.nick} замучен на 1 час`);
-                        sendToBot({ type: 'admin_mute', server: currentServer.name, target: target.nick });
-                        break;
-                    case 'unmute':
-                        target.isMuted = false;
-                        target.muteUntil = null;
-                        addLog(currentServer.name, 'unmute', `${target.nick} размучен`);
-                        break;
-                    case 'ban':
-                        const banReason = prompt('Причина бана:') || 'Нарушение правил';
-                        target.isBanned = true;
-                        target.banReason = banReason;
-                        addLog(currentServer.name, 'ban', `${target.nick} забанен: ${banReason}`);
-                        sendToBot({ type: 'admin_ban', server: currentServer.name, target: target.nick, reason: banReason });
-                        break;
-                    case 'unban':
-                        target.isBanned = false;
-                        target.banReason = null;
-                        addLog(currentServer.name, 'unban', `${target.nick} разбанен`);
-                        break;
-                }
-                saveData();
-                renderAdminTab('players');
+        function checkCraftAvailability(recipe) {
+            if (!currentUser || !currentUser.inventory) return false;
+            for (const key of Object.keys(recipe.cost)) {
+                const count = currentUser.inventory.filter(i => i.rarity === key).length;
+                if (count < recipe.cost[key]) return false;
             }
+            return true;
+        }
 
-            function adminGiveItem() {
-                const nick = document.getElementById('give-nick')?.value.trim();
-                const coins = parseInt(document.getElementById('give-coins')?.value || '0');
-                const rarity = document.getElementById('give-item-rarity')?.value;
-                if (!nick) return;
-                const target = getUserByNick(nick);
-                if (!target) {
-                    openModal(`<h3>❌ Игрок не найден</h3><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
-                    return;
-                }
-                if (coins > 0) {
-                    target.balance += coins;
-                    addLog(currentServer.name, 'give_coins', `${target.nick} +${coins} монет`);
-                    sendToBot({ type: 'admin_give_coins', server: currentServer.name, target: target.nick, amount: coins });
-                }
-                if (rarity) {
-                    const item = getRandomItemByRarity(rarity);
-                    if (item) {
-                        addToInventory(target, item);
-                        addLog(currentServer.name, 'give_item', `${target.nick} получил ${item.name}`);
-                        sendToBot({ type: 'admin_give_item', server: currentServer.name, target: target.nick, item: item
-                                .name });
-                    }
-                }
-                saveData();
-                renderAdminTab('give');
-                openModal(
-                    `<h3>✅ Выдано</h3><p class="text-center text-muted">${coins>0?coins+' монет ':''}${rarity?'предмет '+RARITY_LABELS[rarity]:''} для ${target.nick}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`
-                    );
+        async function craftItem(recipeId) {
+            const recipe = CRAFT_RECIPES.find(r => r.id === recipeId);
+            if (!recipe) return;
+            closeModal();
+            try {
+                // Отправляем на сервер
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'craft',
+                    recipe_id: recipeId
+                });
+                currentUser.inventory = result.inventory;
+                openModal(`
+                    <button class="close-btn" onclick="closeModal()">✕</button>
+                    <h3>🔧 Крафт успешен!</h3>
+                    <div class="text-center mt-8">
+                        <div style="font-size:60px;">${result.item.icon}</div>
+                        <p class="fw-bold mt-8 ${result.item.rarity}">${result.item.name}</p>
+                        <span class="badge badge-${result.item.rarity} mt-8">${RARITY_LABELS[result.item.rarity]}</span>
+                    </div>
+                    <button class="btn mt-16" onclick="closeModal();renderInventory();">Забрать</button>
+                `);
+            } catch (e) {
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
             }
+        }
 
-            function resolveTicket(id) {
-                const ticket = appData.tickets.find(t => t.id === id);
-                if (ticket) ticket.status = 'resolved';
-                saveData();
-                renderAdminTab('tickets');
+        // ---------- Market ----------
+        function renderMarket() {
+            if (!currentUser) return;
+            updateMainUI();
+            const listings = gameState.market || [];
+            let html = '';
+            if (listings.length === 0) {
+                html = `<div class="empty-state"><div class="icon">📦</div>Рынок пуст</div>`;
+            } else {
+                listings.forEach(l => {
+                    const info = getItemById(l.item_id);
+                    const isOwn = l.seller_id === currentUser.telegram_id;
+                    html += `
+                        <div class="market-row">
+                            <div class="item-icon">${info ? info.icon : '❓'}</div>
+                            <div style="flex:1;">
+                                <div class="fw-bold text-sm ${l.rarity}">${info ? info.name : 'Неизвестно'}</div>
+                                <span class="badge badge-${l.rarity}">${RARITY_LABELS[l.rarity]}</span>
+                                <div class="text-xs text-muted mt-8">Продавец: ${l.seller_nick}</div>
+                            </div>
+                            <div class="flex-col gap-6">
+                                <span class="price-tag">${l.price}💰</span>
+                                ${isOwn ? 
+                                    `<button class="btn btn-xs btn-secondary" onclick="cancelListing(${l.uid})">Снять</button>` :
+                                    `<button class="btn btn-xs btn-success" onclick="buyMarket(${l.uid})">Купить</button>`
+                                }
+                            </div>
+                        </div>
+                    `;
+                });
             }
+            mainContent.innerHTML = `
+                <h3 class="mb-8">📦 Рынок</h3>
+                <p class="text-xs text-muted mb-8">Общий рынок сервера ${currentUser.server}</p>
+                <div class="scroll-y" style="max-height:55vh;">${html}</div>
+            `;
+        }
 
-            function deleteTicket(id) {
-                appData.tickets = appData.tickets.filter(t => t.id !== id);
-                saveData();
-                renderAdminTab('tickets');
+        async function buyMarket(listingUid) {
+            try {
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'buy_market',
+                    listing_uid: listingUid
+                });
+                currentUser.balance = result.new_balance;
+                currentUser.inventory = result.inventory;
+                await loadGameState();
+                updateMainUI();
+                renderMarket();
+            } catch (e) {
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
             }
+        }
 
-            function clearServerChat() {
-                if (!currentServer) return;
-                currentServer.chat = currentServer.chat.filter(m => m.isPrivate);
-                addLog(currentServer.name, 'clear_chat', 'Общий чат очищен');
-                saveData();
-                renderAdminTab('chat');
+        async function cancelListing(listingUid) {
+            try {
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'cancel_listing',
+                    listing_uid: listingUid
+                });
+                currentUser.inventory = result.inventory;
+                await loadGameState();
+                renderMarket();
+            } catch (e) {
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
             }
+        }
 
-            function adminServerToggle(name) {
-                const server = getServer(name);
-                if (!server) return;
-                server.isOnline = server.isOnline === false ? true : false;
-                if (server.isOnline) server.online = Math.floor(Math.random() * 100) + 1;
-                addLog(currentServer.name, 'server_toggle', `${name}: ${server.isOnline?'включен':'отключён'}`);
-                saveData();
-                renderAdminTab('servers');
+        // ---------- Chat ----------
+        function renderChat() {
+            if (!currentUser) return;
+            updateMainUI();
+            const isPrivate = chatTab === 'private';
+            const messages = isPrivate ? (gameState.private_chat || []) : (gameState.chat || []);
+            
+            let msgsHtml = '';
+            if (messages.length === 0) {
+                msgsHtml = `<div class="empty-state"><div class="icon">💬</div>Нет сообщений</div>`;
+            } else {
+                messages.forEach(m => {
+                    const isOwn = m.sender_id === currentUser.telegram_id;
+                    msgsHtml += `
+                        <div class="chat-message ${isOwn ? 'own' : 'other'}">
+                            <div class="sender">${m.sender_nick}</div>
+                            <div>${m.text}</div>
+                            <div class="time">${new Date(m.timestamp * 1000).toLocaleTimeString()}</div>
+                        </div>
+                    `;
+                });
             }
+            
+            const chatHeader = isPrivate ?
+                `<div class="flex-row gap-8 mb-8">
+                    <button class="btn btn-xs btn-secondary" onclick="switchChatTab('general')">← Общий</button>
+                    <span class="fw-bold text-sm">Личные сообщения</span>
+                </div>` :
+                `<div class="flex-row gap-8 mb-8">
+                    <button class="btn btn-xs btn-secondary" onclick="switchChatTab('private')">💬 ЛС</button>
+                    <span class="fw-bold text-sm">Общий чат</span>
+                </div>`;
+            
+            mainContent.innerHTML = `
+                <h3 class="mb-8">💬 Чат</h3>
+                ${chatHeader}
+                <div class="scroll-y" id="chat-messages" style="max-height:40vh;">${msgsHtml}</div>
+                <div class="flex-row gap-6 mt-8">
+                    <input type="text" id="chat-input" placeholder="Сообщение..." style="flex:1;">
+                    <button class="btn btn-sm" onclick="sendChatMessage()">📨</button>
+                </div>
+            `;
+            const chatDiv = document.getElementById('chat-messages');
+            if (chatDiv) chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
 
-            function adminServerRestart(name) {
-                const server = getServer(name);
-                if (!server) return;
-                server.online = Math.floor(Math.random() * 100) + 1;
-                addLog(currentServer.name, 'server_restart', `${name} перезапущен`);
-                saveData();
-                renderAdminTab('servers');
+        function switchChatTab(tab) {
+            chatTab = tab;
+            renderChat();
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            if (!input || !input.value.trim()) return;
+            const text = input.value.trim();
+            try {
+                await apiCall('/api/action', 'POST', {
+                    type: 'send_chat',
+                    text: text,
+                    is_private: chatTab === 'private'
+                });
+                input.value = '';
+                await loadGameState();
+                renderChat();
+            } catch (e) {
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
             }
+        }
 
-            function adminSaveEconomy() {
-                const startBal = parseInt(document.getElementById('eco-start-balance')?.value || '1000');
-                const mult = parseFloat(document.getElementById('eco-sell-mult')?.value || '0.5');
-                if (!currentServer) return;
-                currentServer.settings.startBalance = startBal;
-                currentServer.settings.sellMultiplier = mult;
-                addLog(currentServer.name, 'economy', `Баланс: ${startBal}, множитель: ${mult}`);
-                saveData();
-                renderAdminTab('economy');
-                openModal(`<h3>✅ Сохранено</h3><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
+        // ---------- Settings ----------
+        function renderSettings() {
+            if (!currentUser) return;
+            updateMainUI();
+            const adminLvl = isOwner() ? 5 : 0;
+            const warningsHtml = currentUser.warnings && currentUser.warnings.length > 0 ?
+                `<div class="glass mt-8" style="padding:10px;border-left:3px solid var(--orange);">
+                    <div class="fw-bold text-sm">⚠️ Предупреждения:</div>
+                    ${currentUser.warnings.map(w => `<div class="text-xs text-muted">${w.reason || w} (${new Date(w.date || Date.now()).toLocaleDateString()})</div>`).join('')}
+                </div>` : '';
+            
+            mainContent.innerHTML = `
+                <h3 class="mb-8">⚙️ Настройки</h3>
+                <div class="glass" style="padding:14px;">
+                    <div class="stat-row"><span class="text-muted">Ник:</span><span class="fw-bold">${currentUser.nickname}</span></div>
+                    <div class="stat-row"><span class="text-muted">Баланс:</span><span class="price-tag">${currentUser.balance} монет</span></div>
+                    <div class="stat-row"><span class="text-muted">Сервер:</span><span>${currentUser.server}</span></div>
+                </div>
+                ${warningsHtml}
+                <div class="glass mt-8" style="padding:14px;">
+                    <div class="stat-row"><span>🔊 Звук</span><div class="toggle-switch ${currentUser.sound_enabled ? 'active' : ''}" onclick="toggleSetting('sound_enabled')"></div></div>
+                    <div class="stat-row"><span>🔔 Уведомления</span><div class="toggle-switch ${currentUser.notifications_enabled ? 'active' : ''}" onclick="toggleSetting('notifications_enabled')"></div></div>
+                </div>
+                <div class="glass mt-8" style="padding:14px;">
+                    <div class="fw-bold mb-8">📊 Статистика</div>
+                    <div class="stat-row"><span class="text-muted">Открыто кейсов:</span><span>${currentUser.stats?.openedCases || 0}</span></div>
+                    <div class="stat-row"><span class="text-muted">Получено предметов:</span><span>${currentUser.stats?.itemsObtained || 0}</span></div>
+                    <div class="stat-row"><span class="text-muted">Потрачено:</span><span>${currentUser.stats?.spent || 0} монет</span></div>
+                    <div class="stat-row"><span class="text-muted">Заработано:</span><span>${currentUser.stats?.earned || 0} монет</span></div>
+                </div>
+                <div class="glass mt-8" style="padding:14px;">
+                    <div class="fw-bold mb-8">🎫 Поддержка</div>
+                    <button class="btn btn-sm btn-secondary" onclick="showSupportForm()">Создать тикет</button>
+                </div>
+                <div class="flex-col gap-8 mt-8">
+                    ${adminLvl > 0 ? `<button class="btn btn-sm btn-secondary" onclick="openAdminPanel()">🛠️ Админ-панель (Уровень ${adminLvl})</button>` : ''}
+                    <button class="btn btn-secondary" onclick="showDonateModal()">💎 Пополнить баланс</button>
+                    <button class="btn btn-danger" onclick="location.reload()">🔄 Перезагрузить</button>
+                </div>
+            `;
+        }
+
+        async function toggleSetting(setting) {
+            try {
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'update_settings',
+                    [setting]: !currentUser[setting]
+                });
+                currentUser[setting] = result[setting];
+                renderSettings();
+            } catch (e) {
+                console.error('Error toggling setting:', e);
             }
+        }
 
-            function addAdmin() {
-                const nick = document.getElementById('admin-nick')?.value.trim();
-                const level = parseInt(document.getElementById('admin-level')?.value || '1');
-                if (!nick || level < 1 || level > 4) return;
-                const target = getUserByNick(nick);
-                if (!target || !currentServer) return;
-                if (!currentServer.admins) currentServer.admins = [];
-                if (currentServer.admins.find(a => a.userId === target.id)) {
-                    openModal(`<h3>❌ Уже админ</h3><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
-                    return;
-                }
-                currentServer.admins.push({ userId: target.id, level: level, addedBy: currentUser.id });
-                addLog(currentServer.name, 'add_admin', `${target.nick} назначен админом уровня ${level}`);
-                saveData();
-                renderAdminTab('admins');
+        function showSupportForm() {
+            openModal(`
+                <button class="close-btn" onclick="closeModal()">✕</button>
+                <h3>🎫 Поддержка</h3>
+                <input type="text" id="ticket-subject" class="mt-8" placeholder="Тема">
+                <textarea id="ticket-message" class="mt-8" placeholder="Опишите проблему..." rows="4"></textarea>
+                <button class="btn mt-16" onclick="submitTicket()">Отправить</button>
+                <button class="btn btn-secondary mt-8" onclick="closeModal()">Отмена</button>
+            `);
+        }
+
+        async function submitTicket() {
+            const subject = document.getElementById('ticket-subject')?.value.trim() || 'Без темы';
+            const message = document.getElementById('ticket-message')?.value.trim() || 'Без описания';
+            if (!message) return;
+            try {
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'create_ticket',
+                    subject: subject,
+                    message: message
+                });
+                closeModal();
+                openModal(`<h3>✅ Тикет отправлен</h3><p class="text-center text-muted">ID: ${result.ticket_id}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
+            } catch (e) {
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
             }
+        }
 
-            function removeAdmin(userId) {
-                if (!currentServer) return;
-                currentServer.admins = (currentServer.admins || []).filter(a => a.userId !== userId);
-                addLog(currentServer.name, 'remove_admin', `Админ ${userId} удалён`);
-                saveData();
-                renderAdminTab('admins');
+        function showDonateModal() {
+            openModal(`
+                <button class="close-btn" onclick="closeModal()">✕</button>
+                <h3>💎 Пополнение баланса</h3>
+                <p class="text-xs text-muted text-center mt-8">Оплата через звёзды Telegram</p>
+                <div class="mt-8">
+                    <div class="item-row" style="cursor:pointer;" onclick="donatePack('donate_10')">
+                        <div style="flex:1;"><div class="fw-bold">10 ⭐ = 500 монет</div></div>
+                        <button class="btn btn-xs btn-secondary">Купить</button>
+                    </div>
+                    <div class="item-row" style="cursor:pointer;" onclick="donatePack('donate_50')">
+                        <div style="flex:1;"><div class="fw-bold">50 ⭐ = 3000 монет</div></div>
+                        <button class="btn btn-xs btn-secondary">Купить</button>
+                    </div>
+                    <div class="item-row" style="cursor:pointer;" onclick="donatePack('donate_100')">
+                        <div style="flex:1;"><div class="fw-bold">100 ⭐ = 10000 монет</div></div>
+                        <button class="btn btn-xs btn-secondary">Купить</button>
+                    </div>
+                </div>
+                <button class="btn btn-secondary mt-16" onclick="closeModal()">Закрыть</button>
+            `);
+        }
+
+        function donatePack(packId) {
+            if (tg) {
+                tg.openTelegramLink(`https://t.me/storm_cases_bot?start=${packId}`);
             }
+            closeModal();
+        }
 
-            function renderMainTab(tab) {
-                currentTab = tab;
-                switch (tab) {
-                    case 'cases':
-                        renderCases();
-                        break;
-                    case 'inventory':
-                        renderInventory();
-                        break;
-                    case 'market':
-                        renderMarket();
-                        break;
-                    case 'chat':
-                        renderChat();
-                        break;
-                    case 'settings':
-                        renderSettings();
-                        break;
-                    default:
-                        renderCases();
-                }
+        // ---------- Admin Panel ----------
+        function openAdminPanel() {
+            if (!isOwner() && adminLevel === 0) return;
+            isAdminMode = true;
+            adminLevel = isOwner() ? 5 : adminLevel;
+            renderAdminPanel();
+        }
+
+        function closeAdminPanel() {
+            isAdminMode = false;
+            adminLevel = isOwner() ? 5 : 0;
+            renderSettings();
+        }
+
+        function renderAdminPanel() {
+            if (!isAdminMode) return;
+            const tabs = ['players', 'logs', 'give', 'tickets', 'chat', 'servers', 'economy'];
+            if (isOwner()) tabs.push('admins');
+            
+            const tabsHtml = tabs.map(t => {
+                const labels = { players: '👥 Игроки', logs: '📋 Логи', give: '🎁 Выдать', tickets: '🎫 Тикеты', chat: '💬 Чат', servers: '🖥️ Серверы', economy: '💰 Экономика', admins: '👑 Админы' };
+                return `<button class="tab-btn ${t === 'players' ? 'active' : ''}" data-atab="${t}" onclick="switchAdminTab('${t}')">${labels[t] || t}</button>`;
+            }).join('');
+            
+            mainContent.innerHTML = `
+                <div class="flex-row gap-8 mb-8">
+                    <button class="btn btn-xs btn-secondary" onclick="closeAdminPanel()">← Назад</button>
+                    <span class="fw-bold">🛠️ Админ-панель (Уровень ${adminLevel})</span>
+                </div>
+                <div class="tab-bar" style="flex-wrap:wrap;">${tabsHtml}</div>
+                <div id="admin-content" class="scroll-y" style="max-height:55vh;"></div>
+            `;
+            renderAdminTab('players');
+        }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('[data-atab]').forEach(b => b.classList.remove('active'));
+            document.querySelector(`[data-atab="${tab}"]`)?.classList.add('active');
+            renderAdminTab(tab);
+        }
+
+        function renderAdminTab(tab) {
+            const container = document.getElementById('admin-content');
+            if (!container) return;
+            
+            let html = '';
+            switch (tab) {
+                case 'players':
+                    html = `<h4 class="mb-8">Игроки на сервере ${currentUser.server}</h4>
+                        <div class="empty-state">Загрузка игроков...</div>`;
+                    break;
+                case 'logs':
+                    html = `<h4 class="mb-8">Логи действий</h4>
+                        <div class="empty-state">Нет логов</div>`;
+                    break;
+                case 'give':
+                    html = `
+                        <h4 class="mb-8">Выдать монеты или предмет</h4>
+                        <input type="text" id="give-nick" class="mb-8" placeholder="Ник игрока">
+                        <input type="number" id="give-coins" class="mb-8" placeholder="Количество монет" min="0">
+                        <select id="give-item-rarity" class="mb-8">
+                            <option value="">— Предмет (необязательно) —</option>
+                            ${RARITIES.map(r => `<option value="${r}">${RARITY_LABELS[r]}</option>`).join('')}
+                        </select>
+                        <button class="btn" onclick="adminGiveItem()">Выдать</button>
+                    `;
+                    break;
+                case 'tickets':
+                    html = `<h4 class="mb-8">Тикеты</h4>
+                        <div class="empty-state">Нет тикетов</div>`;
+                    break;
+                case 'chat':
+                    html = `
+                        <h4 class="mb-8">Управление чатом</h4>
+                        <button class="btn btn-danger" onclick="clearServerChat()">🗑️ Очистить общий чат</button>
+                    `;
+                    break;
+                case 'servers':
+                    html = `<h4 class="mb-8">Управление серверами</h4>
+                        <div class="empty-state">Загрузка серверов...</div>`;
+                    break;
+                case 'economy':
+                    html = `
+                        <h4 class="mb-8">Экономика сервера</h4>
+                        <div class="flex-col gap-8">
+                            <label class="text-sm">Начальный баланс:</label>
+                            <input type="number" id="eco-start-balance" value="1000" min="0">
+                            <label class="text-sm">Множитель продажи:</label>
+                            <input type="number" id="eco-sell-mult" value="0.5" min="0.1" step="0.1">
+                            <button class="btn" onclick="adminSaveEconomy()">Сохранить</button>
+                        </div>
+                    `;
+                    break;
+                case 'admins':
+                    html = `<h4 class="mb-8">Администраторы сервера</h4>
+                        <div class="empty-state">Нет админов</div>`;
+                    break;
+                default:
+                    html = '<div class="empty-state">Выберите вкладку</div>';
             }
+            container.innerHTML = html;
+        }
 
-            mainTabs.addEventListener('click', function(e) {
-                const btn = e.target.closest('.tab-btn');
-                if (!btn) return;
-                const tab = btn.dataset.tab;
-                if (!tab) return;
-                mainTabs.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderMainTab(tab);
+        function adminGiveItem() {
+            const nick = document.getElementById('give-nick')?.value.trim();
+            const coins = parseInt(document.getElementById('give-coins')?.value || '0');
+            const rarity = document.getElementById('give-item-rarity')?.value;
+            if (!nick) return;
+            
+            // Отправляем на сервер (нужно добавить в main.py)
+            openModal(`<h3>✅ Выдано</h3><p class="text-center text-muted">${coins > 0 ? coins + ' монет ' : ''}${rarity ? 'предмет ' + RARITY_LABELS[rarity] : ''} для ${nick}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
+        }
+
+        function clearServerChat() {
+            openModal(`<h3>✅ Чат очищен</h3><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
+        }
+
+        function adminSaveEconomy() {
+            openModal(`<h3>✅ Сохранено</h3><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
+        }
+
+        // ---------- Servers ----------
+        function renderServers() {
+            if (!currentUser) return;
+            serversGreeting.textContent = `Игрок: ${currentUser.nickname}`;
+            let html = '';
+            allServers.forEach(server => {
+                const isOnline = server.is_online !== false;
+                html += `
+                    <div class="server-card" onclick="selectServer('${server.server_name}')">
+                        <div>
+                            <div class="fw-bold" style="font-size:16px;">${server.server_name}</div>
+                            <div class="text-xs text-muted mt-8">Стартовый баланс: ${server.start_balance}</div>
+                        </div>
+                        <div class="server-online">
+                            <span class="dot ${isOnline ? '' : 'dot-offline'}"></span>
+                            <span>${isOnline ? server.online : 'Откл.'}</span>
+                        </div>
+                    </div>
+                `;
             });
+            serversList.innerHTML = html;
+        }
 
-            document.getElementById('btn-login').addEventListener('click', function() {
-                const nick = document.getElementById('auth-nick').value.trim();
-                const password = document.getElementById('auth-password').value;
-                const result = loginUser(nick, password);
-                if (result.error) {
-                    openModal(`<h3>❌ Ошибка</h3><p class="text-center">${result.error}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
-                } else {
-                    currentUser = result.user;
-                    showScreen('screen-servers');
-                    renderServers();
-                }
-            });
-
-            document.getElementById('btn-register').addEventListener('click', function() {
-                const nick = document.getElementById('auth-nick').value.trim();
-                const password = document.getElementById('auth-password').value;
-                const result = registerUser(nick, password);
-                if (result.error) {
-                    openModal(`<h3>❌ Ошибка</h3><p class="text-center">${result.error}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
-                } else {
-                    currentUser = result.user;
-                    showScreen('screen-servers');
-                    renderServers();
-                }
-            });
-
-            document.getElementById('btn-logout').addEventListener('click', function() {
-                logoutUser();
-            });
-
-            document.getElementById('main-balance').addEventListener('click', function() {
-                showDonateModal();
-            });
-
-            window.selectServer = selectServer;
-            window.acceptServerRules = acceptServerRules;
-            window.showCaseDetails = showCaseDetails;
-            window.openCaseById = openCaseById;
-            window.sellInvItem = sellInvItem;
-            window.confirmSell = confirmSell;
-            window.listInvItem = listInvItem;
-            window.confirmList = confirmList;
-            window.showCrafts = showCrafts;
-            window.craftItem = craftItem;
-            window.toggleFilters = toggleFilters;
-            window.buyFromMarket = buyFromMarket;
-            window.removeMarketListing = removeMarketListing;
-            window.switchChatTab = switchChatTab;
-            window.sendChatFromInput = sendChatFromInput;
-            window.toggleSound = toggleSound;
-            window.toggleNotifications = toggleNotifications;
-            window.showSupportForm = showSupportForm;
-            window.submitTicket = submitTicket;
-            window.showDonateModal = showDonateModal;
-            window.donatePack = donatePack;
-            window.openAdminPanel = openAdminPanel;
-            window.closeAdminPanel = closeAdminPanel;
-            window.switchAdminTab = switchAdminTab;
-            window.adminAction = adminAction;
-            window.adminGiveItem = adminGiveItem;
-            window.resolveTicket = resolveTicket;
-            window.deleteTicket = deleteTicket;
-            window.clearServerChat = clearServerChat;
-            window.adminServerToggle = adminServerToggle;
-            window.adminServerRestart = adminServerRestart;
-            window.adminSaveEconomy = adminSaveEconomy;
-            window.addAdmin = addAdmin;
-            window.removeAdmin = removeAdmin;
-            window.closeModal = closeModal;
-            window.exitServer = exitServer;
-            window.logoutUser = logoutUser;
-
-            function init() {
-                const savedUser = getCurrentUser();
-                if (savedUser) {
-                    currentUser = savedUser;
-                    showScreen('screen-servers');
-                    renderServers();
-                } else {
-                    showScreen('screen-auth');
-                }
-                if (isOwner()) {
-                    console.log('Owner detected!');
-                }
+        async function selectServer(serverName) {
+            try {
+                const result = await apiCall('/api/action', 'POST', {
+                    type: 'change_server',
+                    server: serverName
+                });
+                currentUser.server = result.server;
+                currentServer = result.server;
+                await loadGameState();
+                showScreen('screen-main');
+            } catch (e) {
+                openModal(`<h3>❌ Ошибка</h3><p class="text-center">${e.message}</p><button class="btn mt-8" onclick="closeModal()">ОК</button>`);
             }
+        }
 
-            init();
-            saveData();
-        })();
+        // ---------- Event Listeners ----------
+        mainTabs.addEventListener('click', function(e) {
+            const btn = e.target.closest('.tab-btn');
+            if (!btn) return;
+            const tab = btn.dataset.tab;
+            if (!tab) return;
+            mainTabs.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTab = tab;
+            switch(tab) {
+                case 'cases': renderCases(); break;
+                case 'inventory': renderInventory(); break;
+                case 'market': renderMarket(); break;
+                case 'chat': renderChat(); break;
+                case 'settings': renderSettings(); break;
+            }
+        });
+
+        document.getElementById('main-balance').addEventListener('click', function() {
+            showDonateModal();
+        });
+
+        // ---------- Window Functions ----------
+        window.showCaseDetails = showCaseDetails;
+        window.openCaseById = openCaseById;
+        window.sellInvItem = sellInvItem;
+        window.confirmSell = confirmSell;
+        window.listInvItem = listInvItem;
+        window.confirmList = confirmList;
+        window.showCrafts = showCrafts;
+        window.craftItem = craftItem;
+        window.toggleFilters = toggleFilters;
+        window.buyMarket = buyMarket;
+        window.cancelListing = cancelListing;
+        window.switchChatTab = switchChatTab;
+        window.sendChatMessage = sendChatMessage;
+        window.toggleSetting = toggleSetting;
+        window.showSupportForm = showSupportForm;
+        window.submitTicket = submitTicket;
+        window.showDonateModal = showDonateModal;
+        window.donatePack = donatePack;
+        window.openAdminPanel = openAdminPanel;
+        window.closeAdminPanel = closeAdminPanel;
+        window.switchAdminTab = switchAdminTab;
+        window.adminGiveItem = adminGiveItem;
+        window.clearServerChat = clearServerChat;
+        window.adminSaveEconomy = adminSaveEconomy;
+        window.selectServer = selectServer;
+        window.closeModal = closeModal;
+
+        // ---------- Initialize ----------
+        async function init() {
+            await loadGameState();
+            await loadServers();
+        }
+
+        init();
     </script>
 </body>
 </html>
